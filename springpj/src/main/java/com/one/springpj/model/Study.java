@@ -17,6 +17,8 @@ import javax.persistence.OneToMany;
 import org.hibernate.annotations.ColumnDefault;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.Data;
 
 @Data
@@ -32,6 +34,8 @@ public class Study {
 	@Lob
 	private String content;
 	
+	private String info;
+	
 	private int limitCount;
 	
 	@ManyToOne
@@ -39,9 +43,11 @@ public class Study {
 	private Local local;
 	
 	@DateTimeFormat(pattern = "yy-MM-dd")
+	@JsonFormat(pattern="yy.MM.dd")
 	private Date startDate;
 	
 	@DateTimeFormat(pattern = "yy-MM-dd")
+	@JsonFormat(pattern="yy.MM.dd")
 	private Date endDate;
 	
 	@ManyToOne
