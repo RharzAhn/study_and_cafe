@@ -48,7 +48,7 @@ public class StudyServiceImpl implements StudyService {
 	}
 
 	@Override
-	public List<Likes> isLike(Long studyId, Long userId) {
+	public Likes isLike(Long studyId, Long userId) {
 		return likeRepository.checkLike(userId, studyId);
 	}
 

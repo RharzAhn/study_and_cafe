@@ -13,6 +13,6 @@ public interface StudyService {
 	
 	public List<Likes> getLikes();
 	public void insertLike(Likes like);
-	public List<Likes> isLike(Long studyId, Long userId);
+	public Likes isLike(Long studyId, Long userId);
 	public void deleteLike(Long id);
 }

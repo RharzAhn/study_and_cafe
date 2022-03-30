@@ -20,7 +20,10 @@
 		</select> <input type="text" name="word">
 		<button type="submit">검색</button>
 	</form>
-
+	<c:forEach items="${test}" var="t">
+		<h3>${t.study.id }</h3>
+		<h3>${t.study.title }</h3>
+	</c:forEach>
 	<div class="study_my">
 		<div class="study_item">
 			<div class="study_item_status">진행중</div>
@@ -43,7 +46,7 @@
 				<p class="study_item_title">제목 : ${study.title }</p>
 				<p class="study_item_content">내용 : ${study.content }</p>
 				<label for="like">${study.likes }</label>
-				<button type="button" id="like" onclick="checkLike(${study.id})">하트</button>
+				<button type="button" id="like" onclick="clickLike(${study.id})">하트</button>
 			</div>
 		</c:forEach>
 	</div>
@@ -59,16 +62,16 @@ img {
 }
 </style>
 	<script type="text/javascript">
-		function study(id){
+		function clickLike(id){
 			$.ajax({
 				type:"post",
-				url:"/study/clickLike",
+				url:"/study/checkLike",
 				data:{
 					"studyId": id,
-					"userId":1
+					"userId": 1
 				}
 			}).done((res)=>{
-				location.href="redirect:/study/list"
+				location.href="/study/list"
 			})
 		}
 	</script>

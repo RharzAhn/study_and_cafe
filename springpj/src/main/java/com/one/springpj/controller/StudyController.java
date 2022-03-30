@@ -14,6 +14,7 @@ import com.one.springpj.constant.JoinStatus;
 import com.one.springpj.model.Joiner;
 import com.one.springpj.model.Likes;
 import com.one.springpj.model.Study;
+import com.one.springpj.model.User;
 import com.one.springpj.service.JoinerService;
 import com.one.springpj.service.StudyService;
 
@@ -31,6 +32,8 @@ public class StudyController {
 	public void list(Model model) {
 		List<Study> studies = studyService.getList();
 		model.addAttribute("studies",studies);
+		model.addAttribute("test", joinerService.findJoinUserList((long)1, null));
+		
 	}
 	
 	@GetMapping("register")
@@ -62,17 +65,23 @@ public class StudyController {
 		}
 	}
 	
-	
-	public void clickLike(Long studyId, Long userId) {
-		List<Likes> likes = studyService.isLike(studyId, userId);
+	@PostMapping("checkLike")
+	@ResponseBody
+	public void checkLike(Long studyId, Long userId) {
+		Likes like = studyService.isLike(studyId, userId);
 		Study study = studyService.read(studyId);
-		if(likes.get(0)!=null) {
-			studyService.deleteLike(likes.get(0).getId());
+		if(like!=null) {
+			studyService.deleteLike(like.getId());
 			study.setLikes(study.getLikes()-1);
 		}else {
-			studyService.insertLike(likes.get(0));
+			like = new Likes();	
+			like.setStudy(new Study(studyId));
+			like.setUser(new User(userId));
+			studyService.insertLike(like);
 			study.setLikes(study.getLikes()+1);
 		}
+		studyService.update(study);
+
 	}
 	
 }

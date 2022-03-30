@@ -18,12 +18,23 @@ import org.hibernate.annotations.ColumnDefault;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.one.springpj.constant.JoinStatus;
+import com.one.springpj.constant.StudyRole;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-@Data
+//@Data
 @Entity
+@Getter @Setter
 public class Study {
+	public Study() {}
+	public Study(Long id) {
+		this.id = id;
+	}
+
 	@Id
 	@GeneratedValue
 	@Column(name="study_id")
@@ -70,4 +81,5 @@ public class Study {
 			fetch = FetchType.LAZY,
 			cascade = CascadeType.ALL)
 	private List<Book> books;
+	
 }
