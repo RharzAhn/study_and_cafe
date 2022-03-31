@@ -34,5 +34,21 @@ public class CafeServiceImpl implements CafeService{
 		cafeRepository.deleteById(id);
 		
 	}
+	
+	@Override
+	public Cafe findById(Long id) {
+		Cafe cafe = cafeRepository.findById(id).get();
+		return cafe;
+	}
+	
+	@Override
+	public void update(Cafe cafe) {
+		Cafe c = cafeRepository.findById(cafe.getId()).get();
+		c.setName(cafe.getName());
+		c.setAddr(cafe.getAddr());
+		c.setPhone(cafe.getPhone());
+		cafeRepository.save(c);
+	}
+	
 
 }

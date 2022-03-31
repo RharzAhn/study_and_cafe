@@ -22,6 +22,7 @@
 					<th>주소</th>
 					<th>전화번호</th>
 					<th>지점장명</th>
+					<th>수정</th>
 					<th>삭제</th>
 				</tr>
 			</thead>
@@ -34,8 +35,12 @@
 						<td>${cafe.phone}</td>
 						<td>${cafe.manager}</td>
 						<td><button type="button" class="btn btn-secondary btn-sm"
+								id="update"
+								onclick="location.href='/admin/cafe/update/${cafe.id}'">수정</button></td>
+						<td><button type="button" class="btn btn-secondary btn-sm"
 								id="delete"
 								onclick="location.href='/admin/cafe/delete/${cafe.id}'">삭제</button></td>
+
 					</tr>
 				</c:forEach>
 			</tbody>

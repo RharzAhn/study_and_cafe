@@ -8,7 +8,7 @@
 </head>
 <body>
  <div class="container">
-  <h2>글쓰기</h2>
+  <h2>지점 추가</h2>
   <form action="insert" method="post" enctype="multipart/form-data">
     <div class="form-group">
       <label for="id">지점번호:</label>
@@ -31,7 +31,7 @@
 <!--       <input type="text" class="form-control" id="manager" name="manager" placeholder="지점장명"> -->
     </div>
 
-    <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+    <button type="submit" class="btn btn-primary btn-sm">추가</button>
   </form>
 </div>
 

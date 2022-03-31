@@ -1,6 +1,5 @@
 package com.one.springpj.config;
 
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -22,7 +21,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		http.authorizeRequests()
 			.antMatchers("/user/**").authenticated()
 			.antMatchers("/manager/**").access("hasRole('ADMIN') or hasRole('MANAGER')")
-//			.antMatchers("/admin/**").hasRole("ADMIN")
+			.antMatchers("/admin/**").hasRole("ADMIN")
 			.anyRequest().permitAll()
 		.and()
 			.formLogin()

@@ -71,7 +71,8 @@
 	
 	$("#submit").click(function(){
 		console.log(cafe_num)
-		location.href = "../book/test?cafeId="+cafe_num;
+		//location.href = "../book/test?cafeId="+cafe_num;
+		location.href = "../book/bookCafe?cafeId="+cafe_num;
 	}) // " "안에있는 주소의 의미??
 			// location.href = 뒤에 제대로된 경로를 쓰면 거기다가 id값을 던지는??
 	

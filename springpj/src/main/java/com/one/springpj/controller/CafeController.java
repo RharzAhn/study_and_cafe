@@ -15,7 +15,7 @@ import com.one.springpj.service.CafeService;
 @RequestMapping("/admin/cafe/")
 public class CafeController {
 	
-	@Autowired(required=false)
+	@Autowired
 	private CafeService cafeService;
 	
 	@GetMapping("list")
@@ -28,6 +28,23 @@ public class CafeController {
 	@GetMapping("register")
 	public void insertForm(Cafe cafe) {
 		
+	}
+	@GetMapping("update")
+	public void updateForm(Cafe cafe) {
+		
+	}
+	
+	
+	@GetMapping("update/{id}")
+	public String updateForm(@PathVariable("id") Long id, Model model) {
+		Cafe cafe = cafeService.findById(id);
+		model.addAttribute("cafe",cafe );
+		return "/admin/cafe/update";
+	}
+	@PostMapping("update")
+	public String update(Cafe cafe) {
+		cafeService.update(cafe);
+		return "redirect:/admin/cafe/list";
 	}
 	
 //	register.jsp의 submit타입 버튼에 의해 form action명 insert로 post된거 처리

@@ -12,4 +12,8 @@ public interface CafeService {
 
 	public void delete(Long id);
 
+	Cafe findById(Long id);
+
+	void update(Cafe cafe);
+
 }
