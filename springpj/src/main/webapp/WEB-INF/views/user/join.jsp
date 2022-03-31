@@ -54,7 +54,7 @@
 		<div class="form-group">
 			<label for="role">권한:</label> 
 			<select class="form-control" id="role" name="role">
-				<option value="USER">USER(default)</option>
+				<option value="USER">USER(기본)</option>
 				<option value="ADMIN">ADMIN</option>
 				<option value="MANAGER">MANAGER</option>
 			</select>

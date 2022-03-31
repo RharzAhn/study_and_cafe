@@ -1,8 +1,13 @@
 package com.one.springpj.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -64,6 +69,16 @@ public class UserController {
 		}
 		return result;
 	}
+	
+	@GetMapping("logout")
+    public String logout(HttpServletRequest request, 
+    		HttpServletResponse response) throws Exception{
+//	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	// if (auth != null && auth.isAuthenticated()) {
+	// new SecurityContextLogoutHandler().logout(request, response, auth);
+	//  }
+      return "redirect:/";
+    }
 	
 	@GetMapping("admin")
 	@ResponseBody

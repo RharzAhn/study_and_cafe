@@ -29,4 +29,9 @@ public class Board {
 	
 	@ColumnDefault("false")
 	private boolean pinned;
+
+	public String getusername() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
