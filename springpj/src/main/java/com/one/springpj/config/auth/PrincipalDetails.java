@@ -1,31 +1,44 @@
 package com.one.springpj.config.auth;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.one.springpj.model.User;
+
 import lombok.Data;
+import lombok.extern.java.Log;
 
 @Data
+@Log
 public class PrincipalDetails implements UserDetails {
+
+	private User user;
+
+	public PrincipalDetails(User user) { // 입력폼을 User객체로 받아옴
+		super();
+		this.user = user;
+	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
-		return null;
+		Collection<GrantedAuthority> collection = new ArrayList<GrantedAuthority>();
+		collection.add(() -> {
+			return user.getRole().name();
+		});
+		return collection;
 	}
 
 	@Override
 	public String getPassword() {
-		// TODO Auto-generated method stub
-		return null;
+		return user.getPassword();
 	}
 
 	@Override
 	public String getUsername() {
-		// TODO Auto-generated method stub
-		return null;
+		return user.getUsername();
 	}
 
 	@Override
@@ -50,4 +63,6 @@ public class PrincipalDetails implements UserDetails {
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
 		return true;
-	}}
+	}
+
+}

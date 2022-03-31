@@ -3,6 +3,8 @@
  */
  
 $(document).ready(function(){
+	//alert("aaaaaaaaaaaaaaa");
+	//var exp = /^[0-9]{3}[0-9]{4}[0-9]{4}$/
 	
 	$("#btnJoin").click(function(){
 		if($("#username").val()==""){
@@ -58,27 +60,29 @@ $(document).ready(function(){
 		
 		$.ajax({
 			type:"post",
-			url:"/joinProc",
+			url:"/user/join",
 			contentType:"application/json;charset=utf-8",
 			data:JSON.stringify(data)
 		})
 		.done(function(res){
 			if(res=="success"){
 				alert("회원가입을 축하합니다");
-				location.href="/login";
+				location.href="/user/login";
 			}else if(res=="fail"){
 				alert("아이디 중복확인하세요");
 				$("#username").val("")
 			}
 		})
+		//$("#frm").submit();
 		
 	});
-	
+});
+
 	$("#btnLogin").click(function() {
 
 		$.ajax({
 			type : "post",
-			url : "/login",
+			url : "/user/login",
 			data : {
 				"username" : $("#username").val(),
 				"password" : $("#password").val()
@@ -89,27 +93,10 @@ $(document).ready(function(){
 				location.href = "/join"
 			} else if (resp == "success") {
 				alert("로그인 성공");
-				location.href = "/board/list"
+				location.href = "../"
 			} else {
 				alert("비밀번호를 확인하세요");
 			}
 		})
 	})
 	
-	$("#btnIdCheck").click(() => {
-		$.ajax({
-			type: "post",
-			url: "/idCheck",
-			data: {
-				"id": $("#id").val()
-			}
-		}).done((res) => {
-			if (res == "available") {
-				alert("사용할 수 있는 아이디");
-			} else {
-				alert("사용할 수 없는 아이디");
-			}
-		})
-	})
-	
-});

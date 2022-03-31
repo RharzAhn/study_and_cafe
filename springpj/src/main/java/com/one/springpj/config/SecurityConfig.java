@@ -16,20 +16,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		return new BCryptPasswordEncoder(); //패스워드 암호화
 	}
 	
-	@Override
 	protected void configure(HttpSecurity http) throws Exception{
-		  http
-	        .cors().disable()		//cors방지
-	        .csrf().disable()		//csrf방지
-	        .formLogin().disable()	//기본 로그인 페이지 없애기
-	        .headers().frameOptions().disable();	
-		/*
-		 * http.csrf().disable(); http.authorizeRequests()
-		 * .antMatchers("/user/user/**").authenticated()
-		 * .antMatchers("/user/manager/**").hasRole("USER") .anyRequest().permitAll()
-		 * .and() .formLogin() .loginPage("/user/login") //로그인
-		 * .loginProcessingUrl("/loginProc") //로그인 처리 .defaultSuccessUrl("/");
-		 */
+		http.csrf().disable();
+		http.authorizeRequests()
+			.antMatchers("/user/**").authenticated()
+			.antMatchers("/manager/**").access("hasRole('ADMIN') or hasRole('MANAGER')")
+			.antMatchers("/admin/**").hasRole("ADMIN")
+			.anyRequest().permitAll()
+		.and()
+			.formLogin()
+			.loginPage("/login") //로그인
+			.loginProcessingUrl("/loginProc") //로그인 처리
+			.defaultSuccessUrl("/");
 
 	}
 }
