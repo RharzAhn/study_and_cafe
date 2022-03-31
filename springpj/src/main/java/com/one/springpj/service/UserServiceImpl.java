@@ -24,12 +24,7 @@ public class UserServiceImpl implements UserService{
 	
 	@Override
 	public void register(User user) {
-		// TODO Auto-generated method stub
-		
-		String encodedPassword = passwordEncoder.encode(user.getPassword());
-	    user.setPassword(encodedPassword);
-		
-	    userRepository.save(user);
+		userRepository.save(user);
 	}
 
 	@Override
