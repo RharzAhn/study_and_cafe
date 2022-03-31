@@ -10,18 +10,21 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.one.springpj.constant.StudyRole;
 import com.one.springpj.constant.JoinStatus;
+import com.one.springpj.constant.StudyRole;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-@Data
+//@Data
 @Entity
+@Getter @Setter
 public class Joiner {
 
 	@Id

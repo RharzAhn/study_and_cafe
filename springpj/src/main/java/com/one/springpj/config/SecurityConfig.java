@@ -13,7 +13,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Bean
 	public BCryptPasswordEncoder encodePwd() {
-		return new BCryptPasswordEncoder(); //패스워드 암호화
+		return new BCryptPasswordEncoder(); //?�스?�드 ?�호??
 	}
 	
 	protected void configure(HttpSecurity http) throws Exception{
@@ -25,8 +25,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			.anyRequest().permitAll()
 		.and()
 			.formLogin()
-			.loginPage("/login") //로그인
-			.loginProcessingUrl("/loginProc") //로그인 처리
+			.loginPage("/login") //로그??
+			.loginProcessingUrl("/loginProc") //로그?? 처리
 			.defaultSuccessUrl("/");
 
 	}

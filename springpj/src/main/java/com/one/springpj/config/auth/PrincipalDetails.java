@@ -17,7 +17,7 @@ public class PrincipalDetails implements UserDetails {
 
 	private User user;
 
-	public PrincipalDetails(User user) { // 입력폼을 User객체로 받아옴
+	public PrincipalDetails(User user) { // ?�력?�을 User객체�? 받아??
 		super();
 		this.user = user;
 	}

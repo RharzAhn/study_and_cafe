@@ -17,11 +17,24 @@ import javax.persistence.OneToMany;
 import org.hibernate.annotations.ColumnDefault;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.one.springpj.constant.JoinStatus;
+import com.one.springpj.constant.StudyRole;
 
-@Data
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+//@Data
 @Entity
+@Getter @Setter
 public class Study {
+	public Study() {}
+	public Study(Long id) {
+		this.id = id;
+	}
+
 	@Id
 	@GeneratedValue
 	@Column(name="study_id")
@@ -32,6 +45,8 @@ public class Study {
 	@Lob
 	private String content;
 	
+	private String info;
+	
 	private int limitCount;
 	
 	@ManyToOne
@@ -39,9 +54,11 @@ public class Study {
 	private Local local;
 	
 	@DateTimeFormat(pattern = "yy-MM-dd")
+	@JsonFormat(pattern="yy.MM.dd")
 	private Date startDate;
 	
 	@DateTimeFormat(pattern = "yy-MM-dd")
+	@JsonFormat(pattern="yy.MM.dd")
 	private Date endDate;
 	
 	@ManyToOne
@@ -64,4 +81,5 @@ public class Study {
 			fetch = FetchType.LAZY,
 			cascade = CascadeType.ALL)
 	private List<Book> books;
+	
 }
