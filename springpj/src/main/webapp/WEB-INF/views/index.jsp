@@ -20,15 +20,13 @@
 			<sec:authorize access="isAuthenticated()">
 				<li class="nav-item"><a class="nav-link" href="/logout">로그아웃(${principal.user.username})</a></li>
 			</sec:authorize>
- 	여기까지된다면 성공!
- 	<form action="/views/user/join" method="post">
- 		<button type="button" class="btn btn-primary btn-sm" id="btnjoin">회원가입</button>
-	</form>
-	<form action="/views/user/login" method="post">
- 		<button type="button" class="btn btn-primary btn-sm" id="btnLogin">로그인</button>
-	</form>
-	<form action="/views/user/logout" method="post">
-		<button type="button" class="btn btn-primary btn-sm" id="btnLogout">로그아웃</button>
-	</form>
+ 	
+ 	<br><a href="/admin/userlist">사용자 리스트 바로가기</a></br>
+ 	<br><a href="/admin/mileagelist">사용자 마일리지 바로가기</a></br>
+ 		<br><a >-----------------</a></br>
+ 	<br><a href="/user/userpage"> 유저 페이지 바로가기</a></br>
+ 	<br><a href="/user/usermilage">유저 마일리지 바로가기</a></br>
+ 	<br><a href="/user/userupdate">유저 수정,삭제 바로가기</a></br>
+ 			
 </body>
 </html>

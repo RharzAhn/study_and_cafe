@@ -4,9 +4,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>유저 환영합니다.</title>
 </head>
 <body>
-
+	<a><input type="button">수정</a>
+	<a><input type="button">삭제</a>
 </body>
 </html>

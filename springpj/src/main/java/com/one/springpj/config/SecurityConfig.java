@@ -33,8 +33,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			.defaultSuccessUrl("/");
 
 	}
-	@Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-         auth.userDetailsService(userDetailsService());
-    }
 }

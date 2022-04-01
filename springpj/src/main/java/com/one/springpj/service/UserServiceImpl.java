@@ -1,5 +1,6 @@
 package com.one.springpj.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +20,6 @@ public class UserServiceImpl implements UserService{
 	@Autowired
 	private UserRepository userRepository;
 	
-	@Autowired
-    private PasswordEncoder passwordEncoder;
-	
 	@Override
 	public void register(User user) {
 		userRepository.save(user);
@@ -33,7 +31,20 @@ public class UserServiceImpl implements UserService{
 		return userRepository.findByUsername(username);
 	}
 
-		
+	@Override
+	public List<User> getUserlist() {
+		// TODO Auto-generated method stub
+		return userRepository.findAll();
+	}
+	
+	@Override
+	public void delete(Long id) {
+		userRepository.deleteById(id);
+	}
 
-
+	@Override
+	public void update(User user) {
+		userRepository.save(user);
+	}
+	
 }
