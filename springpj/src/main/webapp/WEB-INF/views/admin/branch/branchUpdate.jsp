@@ -11,22 +11,22 @@
 <body>
  <div class="container">
   <h2>지점 수정</h2>
-  <form action="/admin/cafe/update" method="post" enctype="multipart/form-data">
+  <form action="/admin/branch/branchUpdate" method="post" enctype="multipart/form-data">
     <div class="form-group">
       <label for="id">지점번호:</label>
-      <input type="text" class="form-control" id="id" value="${cafe.id}" name="id" readonly>
+      <input type="text" class="form-control" id="id" value="${branch.id}" name="id" readonly>
     </div>
     <div class="form-group">
       <label for="name">지점명:</label>
-      <input type="text" class="form-control" id="name" placeholder="${cafe.name}" name="name" >
+      <input type="text" class="form-control" id="name" placeholder="${branch.name}" name="name" >
     </div>
         <div class="form-group">
       <label for="addr">주소:</label>
-      <input type="text" class="form-control" id="addr" placeholder="${cafe.addr}" name="addr" >
+      <input type="text" class="form-control" id="addr" placeholder="${branch.addr}" name="addr" >
     </div>
         <div class="form-group">
       <label for="phone">전화번호:</label>
-      <input type="text" class="form-control" id="phone" placeholder="${cafe.phone}" name="phone" >
+      <input type="text" class="form-control" id="phone" placeholder="${branch.phone}" name="phone" >
     </div>
         <div class="form-group">
 <!--       <label for="manager">지점장명:</label> -->

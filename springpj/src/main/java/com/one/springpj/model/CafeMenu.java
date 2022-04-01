@@ -32,7 +32,7 @@ public class CafeMenu {
 	
 	@ManyToOne
 	@JoinColumn(name="cafe_id")
-	private Cafe cafe;
+	private Branch cafe;
 	
 	
 }

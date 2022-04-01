@@ -6,18 +6,18 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.one.springpj.service.CafeService;
+import com.one.springpj.service.BranchService;
 
 @Controller
-@RequestMapping("/admin/book/")
+@RequestMapping("/book/")
 public class BookController {
 	
-	@Autowired(required=false)
-	private CafeService cafeService;
+	@Autowired
+	private BranchService branchService;
 	
 	@GetMapping("bookCafe")
 	public void list(Model model) {
-		model.addAttribute("list", cafeService.cafeList());
+		model.addAttribute("list", branchService.branchList());
 
 	}
 

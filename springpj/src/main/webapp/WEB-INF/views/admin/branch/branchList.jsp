@@ -27,19 +27,19 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach items="${list}" var="cafe">
+				<c:forEach items="${list}" var="branch">
 					<tr>
-						<td>${cafe.id}</td>
-						<td>${cafe.name}</td>
-						<td>${cafe.addr}</td>
-						<td>${cafe.phone}</td>
-						<td>${cafe.manager}</td>
+						<td>${branch.id}</td>
+						<td>${branch.name}</td>
+						<td>${branch.addr}</td>
+						<td>${branch.phone}</td>
+						<td>${branch.manager}</td>
 						<td><button type="button" class="btn btn-secondary btn-sm"
 								id="update"
-								onclick="location.href='/admin/cafe/update/${cafe.id}'">수정</button></td>
+								onclick="location.href='/admin/branch/branchUpdate/${branch.id}'">수정</button></td>
 						<td><button type="button" class="btn btn-secondary btn-sm"
 								id="delete"
-								onclick="location.href='/admin/cafe/delete/${cafe.id}'">삭제</button></td>
+								onclick="location.href='/admin/branch/delete/${branch.id}'">삭제</button></td>
 
 					</tr>
 				</c:forEach>
@@ -51,12 +51,11 @@
 	</div>
 
 </body>
+
 <script type="text/javascript">
 	$("#register").click(function() {
-
-		location.href = "../cafe/register"
-
+		location.href = "../branch/branchRegister"
 	});
-
 </script>
+
 </html>

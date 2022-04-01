@@ -12,9 +12,9 @@ import lombok.Data;
 
 @Data
 @Entity
-public class Cafe {
+public class Branch {
 	@Id
-	@Column(name= "cafe_id")
+	@Column(name= "branch_id")
 	@GeneratedValue
 	private Long id;
 		
