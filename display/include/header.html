@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+        <link rel="stylesheet" href="../css/index.css" />
+        <link rel="stylesheet" href="../css/home.css" />
+        <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css"
+    </head>
+    <body>
+        <header>
+            <div class="nav">
+                <ul class="container nav-menu">
+                    <li>
+                        <a href="/menu/list">
+                            <p class="kor">카페소개</p>
+                            <p class="en">ABOUT US</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/book/list">
+                            <p class="kor">예약</p>
+                            <p class="en">BOOK</p>
+                        </a>
+                    </li>
+                    <div class="header-index"><a href="/index">BOOK</a></div>
+                    <li>
+                        <a href="/study/list">
+                            <p class="kor">스터디그룹</p>
+                            <p class="en">STUDY GROUP</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/user/list">
+                            <p class="kor">마이페이지</p>
+                            <p class="en">MY PAGE</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="nav-content">
+                <ul class="container nav-menu-content">
+                    <li>
+                        <a href="">메뉴</a>
+                        <a href="">전국지점찾기</a>
+                    </li>
+                    <li>
+                        <a href="">메뉴</a>
+                        <a href="">전국지점찾기</a>
+                    </li>
+                    <div class="header-index"></div>
+                    <li>
+                        <a href="">메뉴</a>
+                        <a href="">전국지점찾기</a>
+                    </li>
+                    <li>
+                        <a href="/login">로그인</a>
+                        <a href="">회원가입</a>
+                    </li>
+                </ul>
+            </div>
+        </header>
+        <div class="main">
+            <div class="container">
+                <div class="icon"></div>
+                <div class="counter">
+                    <p class="counter-number"></p>
+                    <p class="counter-info">
+                        <b>현재 운영 중</b>인<br />스터디 그룹 수
+                    </p>
+                    <p class="counter-number"></p>
+                    <p class="counter-info">
+                        <b>현재 참여 중</b>인<br />스터디 멤버
+                    </p>
+                </div>
+                <ul class="bottom-menu">
+                    <li><a href="#cafe-system">카페시스템</a></li>
+                    |
+                    <li><a href="#poplar-study">추천스터디그룹</a></li>
+                    |
+                    <li><a href="#cafe-interial">카페인테리어</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="cafe-system">
+            <div class="container">
+                <div class="book-system">
+                    <div class="title">
+                        <p>북시스템</p>
+                        <p>BOOK<br />SYSTEM</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="popular-study">
+            <div class="container">
+                <div class="study-card">
+                    <div class="study-profile">
+                        <img src="../images/bookex.jpg" />
+                        <div class="deco"></div>
+                    </div>
+                    <div class="study-content">
+                        <p class="study-status">진행중</p>
+                        <p class="study-title">독서모임스터디</p>
+                        <span class="study-info"
+                            >모여서 독서를 하고 토론을 해주는 모임모여서 독서를
+                            하고 토론을 해주는 모임</span
+                        >
+                        <div class="study-detail">
+                            <ul>
+                                <li>지역 : 부산동래구</li>
+                                <li>기간 : 22.12.32-22.03.15</li>
+                                <li>멤버수 : 2/2</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script>
+        const navMenu = document.querySelector(".nav-menu");
+        const nav = document.querySelector(".nav");
+        const navContent = document.querySelector(".nav-content");
+        navMenu.addEventListener("mouseover", () => {
+            nav.style.background = "var(--color-main)";
+            navContent.style.height = "150px";
+            navContent.style.display = "flex";
+        });
+        navMenu.addEventListener("mouseout", () => {
+            nav.style.background = "none";
+            navContent.style.height = "0";
+        });
+        navContent.addEventListener("mouseover", () => {
+            nav.style.background = "var(--color-main)";
+            navContent.style.height = "150px";
+            navContent.style.display = "flex";
+        });
+        navContent.addEventListener("mouseout", () => {
+            nav.style.background = "none";
+            navContent.style.height = "0";
+        });
+
+        var memberCountConTxt = 200;
+
+        $({ val: 0 }).animate(
+            { val: memberCountConTxt },
+            {
+                duration: 2000,
+                step: function () {
+                    var num = numberWithCommas(Math.floor(this.val));
+                    $(".counter-number").text(`+${num}`);
+                },
+                complete: function () {
+                    var num = numberWithCommas(Math.floor(this.val));
+                    $(".counter-number").text(`+${num}`);
+                },
+            }
+        );
+
+        function numberWithCommas(x) {
+            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+    </script>
+</html>

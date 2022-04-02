@@ -1,0 +1,171 @@
+@font-face {
+    font-family: "logo";
+    src: url("../font/StretchPro.otf");
+}
+@font-face {
+    font-family: "scd-5";
+    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-5Medium.woff")
+        format("woff");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "scd-9";
+    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-6Bold.woff")
+        format("woff");
+    font-weight: normal;
+    font-style: normal;
+}
+:root {
+    --highlight-font: "scd-9";
+    --content-font: "scd-5";
+
+    --color-main: #451b0a;
+    --color-second: #915549;
+    --color-third: #bb937e;
+
+    --color-lighter: #ececee;
+    --color-midiumer: #dcd3cc;
+    --color-darker: #998884;
+
+    --color-red: #b70000;
+}
+
+* {
+    margin: 0;
+    font-family: var(--content-font);
+    color: var(--color-main);
+}
+ul,
+li {
+    list-style: none;
+    display: inline;
+    padding-left: 0;
+    margin: 0;
+}
+a {
+    color: var(--color-main);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+    color: var(--color-main);
+}
+button,
+input {
+    border: none;
+    background-color: transparent;
+    outline-style: none;
+    font-size: 1em;
+}
+
+select {
+    border: none;
+    background-color: transparent;
+    outline-style: none;
+    font-family: var(--content-font);
+    font-size: 1em;
+}
+button {
+    cursor: pointer;
+}
+
+textarea {
+    resize: none;
+    outline-style: none;
+}
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 50px;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+input[type="file"] + label {
+    cursor: pointer;
+}
+
+table,
+th,
+td {
+    border-collapse: collapse;
+}
+
+p {
+    margin: 0;
+}
+.nav {
+    width: 100%;
+    border-bottom: solid 1px var(--color-lighter);
+    transition: all 300ms ease;
+}
+.nav-menu {
+    display: flex;
+    justify-content: space-between;
+    height: 5em;
+    line-height: 5em;
+}
+
+.header-index a {
+    font-family: "logo";
+    font-size: 3.5em;
+    color: var(--color-lighter);
+}
+
+.header-index {
+    width: 120%;
+}
+
+.nav-menu {
+    overflow-y: hidden;
+}
+
+.nav-menu li {
+    text-align: center;
+    width: 100%;
+    transition: all 300ms linear;
+    border-bottom: solid 0px var(--color-lighter);
+}
+
+.nav-menu li > a > p {
+    position: relative;
+    font-family: var(--highlight-font);
+    transition: transform 300ms ease-in;
+    color: var(--color-lighter);
+}
+.nav-menu li:hover {
+    border-bottom: solid 5px var(--color-lighter);
+}
+.nav-menu li:hover > a > p {
+    transform: translateY(-100%);
+}
+
+.nav-content {
+    position: absolute;
+    width: 100%;
+    height: 0%;
+    display: none;
+    overflow-y: hidden;
+    background-color: var(--color-main);
+    transition: all 300ms ease;
+}
+.nav-menu-content {
+    position: relative;
+    display: flex;
+    top: 0;
+    justify-content: space-between;
+}
+
+.nav-menu-content li {
+    width: 100%;
+    text-align: center;
+}
+.nav-menu-content li a {
+    display: block;
+    color: var(--color-lighter);
+}
