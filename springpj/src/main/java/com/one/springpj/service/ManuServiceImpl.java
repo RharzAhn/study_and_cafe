@@ -64,4 +64,6 @@ public class ManuServiceImpl implements MenuService {
 		return menuRepository.findByMenuType(menuType);
 	}
 
+	
+
 }
