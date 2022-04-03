@@ -1,5 +1,7 @@
 package com.one.springpj.service;
 
+import java.util.List;
+
 import com.one.springpj.model.User;
 
 public interface UserService {
@@ -10,5 +12,9 @@ public interface UserService {
 	
 	public User findById(Long id);
 
+	public List<User> getUserlist();
 	
+	public void delete(Long id);
+	
+	public void update(User user);
 }

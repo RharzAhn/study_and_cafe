@@ -52,13 +52,6 @@ public class HomeController {
 	public void loginForm() {
 	}
 
-	@GetMapping("admin")
-	@ResponseBody
-	public String exAdmin() {
-		log.info("관리자 권한");
-		return "admin";
-	}
-
 	@GetMapping("manager")
 	@ResponseBody
 	public String exManager() {
