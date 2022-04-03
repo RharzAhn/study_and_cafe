@@ -82,4 +82,5 @@ public class Study {
 			cascade = CascadeType.ALL)
 	private List<Book> books;
 	
+	private String profile;
 }

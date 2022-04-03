@@ -7,6 +7,8 @@ public interface UserService {
 	public void register(User user);
 
 	public User findByUsername(String username);
+	
+	public User findById(Long id);
 
 	
 }

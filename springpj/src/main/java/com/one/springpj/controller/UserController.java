@@ -1,7 +1,22 @@
 package com.one.springpj.controller;
 
+import java.security.Principal;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.one.springpj.constant.JoinStatus;
+import com.one.springpj.constant.StudyRole;
+import com.one.springpj.model.Joiner;
+import com.one.springpj.model.User;
+import com.one.springpj.service.JoinerService;
+import com.one.springpj.service.UserService;
 
 import lombok.extern.java.Log;
 
@@ -9,5 +24,36 @@ import lombok.extern.java.Log;
 @RequestMapping("/user/")
 @Log
 public class UserController {
+	@Autowired
+	JoinerService joinerService;
+	@Autowired
+	UserService userService;
 	
+	@GetMapping("joiner")
+	public void joiner(Model model, Principal principal) {
+		User user = userService.findByUsername(principal.getName());
+		//내가 운영하는 스터디
+		List<Joiner> applyerList = joinerService.findApplyUser(user.getId());
+		//내가 가입한 스터디
+		List<Joiner> joinedList = joinerService.findJoinUserList(user.getId(), JoinStatus.ACCEPT);
+		
+		model.addAttribute("applyerList", applyerList);
+		model.addAttribute("joinedList",joinedList);
+	}
+	
+	@PostMapping("joinerAccept")
+	@ResponseBody
+	public void joinerAccept(Long id) {
+		Joiner joiner = joinerService.findById(id);
+		joiner.setJoinStatus(JoinStatus.ACCEPT);
+		joiner.setStudyRole(StudyRole.MEMBER);
+		joinerService.update(joiner);
+	}
+	@PostMapping("joinerDecline")
+	@ResponseBody
+	public void joinerDecline(Long id) {
+		Joiner joiner= joinerService.findById(id);
+		joiner.setJoinStatus(JoinStatus.DECLINE);
+		joinerService.update(joiner);
+	}
 }

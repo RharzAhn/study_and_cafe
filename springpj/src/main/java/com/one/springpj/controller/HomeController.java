@@ -60,6 +60,7 @@ public class HomeController {
 	}
 
 	@GetMapping("manager")
+	@ResponseBody
 	public String exManager() {
 		log.info("매니저 권한");
 		return "manager";

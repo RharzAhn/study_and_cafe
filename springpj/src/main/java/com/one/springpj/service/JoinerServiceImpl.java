@@ -23,7 +23,21 @@ public class JoinerServiceImpl implements JoinerService{
 
 	@Override
 	public List<Joiner> findJoinUserList(Long id, JoinStatus joinStatus) {
-		return joinerRepository.findJoinUserList(id);
+		return joinerRepository.findJoinUserList(id,joinStatus.toString());
 	}
-	
+
+	@Override
+	public List<Joiner> findApplyUser(Long leaderId) {
+		return joinerRepository.findApplyUser(leaderId);
+	}
+
+	@Override
+	public Joiner findById(Long id) {
+		return joinerRepository.getById(id);
+		
+	}
+	@Override
+	public void update(Joiner joiner) {
+		joinerRepository.save(joiner);
+	}
 }

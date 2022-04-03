@@ -12,20 +12,27 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 </head>
 <body>
+	<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+	<%@taglib prefix="sec"
+		uri="http://www.springframework.org/security/tags"%>
+	<sec:authorize access="isAuthenticated()">
+		<sec:authentication property="principal" var="principal" />
+	</sec:authorize>
 	<div class="study_info">
 		<p>진행중</p>
-		<img class="study_img" src="/images/image1.jpg">
+		<img class="study_img" src="${study.profile }">
 		<p class="study_title">제목:${study.title}</p>
 		<p class="study_info">소개:${study.info }</p>
 		<ul>
 			<li>지역 : ${study.local }</li>
-			<li>스터디장 : ${study.leader }</li>
+			<li>스터디장 : ${study.leader.username }</li>
 			<li>기간 : <fmt:formatDate value="${study.startDate}" />-<fmt:formatDate
 					value="${study.endDate}" /></li>
 			<li>제한인원 : ${study.limitCount }</li>
 		</ul>
-
-		<button type="button" id="applyBtn">참여 신청</button>
+		<c:if test="${principal.user.id != study.leader.id }">
+			<button type="button" id="applyBtn">참여 신청</button>
+		</c:if>
 	</div>
 
 	<div class="study_content">${study.content}</div>
@@ -42,10 +49,11 @@ img {
 </style>
 <script type="text/javascript">
 	$("#applyBtn").click(()=>{
-// 		if(${empty sessionScope.sUser}){
-// 			alert("로그인이 필요합니다.")
-// 			return
-// 		}
+		if(${empty principal}){
+			alert("로그인이 필요합니다.")
+			return
+		}
+		
 		if(confirm("${study.title}에 신청하시나요? \n 스터디 장에게 기본적인 정보가 제공될 수 있습니다."))
 		{
 			$.ajax({
@@ -53,7 +61,7 @@ img {
 				url:"/study/apply",
 				data:{
 					"studyId":${study.id},
-					"userId":1
+					"userId":${principal.user.id}
 				}
 			}).done((resp)=>{
 				alert("신청이 완료되었습니다.")

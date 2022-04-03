@@ -11,6 +11,7 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 </head>
 <body>
+<%@ include file="../include/header.jsp" %>
 	<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 	<form action="/study/list" method="get">
 		<select name="field">
@@ -20,21 +21,22 @@
 		</select> <input type="text" name="word">
 		<button type="submit">검색</button>
 	</form>
-	<c:forEach items="${test}" var="t">
-		<h3>${t.study.id }</h3>
-		<h3>${t.study.title }</h3>
-	</c:forEach>
+
 	<div class="study_my">
-		<div class="study_item">
-			<div class="study_item_status">진행중</div>
-			<img class="study_item_img" src="/images/image1.jpg">
-			<p class="study_item_title">얼음에 베인</p>
-			<p class="study_item_content">설명설명</p>
+		<c:forEach items="${joins}" var="joiner">
+			<div class="study_item">
+			<img class="study_item_img" src="${joiner.study.profile }" onclick="myStudyEnter(${joiner.study.id })">
+			<p class="study_item_title">${joiner.study.title }</p>
+			<p class="study_item_content">${joiner.study.content}</p>
+			<c:if test="${joiner.joinStatus=='WAITING'}">
+				대기중
+			</c:if>
 		</div>
+		</c:forEach>
 		<div class="insert_study">
-			<a href="/study/register"> +
+			<button type="button" id="btnMkStudy"> +
 				<p>나만의 스터디 그룹 만들기</p>
-			</a>
+			</button>
 		</div>
 	</div>
 
@@ -42,7 +44,7 @@
 		<c:forEach var="study" items="${studies}">
 			<div class="study_item">
 				<div class="study_item_status">진행중</div>
-				<img class="study_item_img" src="/images/image1.jpg" onclick="location.href='/study/detail?id=${study.id}'">
+				<img class="study_item_img" src="${study.profile }" onclick="location.href='/study/detail?id=${study.id}'">
 				<p class="study_item_title">제목 : ${study.title }</p>
 				<p class="study_item_content">내용 : ${study.content }</p>
 				<label for="like">${study.likes }</label>
@@ -72,6 +74,31 @@ img {
 				}
 			}).done((res)=>{
 				location.href="/study/list"
+			})
+		}
+		
+		$("#btnMkStudy").click(()=>{
+			if(${empty principal}){
+				alert("로그인이 필요합니다.")
+				return
+			}
+			location.href="/study/register"
+		})
+		
+		
+		function myStudyEnter(id){
+			$.ajax({
+				type:"post",
+				url:"/study/"+id,
+				data:{
+					"id":id
+				}
+			}).done((res)=>{
+				if(res=="success"){
+					location.href="/study/"+id					
+				}else{
+					alert("가입된 멤버가 아닙니다.")
+				}
 			})
 		}
 	</script>
