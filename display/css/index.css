@@ -12,7 +12,7 @@
 
 @font-face {
     font-family: "scd-9";
-    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-6Bold.woff")
+    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_six@1.2/S-CoreDream-7ExtraBold.woff")
         format("woff");
     font-weight: normal;
     font-style: normal;
@@ -99,6 +99,10 @@ td {
 p {
     margin: 0;
 }
+
+label {
+    margin: 0;
+}
 .nav {
     width: 100%;
     border-bottom: solid 1px var(--color-lighter);
@@ -153,6 +157,7 @@ p {
     overflow-y: hidden;
     background-color: var(--color-main);
     transition: all 300ms ease;
+    z-index: 2;
 }
 .nav-menu-content {
     position: relative;
@@ -168,4 +173,134 @@ p {
 .nav-menu-content li a {
     display: block;
     color: var(--color-lighter);
+}
+.header {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    top: 0;
+    height: 35em;
+    background-image: url("../images/deco2.svg"),
+        linear-gradient(
+            180deg,
+            rgba(0, 0, 0, 0.3) 100%,
+            rgba(255, 255, 255, 0) 0%
+        ),
+        url("../images/main.jpg");
+    background-repeat: repeat-x;
+    background-position: bottom, 0, top;
+    background-size: contain, cover, cover;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    animation: movebg 30s linear infinite;
+}
+
+@keyframes movebg {
+    0% {
+        background-position: bottom, 0, 0 20%;
+    }
+    50% {
+        background-position: bottom, 0, 0 0;
+    }
+    100% {
+        background-position: bottom, 0, 0 20%;
+    }
+}
+
+.header h1 {
+    font-family: var(--highlight-font);
+    letter-spacing: -1.5px;
+    font-size: 3.5em;
+    color: var(--color-lighter);
+    line-height: 50%;
+}
+.header span {
+    width: 5em;
+    height: 5px;
+    background-color: var(--color-lighter);
+    margin: 2em 0;
+}
+
+.header p {
+    color: var(--color-lighter);
+}
+
+#search {
+    position: relative;
+    top: -250px;
+    display: flex;
+    justify-content: flex-end;
+    box-sizing: border-box;
+}
+
+#search form {
+    width: 25em;
+    display: flex;
+    border: solid 3px var(--color-lighter);
+    justify-content: space-around;
+}
+#search select {
+    color: var(--color-lighter);
+    height: 3em;
+    margin: 0;
+}
+
+#search input {
+    height: 3em;
+    color: var(--color-lighter);
+    padding-left: 20px;
+}
+
+#search input::placeholder {
+    color: var(--colror-darker);
+}
+#search button i {
+    color: var(--color-lighter);
+}
+
+footer {
+    margin-top: 100px;
+    padding: 70px 0;
+    background-color: var(--color-lighter);
+}
+
+footer p {
+    font-size: 0.9rem;
+    color: gray;
+}
+
+footer p:first-child {
+    color: var(--color-main);
+    font-family: var(--highlight-font);
+    font-size: 1rem;
+}
+
+footer li {
+    font-size: 0.9rem;
+    margin-right: 1em;
+    color: gray;
+}
+
+.paging {
+    display: flex;
+    justify-content: center;
+    margin-top: 100px;
+}
+.paging li {
+    cursor: pointer;
+    width: 2rem;
+    height: 2rem;
+    line-height: 2rem;
+    text-align: center;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    transition: background-color 300ms ease;
+}
+
+.paging li:hover {
+    background-color: var(--color-lighter);
 }

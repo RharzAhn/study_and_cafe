@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css"
+        />
+        <link rel="stylesheet" href="css/index.css" />
+        <link rel="stylesheet" href="css/study_detail.css" />
+    </head>
+    <body>
+        <header>
+            <div class="nav">
+                <ul class="container nav-menu">
+                    <li>
+                        <a href="/menu/list">
+                            <p class="kor">카페소개</p>
+                            <p class="en">ABOUT US</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/book/list">
+                            <p class="kor">예약</p>
+                            <p class="en">BOOK</p>
+                        </a>
+                    </li>
+                    <div class="header-index"><a href="/index">BOOK</a></div>
+                    <li>
+                        <a href="/study/list">
+                            <p class="kor">스터디그룹</p>
+                            <p class="en">STUDY GROUP</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/user/list">
+                            <p class="kor">마이페이지</p>
+                            <p class="en">MY PAGE</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="nav-content">
+                <ul class="container nav-menu-content">
+                    <li>
+                        <a href="">메뉴</a>
+                        <a href="">전국지점찾기</a>
+                    </li>
+                    <li>
+                        <a href="">메뉴</a>
+                        <a href="">전국지점찾기</a>
+                    </li>
+                    <div class="header-index"></div>
+                    <li>
+                        <a href="">메뉴</a>
+                        <a href="">전국지점찾기</a>
+                    </li>
+                    <li>
+                        <a href="/login">로그인</a>
+                        <a href="">회원가입</a>
+                    </li>
+                </ul>
+            </div>
+        </header>
+
+        <div class="header"></div>
+        <!-- ---------------------header------------- -->
+
+        <div class="container">
+            <div id="search">
+                <form action="/study/list">
+                    <select name="field" id="field">
+                        <option value="both">제목/내용</option>
+                        <option value="title">제목</option>
+                        <option value="content">내용</option>
+                    </select>
+                    <input
+                        type="text"
+                        name="word"
+                        placeholder="검색어를 입력하세요"
+                    />
+                    <button>
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </form>
+            </div>
+
+            <article>
+                <div class="study-item">
+                    <div class="study-status">진행중</div>
+                    <div class="study-profile">
+                        <img src="images/bookex.jpg" />
+                    </div>
+                    <div class="content">
+                        <p class="study-title">독서모임스터디</p>
+                        <p class="study-info">
+                            모여소덕소도서더걱모여소덕소도서더걱모여소덕소도서더걱모여소덕소도서더걱모여소덕소도서더걱
+                        </p>
+                        <ul>
+                            <li>지역 : 부산 동래구</li>
+                            <li>스터디장 : 투썸</li>
+                            <li>기간 : 2031.15.21-44.11.22</li>
+                            <li>멤버수 : 2/3</li>
+                        </ul>
+
+                        <div class="likes">
+                            <i id="like" class="fa-regular fa-heart"></i>
+                            <label for="like">10</label>
+                        </div>
+                    </div>
+                    <button id="apply">신청하기</button>
+                </div>
+
+                <div class="study-content">
+                    <h1>독서모임 스터디</h1>
+                    <div class="study-content-detail">
+                        대통령·국무총리·국무위원·행정각부의 장·헌법재판소
+                        재판관·법관·중앙선거관리위원회 위원·감사원장·감사위원
+                        기타 법률이 정한 공무원이 그 직무집행에 있어서 헌법이나
+                        법률을 위배한 때에는 국회는 탄핵의 소추를 의결할 수
+                        있다. 제1항의 해임건의는 국회재적의원 3분의 1 이상의
+                        발의에 의하여 국회재적의원 과반수의 찬성이 있어야 한다.
+                        대법관의 임기는 6년으로 하며, 법률이 정하는 바에 의하여
+                        연임할 수 있다. 군사법원의 조직·권한 및 재판관의 자격은
+                        법률로 정한다. 국무회의는 정부의 권한에 속하는 중요한
+                        정책을 심의한다. 법률이 헌법에 위반되는 여부가 재판의
+                        전제가 된 경우에는 법원은 헌법재판소에 제청하여 그
+                        심판에 의하여 재판한다. 법관은 탄핵 또는 금고 이상의
+                        형의 선고에 의하지 아니하고는 파면되지 아니하며,
+                        징계처분에 의하지 아니하고는 정직·감봉 기타 불리한
+                        처분을 받지 아니한다. 국가는 지역간의 균형있는 발전을
+                        위하여 지역경제를 육성할 의무를 진다. 군인은 현역을 면한
+                        후가 아니면 국무총리로 임명될 수 없다. 국가안전보장에
+                        관련되는 대외정책·군사정책과 국내정책의 수립에 관하여
+                        국무회의의 심의에 앞서 대통령의 자문에 응하기 위하여
+                        국가안전보장회의를 둔다. 국회의원은 그 지위를 남용하여
+                        국가·공공단체 또는 기업체와의 계약이나 그 처분에 의하여
+                        재산상의 권리·이익 또는 직위를 취득하거나 타인을 위하여
+                        그 취득을 알선할 수 없다. 국가는 농수산물의 수급균형과
+                        유통구조의 개선에 노력하여 가격안정을 도모함으로써
+                        농·어민의 이익을 보호한다. 제1항의 지시를 받은 당해
+                        행정기관은 이에 응하여야 한다. 대통령은 법률에서
+                        구체적으로 범위를 정하여 위임받은 사항과 법률을 집행하기
+                        위하여 필요한 사항에 관하여 대통령령을 발할 수 있다.
+                        모든 국민은 건강하고 쾌적한 환경에서 생활할 권리를
+                        가지며, 국가와 국민은 환경보전을 위하여 노력하여야 한다.
+                        국민경제자문회의의 조직·직무범위 기타 필요한 사항은
+                        법률로 정한다. 대통령은 법률안의 일부에 대하여 또는
+                        법률안을 수정하여 재의를 요구할 수 없다. 선거운동은 각급
+                        선거관리위원회의 관리하에 법률이 정하는 범위안에서 하되,
+                        균등한 기회가 보장되어야 한다. 대통령의 임기연장 또는
+                        중임변경을 위한 헌법개정은 그 헌법개정 제안 당시의
+                        대통령에 대하여는 효력이 없다. 대법원에 대법관을 둔다.
+                        다만, 법률이 정하는 바에 의하여 대법관이 아닌 법관을 둘
+                        수 있다. 모든 국민은 법률이 정하는 바에 의하여 선거권을
+                        가진다. 모든 국민은 법률이 정하는 바에 의하여 납세의
+                        의무를 진다. 감사원은 원장을 포함한 5인 이상 11인 이하의
+                        감사위원으로 구성한다. 국회의원의 수는 법률로 정하되,
+                        200인 이상으로 한다. 대통령으로 선거될 수 있는 자는
+                        국회의원의 피선거권이 있고 선거일 현재 40세에 달하여야
+                        한다. 국가는 농지에 관하여 경자유전의 원칙이 달성될 수
+                        있도록 노력하여야 하며, 농지의 소작제도는 금지된다.
+                        국회는 헌법 또는 법률에 특별한 규정이 없는 한 재적의원
+                        과반수의 출석과 출석의원 과반수의 찬성으로 의결한다.
+                        가부동수인 때에는 부결된 것으로 본다. 누구든지 체포 또는
+                        구속을 당한 때에는 적부의 심사를 법원에 청구할 권리를
+                        가진다. 행정각부의 설치·조직과 직무범위는 법률로 정한다.
+                        사법권은 법관으로 구성된 법원에 속한다. 새로운
+                        회계연도가 개시될 때까지 예산안이 의결되지 못한 때에는
+                        정부는 국회에서 예산안이 의결될 때까지 다음의 목적을
+                        위한 경비는 전년도 예산에 준하여 집행할 수 있다. 법률은
+                        특별한 규정이 없는 한 공포한 날로부터 20일을
+                        경과함으로써 효력을 발생한다. 국회가 재적의원 과반수의
+                        찬성으로 계엄의 해제를 요구한 때에는 대통령은 이를
+                        해제하여야 한다. 국무총리는 국회의 동의를 얻어 대통령이
+                        임명한다. 누구든지 병역의무의 이행으로 인하여 불이익한
+                        처우를 받지 아니한다. 통신·방송의 시설기준과 신문의
+                        기능을 보장하기 위하여 필요한 사항은 법률로 정한다.
+                        대통령은 국가의 안위에 관계되는 중대한 교전상태에 있어서
+                        국가를 보위하기 위하여 긴급한 조치가 필요하고 국회의
+                        집회가 불가능한 때에 한하여 법률의 효력을 가지는 명령을
+                        발할 수 있다. 군사재판을 관할하기 위하여 특별법원으로서
+                        군사법원을 둘 수 있다. 제2항과 제3항의 처분에 대하여는
+                        법원에 제소할 수 없다. 법률이 정하는 주요방위산업체에
+                        종사하는 근로자의 단체행동권은 법률이 정하는 바에 의하여
+                        이를 제한하거나 인정하지 아니할 수 있다. 이 헌법시행
+                        당시의 법령과 조약은 이 헌법에 위배되지 아니하는 한 그
+                        효력을 지속한다. 대법원장과 대법관이 아닌 법관은
+                        대법관회의의 동의를 얻어 대법원장이 임명한다. 근로조건의
+                        기준은 인간의 존엄성을 보장하도록 법률로 정한다. 모든
+                        국민은 법률이 정하는 바에 의하여 공무담임권을 가진다. 이
+                        헌법시행 당시에 이 헌법에 의하여 새로 설치될 기관의
+                        권한에 속하는 직무를 행하고 있는 기관은 이 헌법에 의하여
+                        새로운 기관이 설치될 때까지 존속하며 그 직무를 행한다.
+                        형사피해자는 법률이 정하는 바에 의하여 당해 사건의
+                        재판절차에서 진술할 수 있다. 대통령은 법률이 정하는 바에
+                        의하여 훈장 기타의 영전을 수여한다. 헌법에 의하여
+                        체결·공포된 조약과 일반적으로 승인된 국제법규는 국내법과
+                        같은 효력을 가진다. 감사원은 세입·세출의 결산을 매년
+                        검사하여 대통령과 차년도국회에 그 결과를 보고하여야
+                        한다. 재판의 전심절차로서 행정심판을 할 수 있다.
+                        행정심판의 절차는 법률로 정하되, 사법절차가 준용되어야
+                        한다. 대법원은 법률에 저촉되지 아니하는 범위안에서
+                        소송에 관한 절차, 법원의 내부규율과 사무처리에 관한
+                        규칙을 제정할 수 있다. 국회의원은 법률이 정하는 직을
+                        겸할 수 없다. 국군은 국가의 안전보장과 국토방위의 신성한
+                        의무를 수행함을 사명으로 하며, 그 정치적 중립성은
+                        준수된다. 모든 국민은 고문을 받지 아니하며, 형사상
+                        자기에게 불리한 진술을 강요당하지 아니한다. 국가는
+                        모성의 보호를 위하여 노력하여야 한다. 비상계엄이 선포된
+                        때에는 법률이 정하는 바에 의하여 영장제도,
+                        언론·출판·집회·결사의 자유, 정부나 법원의 권한에 관하여
+                        특별한 조치를 할 수 있다. 국회의 정기회는 법률이 정하는
+                        바에 의하여 매년 1회 집회되며, 국회의 임시회는 대통령
+                        또는 국회재적의원 4분의 1 이상의 요구에 의하여 집회된다.
+                        군인 또는 군무원이 아닌 국민은 대한민국의 영역안에서는
+                        중대한 군사상
+                        기밀·초병·초소·유독음식물공급·포로·군용물에 관한 죄중
+                        법률이 정한 경우와 비상계엄이 선포된 경우를 제외하고는
+                        군사법원의 재판을 받지 아니한다. 언론·출판은 타인의
+                        명예나 권리 또는 공중도덕이나 사회윤리를 침해하여서는
+                        아니된다. 언론·출판이 타인의 명예나 권리를 침해한 때에는
+                        피해자는 이에 대한 피해의 배상을 청구할 수 있다. 모든
+                        국민은 법 앞에 평등하다. 누구든지 성별·종교 또는 사회적
+                        신분에 의하여 정치적·경제적·사회적·문화적 생활의 모든
+                        영역에 있어서 차별을 받지 아니한다. 국가는 평생교육을
+                        진흥하여야 한다. 국회에 제출된 법률안 기타의 의안은
+                        회기중에 의결되지 못한 이유로 폐기되지 아니한다. 다만,
+                        국회의원의 임기가 만료된 때에는 그러하지 아니하다.
+                        원장은 국회의 동의를 얻어 대통령이 임명하고, 그 임기는
+                        4년으로 하며, 1차에 한하여 중임할 수 있다. 국회는 의장
+                        1인과 부의장 2인을 선출한다. 비상계엄하의 군사재판은
+                        군인·군무원의 범죄나 군사에 관한 간첩죄의 경우와
+                        초병·초소·유독음식물공급·포로에 관한 죄중 법률이 정한
+                        경우에 한하여 단심으로 할 수 있다. 다만, 사형을 선고한
+                        경우에는 그러하지 아니하다.
+                    </div>
+                </div>
+
+                <div class="controller">
+                    <button class="list">목록</button>
+                    <button class="delete">삭제</button>
+                    <button class="modify">수정</button>
+                </div>
+            </article>
+        </div>
+        <!-- -------------------foooterrrr---------------- -->
+        <footer>
+            <div class="container">
+                <p>부산IT교육센터 1조</p>
+                <p>팀장 김은진 | 팀원 유우종 안영륜</p>
+                <p>
+                    부산광역시 부산진구 중앙대로 708 부산파이낸스센터 4층 |
+                    0507-1327-5600
+                </p>
+                <br />
+                <ul>
+                    <li>북 운영정책</li>
+                    <li>개인정보처리방침</li>
+                    <li>이용약관</li>
+                    <li>공지사항</li>
+                </ul>
+            </div>
+        </footer>
+
+        <script>
+            const navMenu = document.querySelector(".nav-menu");
+            const nav = document.querySelector(".nav");
+            const navContent = document.querySelector(".nav-content");
+            navMenu.addEventListener("mouseover", () => {
+                nav.style.background = "var(--color-main)";
+                navContent.style.height = "150px";
+                navContent.style.display = "flex";
+            });
+            navMenu.addEventListener("mouseout", () => {
+                nav.style.background = "none";
+                navContent.style.height = "0";
+            });
+            navContent.addEventListener("mouseover", () => {
+                nav.style.background = "var(--color-main)";
+                navContent.style.height = "150px";
+                navContent.style.display = "flex";
+            });
+            navContent.addEventListener("mouseout", () => {
+                nav.style.background = "none";
+                navContent.style.height = "0";
+            });
+        </script>
+    </body>
+</html>
