@@ -17,7 +17,16 @@
 				name="password">
 		</div>
 		<button type="submit" class="btn btn-primary btn-sm" id="btnLogin">로그인</button>
+		<button type="button" class="btn btn-secondary btn-sm" id="join">회원가입</button>
 	</form>
 </div>
 <script type="text/javascript" src="/js/member.js"></script>
+<script type="text/javascript">
+	$("#join").click(function() {
+
+		location.href = "/join"
+
+	});
+
+</script>
 

@@ -61,6 +61,7 @@
 		</div>
 		
 		<button type="button" class="btn btn-primary btn-sm" id="btnJoin">회원가입</button>
+		<button type="reset">초기화</button>
 	</form>
 </div>
 

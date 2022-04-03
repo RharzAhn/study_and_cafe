@@ -21,7 +21,7 @@ public class Seat {
 	
 	@ManyToOne
 	@JoinColumn(name="cafe_id")
-	private Cafe cafe;
+	private Branch cafe;
 	
 	@ManyToOne
 	@JoinColumn(name="book_id")

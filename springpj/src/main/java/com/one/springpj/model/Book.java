@@ -36,7 +36,7 @@ public class Book {
 	
 	@ManyToOne
 	@JoinColumn(name="cafe_id")
-	private Cafe cafe;
+	private Branch cafe;
 	
 	
 	@ManyToOne
