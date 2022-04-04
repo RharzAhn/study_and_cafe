@@ -33,7 +33,7 @@
 						<td>${branch.name}</td>
 						<td>${branch.addr}</td>
 						<td>${branch.phone}</td>
-						<td>${branch.manager}</td>
+						<td>${branch.manager.username}</td>
 						<td><button type="button" class="btn btn-secondary btn-sm"
 								id="update"
 								onclick="location.href='/admin/branch/branchUpdate/${branch.id}'">수정</button></td>

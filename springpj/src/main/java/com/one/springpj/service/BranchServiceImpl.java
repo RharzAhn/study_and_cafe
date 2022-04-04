@@ -6,13 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.one.springpj.model.Branch;
+import com.one.springpj.model.Seat;
 import com.one.springpj.repository.BranchRepository;
+import com.one.springpj.repository.SeatRepository;
 
 @Service
 public class BranchServiceImpl implements BranchService{
 	
 	@Autowired
 	private BranchRepository branchRepository;
+	@Autowired
+	private SeatRepository seatRepository;
 
 //	@Transactional
 	@Override
@@ -46,6 +50,23 @@ public class BranchServiceImpl implements BranchService{
 		b.setAddr(branch.getAddr());
 		b.setPhone(branch.getPhone());
 		branchRepository.save(b);
+	}
+	@Override
+	public void insertSeat(Seat seat) {
+		seatRepository.save(seat);
+		
+	}
+	@Override
+	public Long countIdMax() {
+		return branchRepository.countMax();
+	}
+	@Override
+	public Long count() {
+		return branchRepository.count();
+	}
+	@Override
+	public List<Seat> findByBranchId(Long id) {
+		return seatRepository.findByBranchId(id);
 	}
 	
 

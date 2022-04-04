@@ -20,8 +20,8 @@ public class Seat {
 	private String name;
 	
 	@ManyToOne
-	@JoinColumn(name="cafe_id")
-	private Branch cafe;
+	@JoinColumn(name="branch_id")
+	private Branch branch;
 	
 	@ManyToOne
 	@JoinColumn(name="book_id")
