@@ -21,7 +21,7 @@ $(document).ready(function(){
             return false;
 		}
 		if($("#pass_check").val() == "") {
-			alert("비밀번호를 입력하세요");
+			alert("확인비밀번호를 입력하세요");
 			$("#pass_check").focus();
             return false;
 		}
@@ -31,14 +31,29 @@ $(document).ready(function(){
             return false;
 		}
 		
-		if($("#email").val() == "") {
+		if($("#email1").val() == "") {
 			alert("이메일을 입력하세요");
-			$("#email").focus();
+			$("#email1").focus();
             return false;
 		}
-		if($("#addr").val() == "") {
+		if($("#sample6_postcode").val() == "") {
+			alert("우편번호를 입력하세요");
+			$("#sample6_postcode").focus();
+            return false;
+		}
+		if($("#sample6_address").val() == "") {
 			alert("주소를 입력하세요");
-			$("#addr").focus();
+			$("#sample6_address").focus();
+            return false;
+		}
+		if($("#sample6_detailAddress").val() == "") {
+			alert("상세주소를 입력하세요");
+			$("#sample6_detailAddress").focus();
+            return false;
+		}
+		if($("#sample6_extraAddress").val() == "") {
+			alert("참고항목 입력하세요");
+			$("#sample6_extraAddress").focus();
             return false;
 		}
 		if($("#role").val() == "") {
@@ -51,8 +66,8 @@ $(document).ready(function(){
 			"username":$("#username").val(),
 			"nick":$("#nick").val(),
 			"password":$("#password").val(),
-			"email":$("#email").val(),
-			"addr":$("#addr").val(),
+			"email":$("#email1").val()+$("#email2").val(),
+			"addr":$("#sample6_address").val()+" "+$("#sample6_detailAddress").val(),
 			"role":$("#role").val()
 		}
 		

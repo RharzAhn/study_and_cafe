@@ -24,7 +24,20 @@ public class ManagerController {
 	@Autowired
 	private MenuService menuService;
 	
-
+	@GetMapping("manager")
+	public void managerPage() {
+		
+	}
+	
+	@GetMapping("management")
+	public void managementPage() {
+		
+	}
+	
+	@GetMapping("menuStatuse")
+	public void menuStatusePage() {
+		
+	}
 	
 	@GetMapping("branchMenu")
 	public void list(Model model) {

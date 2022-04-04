@@ -34,7 +34,7 @@
 	
 	<c:forEach begin="0" end="9" step="1" var="i">
 		<c:forEach begin="0" end="9" step="1" var="j">
-			<input type="checkbox" id="seatNum" name="seatNum" value="${i},${j}">
+			<input type="checkbox" id="seatNum" name="seatNum" value="${i},${j}" disabled>
 		</c:forEach>
 		<br>
 	</c:forEach>
@@ -125,7 +125,7 @@ $(".btn").click(()=>{
 	 	array.push([Number(pos[0]), Number(pos[1])]);
 	 }
 	console.log(array)
-	bfs(array)
+	//bfs(array)
 })
 </script>
 </body>
