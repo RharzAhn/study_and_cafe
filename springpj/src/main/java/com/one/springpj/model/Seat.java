@@ -26,4 +26,7 @@ public class Seat {
 	@ManyToOne
 	@JoinColumn(name="book_id")
 	private Book book;
+	
+	private int x;
+	private int y;
 }
