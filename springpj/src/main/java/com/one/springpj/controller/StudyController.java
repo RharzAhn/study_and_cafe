@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.one.springpj.constant.FileMaker;
 import com.one.springpj.constant.JoinStatus;
 import com.one.springpj.constant.StudyRole;
+import com.one.springpj.model.Board;
 import com.one.springpj.model.Joiner;
 import com.one.springpj.model.Likes;
 import com.one.springpj.model.Study;
@@ -112,17 +113,27 @@ public class StudyController {
 	}
 	
 	
-	@PostMapping("{id}")
-	@ResponseBody
-	public String enterStudy(@PathVariable("id") Long id, Principal principal) {
+	@GetMapping("board/{id}")
+	public String enterStudy(@PathVariable("id") Long id, Principal principal, Model model) {
+		if(principal==null){
+			return "/study/list";
+		}
 		User user = userService.findByUsername(principal.getName());
-		List<Joiner> joinList = joinerService.findJoinUserList(user.getId(), JoinStatus.ACCEPT);
-		if (joinList !=null) {
-			return "success";
+		int check = joinerService.joinCheck(user.getId(), JoinStatus.ACCEPT, id);
+		if (check ==0) {
+			return "/study/list";
 		}else {
-			return "failed";
+			Study study = studyService.read(id);
+			List<Board> boardList = studyService.findByStudyId(id);
+			//추가 예약정보
+			model.addAttribute("study", study);
+//			model.addAttribute("boardList", boardList);
+			return "/study/board";
 		}
 	}
+	
+	
+	
 	
 //	@GetMapping("{id}")
 //	public String enterStudyRoom(@PathVariable("id") Long id) {

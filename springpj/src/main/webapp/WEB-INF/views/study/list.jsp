@@ -87,19 +87,20 @@ img {
 		
 		
 		function myStudyEnter(id){
-			$.ajax({
-				type:"post",
-				url:"/study/"+id,
-				data:{
-					"id":id
-				}
-			}).done((res)=>{
-				if(res=="success"){
-					location.href="/study/"+id					
-				}else{
-					alert("가입된 멤버가 아닙니다.")
-				}
-			})
+			location.href="/study/board/"+id
+// 			$.ajax({
+// 				type:"get",
+// 				url:"/study/board/"+id,
+// 				data:{
+// 					"id":id
+// 				}
+// 			}).done((res)=>{
+// 				if(res=="success"){
+// 					location.href="/study/"+id
+// 				}else{
+// 					alert("가입된 멤버가 아닙니다.")
+// 				}
+// 			})
 		}
 	</script>
 </body>

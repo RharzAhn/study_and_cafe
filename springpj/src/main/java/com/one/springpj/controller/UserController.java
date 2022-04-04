@@ -1,9 +1,13 @@
 package com.one.springpj.controller;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,6 +41,15 @@ public class UserController {
 		
 		model.addAttribute("applyerList", applyerList);
 		model.addAttribute("joinedList",joinedList);
+	}
+	
+	@PostMapping("joinerAlert")
+	@ResponseBody
+	public Object joinerAlert(String username){
+		User user = userService.findByUsername(username);
+		List<Joiner> applyerList = joinerService.findApplyUser(user.getId());
+		List<Joiner> joinedList = joinerService.findJoinUserList(user.getId(), JoinStatus.ACCEPT);
+		return applyerList;
 	}
 	
 	@GetMapping("register")

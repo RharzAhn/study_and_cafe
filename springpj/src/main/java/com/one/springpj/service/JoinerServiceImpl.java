@@ -40,4 +40,9 @@ public class JoinerServiceImpl implements JoinerService{
 	public void update(Joiner joiner) {
 		joinerRepository.save(joiner);
 	}
+
+	@Override
+	public int joinCheck(Long id, JoinStatus joinStatus, Long studyId) {
+		 return joinerRepository.joinCheck(id, joinStatus.toString(), studyId);
+	}
 }

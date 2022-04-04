@@ -5,8 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.one.springpj.model.Board;
 import com.one.springpj.model.Likes;
 import com.one.springpj.model.Study;
+import com.one.springpj.repository.BoardRepository;
 import com.one.springpj.repository.LikesRepository;
 import com.one.springpj.repository.StudyRepository;
 
@@ -20,6 +22,8 @@ public class StudyServiceImpl implements StudyService {
 	StudyRepository studyRepository;
 	@Autowired
 	LikesRepository likeRepository;
+	@Autowired
+	BoardRepository boardRepository;
 	
 	@Override
 	public void insert(Study study) {
@@ -60,6 +64,12 @@ public class StudyServiceImpl implements StudyService {
 	@Override
 	public List<Likes> getLikes() {
 		return likeRepository.findAll();
+	}
+
+	@Override
+	public List<Board> findByStudyId(Long id) {
+		Study study = studyRepository.findById(id).get();
+		return boardRepository.findByStudy(study);
 	}
 
 

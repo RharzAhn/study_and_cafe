@@ -15,4 +15,7 @@ public interface JoinerRepository extends JpaRepository<Joiner, Long>{
 	
 	@Query(value="select j from Joiner j join fetch j.study where leader_id=?1 and join_status='WAITING'")
 	public List<Joiner> findApplyUser(Long leaderId);
+	
+	@Query(value="select count(*) from Joiner j where user_id=?1 and join_status=?2 and study_id=?3")
+	public int joinCheck(Long id, String joinStatus, Long studyId);
 }
