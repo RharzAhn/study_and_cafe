@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.one.springpj.model.Branch;
+import com.one.springpj.model.CafeMenu;
 import com.one.springpj.model.Seat;
 import com.one.springpj.repository.BranchRepository;
+import com.one.springpj.repository.CafeMenuRepository;
 import com.one.springpj.repository.SeatRepository;
 
 @Service
@@ -17,6 +19,9 @@ public class BranchServiceImpl implements BranchService{
 	private BranchRepository branchRepository;
 	@Autowired
 	private SeatRepository seatRepository;
+	
+	@Autowired
+	private CafeMenuRepository cafeMenuRepository;
 
 //	@Transactional
 	@Override
@@ -67,6 +72,10 @@ public class BranchServiceImpl implements BranchService{
 	@Override
 	public List<Seat> findByBranchId(Long id) {
 		return seatRepository.findByBranchId(id);
+	}
+	@Override
+	public List<CafeMenu> cafeMenufindByBranchId(Branch branch) {
+		return cafeMenuRepository.findByBranch(branch);
 	}
 	
 

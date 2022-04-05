@@ -1,5 +1,7 @@
 package com.one.springpj.model;
 
+import java.sql.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,9 +9,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter @Setter
 @Entity
 public class Seat {
 	@Id
@@ -29,4 +32,7 @@ public class Seat {
 	
 	private int x;
 	private int y;
+	
+	private Date startDate;
+	private Date endDate;
 }

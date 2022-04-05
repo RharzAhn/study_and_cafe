@@ -11,16 +11,16 @@ input[type="checkbox"] {
 	display: none;
 }
 
-input:disabled+label {
+form input:disabled+label {
 	cursor: default;
 	background-color: red;
 }
 
-input:checked+label {
+form input:checked+label {
 	background-color: yellow;
 }
 
-label {
+form label {
 	cursor: pointer;
 	display: inline-block;
 	width: 20px;
@@ -35,19 +35,25 @@ label {
 </style>
 <body>
 	<%@include file="../include/header.jsp"%>
-	<form action="/book/bookMenu" method="get">
-	<input type="hidden" name="cafeId" value="${cafeId}">
-	<c:forEach begin="0" end="9" var="i" step="1">
-		<c:forEach begin="0" end="9" var="j" step="1">
-			<input type="checkbox" name="seat" id="${i}${j}" disabled>
-			<label for="${i}${j}"></label>
-		</c:forEach>
-		<br>
-	</c:forEach>
+	<button type="button" onclick="selectStudy()">그룹 선택</button>
+	
+	
 
-	<div>선택한 좌석</div>
-	<input type="text" readonly id="selectSeat">
-	<button type="submit" id="btnNextBook">버튼</button>
+	<form action="/book/bookMenu" method="get">
+		<input type="hidden" readonly name="studyId" id="studyId" >
+		<input type="hidden" name="cafeId" value="${cafeId}">
+		<c:forEach begin="0" end="9" var="i" step="1">
+			<c:forEach begin="0" end="9" var="j" step="1">
+				<input type="checkbox" name="seat" id="${i}${j}" disabled>
+				<label for="${i}${j}"></label>
+			</c:forEach>
+			<br>
+		</c:forEach>
+
+		<div>선택한 좌석</div>
+		<input type="text" readonly id="selectSeat">
+		<button type="submit" id="btnNextBook">버튼</button>
+
 	</form>
 </body>
 <script type="text/javascript">
@@ -74,5 +80,29 @@ label {
 			$("#selectSeat").val(selectList.slice(0, -3))
 		}
 	})
+	
+	
+	$("input:radio").click(function() {
+		var stduyTitle = $("#studyTitle").val()
+		console.log(stduyTitle)
+		console.log("text")
+	})
+	
+	
+	var studyTitle;
+	function selectStudy(){
+		Swal.fire({
+			position: 'center',
+			html:`
+				<c:forEach items="${joinerList}" var="joiner" >
+				<input type="radio" id="studyTitle" name="studyTitle" value="${joiner.study.id}">
+				<label for="studyTitle">${joiner.study.title}</label>
+			</c:forEach>
+			`
+		}).then((value)=>{
+			var studyId = $("input[type='radio']:checked").val();
+			$("#studyId").val(studyId)
+		})
+	}
 </script>
 </html>

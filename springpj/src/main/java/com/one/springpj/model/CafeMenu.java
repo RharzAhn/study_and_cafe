@@ -31,8 +31,8 @@ public class CafeMenu {
 	private MenuStatus menuStatus;
 	
 	@ManyToOne
-	@JoinColumn(name="cafe_id")
-	private Branch cafe;
+	@JoinColumn(name="branch_id")
+	private Branch branch;
 	
 	
 }
