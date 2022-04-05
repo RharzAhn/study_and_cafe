@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -126,77 +126,50 @@
                     <div
                         class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
                     >
-                        <h1 class="h2">메뉴 관리(기능X)</h1>
+                        <h1 class="h2">메뉴 관리(수정X)</h1>
                         <div class="search">
                             <input type="text" name="word" />
                             <button><i class="fas fa-search"></i></button>
                         </div>
-                        <button class="add-menu">지점추가</button>
+                        <button class="add-menu" onclick="location.href = '/admin/menu/menuRegister'">메뉴추가</button>
                     </div>
 
                     <div class="table-responsive">
                         <table class="table table-striped table-sm">
                             <thead>
                                 <tr>
-                                    <th scope="col">id</th>
-                                    <th scope="col">지점사진</th>
-                                    <th scope="col">지점이름</th>
-                                    <th scope="col">지점주소</th>
-                                    <th scope="col">지점전화번호</th>
+                                    <th scope="col">메뉴 id</th>
+                                    <th scope="col">메뉴명</th>
+                                    <th scope="col">설명</th>
+                                    <th scope="col">사진</th>
+                                    <th scope="col">가격</th>
+                                    <th scope="col">메뉴타입</th>
                                     <th scope="col">수정 및 삭제</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1,001</td>
-                                    <td>
-                                        <img src="images/interial.jpg" alt="" />
-                                    </td>
-                                    <td>random</td>
-                                    <td>data</td>
-                                    <td>010-1111-5155</td>
-                                    <td>
+                            	<c:forEach items="${list}" var="menu">
+									<tr>
+										<td>${menu.id}</td>
+										<td>${menu.name}</td>
+										<td>${menu.intro}</td>
+										<td><img class="menu_img" src="${menu.profile}" width="50px" height="10%"></td>
+										<th>${menu.price}</th>
+										<td>${menu.menuType}</td>
+										<td>
                                         <button
                                             type="button"
                                             class="submit"
-                                            onclick="switchStatus(5)"
-                                        >
-                                            수정
-                                        </button>
+                                            onclick="location.href='/admin/menu/menuUpdate/${menu.id}'"
+                                        >수정</button>
                                         <button
                                             type="button"
                                             class="submit"
-                                            onclick="switchStatus(5)"
-                                        >
-                                            삭제
-                                        </button>
+                                            onclick="location.href='/admin/menu/delete/${menu.id}'"
+                                        >삭제</button>
                                     </td>
-                                </tr>
-                                <tr>
-                                    <td>1,002</td>
-                                    <td>
-                                        <img src="/images/interial.jpg" alt="" />
-                                    </td>
-                                    <td>irrelevant</td>
-                                    <td>irrelevant</td>
-                                    <td>010-4448-5551</td>
-                                    <td>
-                                        <button
-                                            type="button"
-                                            class="submit"
-                                            onclick="switchStatus(5)"
-                                        >
-                                            수정
-                                        </button>
-                                        <button
-                                            type="button"
-                                            class="submit"
-                                            onclick="switchStatus(5)"
-                                        >
-                                            삭제
-                                        </button>
-                                    </td>
-                                </tr>
+									</tr>
+                                </c:forEach>
                             </tbody>
                         </table>
                     </div>

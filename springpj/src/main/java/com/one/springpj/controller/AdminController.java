@@ -1,5 +1,7 @@
 package com.one.springpj.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +17,11 @@ import org.springframework.web.multipart.MultipartFile;
 import com.one.springpj.constant.FileMaker;
 import com.one.springpj.model.Branch;
 import com.one.springpj.model.Menu;
+import com.one.springpj.model.Study;
 import com.one.springpj.model.User;
 import com.one.springpj.service.BranchService;
+import com.one.springpj.service.MenuService;
+import com.one.springpj.service.StudyService;
 import com.one.springpj.service.UserService;
 
 import lombok.extern.java.Log;
@@ -30,6 +35,12 @@ public class AdminController {
 	
 	@Autowired
 	private BranchService branchService;
+	
+	@Autowired
+	private StudyService studyService;
+	
+	@Autowired
+	private MenuService menuService;
 	
 	@GetMapping("branchManagement")
 	public void list(Model model) {
@@ -54,11 +65,16 @@ public class AdminController {
 	}
 	
 	@GetMapping("studyManagement")
-	public void studyManagement() {
+	public void studyList(Model model) {
+		List<Study> studies = studyService.getList();
+		model.addAttribute("list",studies);
+		
 	}
 	
 	@GetMapping("menuManagement")
-	public void menuManagement() {
+	public void menuList(Model model) {
+		model.addAttribute("list", menuService.menuList());
+
 	}
 	
 	@GetMapping("userManagement")

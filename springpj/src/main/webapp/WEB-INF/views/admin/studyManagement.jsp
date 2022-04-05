@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -126,77 +126,47 @@
                     <div
                         class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
                     >
-                        <h1 class="h2">스터디 관리(기능X)</h1>
+                        <h1 class="h2">스터디 관리</h1>
                         <div class="search">
                             <input type="text" name="word" />
                             <button><i class="fas fa-search"></i></button>
                         </div>
-                        <button class="add-menu">지점추가</button>
+                        
                     </div>
 
                     <div class="table-responsive">
                         <table class="table table-striped table-sm">
                             <thead>
                                 <tr>
-                                    <th scope="col">id</th>
-                                    <th scope="col">지점사진</th>
-                                    <th scope="col">지점이름</th>
-                                    <th scope="col">지점주소</th>
-                                    <th scope="col">지점전화번호</th>
-                                    <th scope="col">수정 및 삭제</th>
+                                    <th scope="col">스터디번호</th>
+                                    <th scope="col">스터디명</th>
+                                    <th scope="col">지역</th>
+                                    <th scope="col">시작일</th>
+                                    <th scope="col">마감일</th>
+                                    <th scope="col">인원</th>
+                                    <th scope="col">스터디리더</th>
+                                    <th scope="col">마일리지</th>
+                                    <th scope="col">좋아요</th>
+                                    <th scope="col">삭제</th>
                                 </tr>
                             </thead>
                             <tbody>
+                            	<c:forEach items="${list}" var="studyGroup">
                                 <tr>
-                                    <td>1,001</td>
-                                    <td>
-                                        <img src="images/interial.jpg" alt="" />
-                                    </td>
-                                    <td>random</td>
-                                    <td>data</td>
-                                    <td>010-1111-5155</td>
-                                    <td>
-                                        <button
-                                            type="button"
-                                            class="submit"
-                                            onclick="switchStatus(5)"
-                                        >
-                                            수정
-                                        </button>
-                                        <button
-                                            type="button"
-                                            class="submit"
-                                            onclick="switchStatus(5)"
-                                        >
-                                            삭제
-                                        </button>
-                                    </td>
+									<td>${studyGroup.id}</td>
+									<td>${studyGroup.title}</td>
+									<td><%-- ${studyGroup.local} --%>지역</td>
+									<td>${studyGroup.startDate}</td>
+									<td>${studyGroup.endDate}</td>
+									<td><%-- ${studyGroup.}/ --%>${studyGroup.limitCount}</td>
+									<td>${studyGroup.leader}</td>
+									<td>${studyGroup.mileage}</td>
+									<td>${studyGroup.likes}</td>
+									<td><button type="button" class="submit"
+											id="delete"
+											onclick="location.href='/admin/studyGroup/delete/${studyGroup.id}'">삭제</button></td>
                                 </tr>
-                                <tr>
-                                    <td>1,002</td>
-                                    <td>
-                                        <img src="/images/interial.jpg" alt="" />
-                                    </td>
-                                    <td>irrelevant</td>
-                                    <td>irrelevant</td>
-                                    <td>010-4448-5551</td>
-                                    <td>
-                                        <button
-                                            type="button"
-                                            class="submit"
-                                            onclick="switchStatus(5)"
-                                        >
-                                            수정
-                                        </button>
-                                        <button
-                                            type="button"
-                                            class="submit"
-                                            onclick="switchStatus(5)"
-                                        >
-                                            삭제
-                                        </button>
-                                    </td>
-                                </tr>
+                               </c:forEach>
                             </tbody>
                         </table>
                     </div>
@@ -233,3 +203,5 @@
         }
     </script>
 </html>
+
+ 	

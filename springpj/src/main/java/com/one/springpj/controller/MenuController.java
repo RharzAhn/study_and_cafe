@@ -61,12 +61,12 @@ public class MenuController {
 		String imagePath = FileMaker.save(file, session);
 		menu.setProfile(imagePath);
 		menuService.insert(menu);
-		return "redirect:/admin/menu/menuList";
+		return "redirect:/admin/menuManagement";
 	}
 	
 	@GetMapping("delete/{id}")
 	public String delete(@PathVariable("id")Long id) {
 		menuService.delete(id);
-		return "redirect:/admin/menu/menuList";
+		return "redirect:/admin/menuManagement";
 	}
 }
