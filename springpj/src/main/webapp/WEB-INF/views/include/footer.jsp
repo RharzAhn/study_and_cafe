@@ -5,8 +5,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+
+</style>
 </head>
 <body>
+	<footer>
           <div class="container">
                 <p>부산IT교육센터 1조</p>
                 <p>팀장 김은진 | 팀원 유우종 안영륜</p>

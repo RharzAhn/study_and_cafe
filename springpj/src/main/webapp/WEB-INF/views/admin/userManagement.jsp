@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -68,7 +68,7 @@
                         <ul class="nav flex-column">
                             <li class="nav-item">
                                 <a
-                                    class="nav-link active"
+                                    class="nav-link"
                                     aria-current="page"
                                     href="branchManagement"
                                 >
@@ -93,7 +93,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="userManagement">
+                                <a class="nav-link active" href="userManagement">
                                     <span data-feather="users"></span>
                                     회원 관리
                                 </a>
@@ -126,44 +126,93 @@
                     <div
                         class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
                     >
-                        <h1 class="h2">지점 추가</h1>
-                        
+                        <h1 class="h2">회원 관리(기능X)</h1>
+                        <div class="search">
+                            <input type="text" name="word" />
+                            <button><i class="fas fa-search"></i></button>
+                        </div>
+                        <button class="add-menu">지점추가</button>
                     </div>
 
-					<div class="container">
-					  
-					  <form action="/admin/insert" method="post" enctype="multipart/form-data">
-					    <div class="form-group">
-					      <label for="file">지점사진</label>
-					      <input type="file" class="form-control" id="file" placeholder="사진" name="file" >
-					    </div>
-					    <br>
-					    <div class="form-group">
-					      <label for="name">지점명:</label>
-					      <input type="text" class="form-control" id="name" placeholder="지점명" name="name" >
-					    </div>
-					        <div class="form-group">
-					      <label for="addr">지점주소:</label>
-					      <input type="text" class="form-control" id="addr" placeholder="지점주소" name="addr" >
-					    </div>
-					        <div class="form-group">
-					      <label for="phone">전화번호:</label>
-					      <input type="text" class="form-control" id="phone" placeholder="전화번호" name="phone" >
-					    </div>
-					    <div class="form-group">
-					       <label for="manager">지점장명:</label>
-					       <input type="text" class="form-control" id="manager" name="manager" placeholder="지점장명">
-					    </div>
-	
-	
-    <button type="submit" class="submit">추가</button>
-  </form>
-</div>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-sm">
+                            <thead>
+                                <tr>
+                                    <th scope="col">id</th>
+                                    <th scope="col">지점사진</th>
+                                    <th scope="col">지점이름</th>
+                                    <th scope="col">지점주소</th>
+                                    <th scope="col">지점전화번호</th>
+                                    <th scope="col">수정 및 삭제</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1,001</td>
+                                    <td>
+                                        <img src="images/interial.jpg" alt="" />
+                                    </td>
+                                    <td>random</td>
+                                    <td>data</td>
+                                    <td>010-1111-5155</td>
+                                    <td>
+                                        <button
+                                            type="button"
+                                            class="submit"
+                                            onclick="switchStatus(5)"
+                                        >
+                                            수정
+                                        </button>
+                                        <button
+                                            type="button"
+                                            class="submit"
+                                            onclick="switchStatus(5)"
+                                        >
+                                            삭제
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>1,002</td>
+                                    <td>
+                                        <img src="/images/interial.jpg" alt="" />
+                                    </td>
+                                    <td>irrelevant</td>
+                                    <td>irrelevant</td>
+                                    <td>010-4448-5551</td>
+                                    <td>
+                                        <button
+                                            type="button"
+                                            class="submit"
+                                            onclick="switchStatus(5)"
+                                        >
+                                            수정
+                                        </button>
+                                        <button
+                                            type="button"
+                                            class="submit"
+                                            onclick="switchStatus(5)"
+                                        >
+                                            삭제
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </main>
             </div>
         </div>
 
-        
+        <ul class="paging">
+            <li class="prev"><i class="fas fa-angle-left"></i></li>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+            <li class="next"><i class="fas fa-angle-right"></i></li>
+        </ul>
     </body>
     <script src="js/bootstrap.bundle.min.js"></script>
 

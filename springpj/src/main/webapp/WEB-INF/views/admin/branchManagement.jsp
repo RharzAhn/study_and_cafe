@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -23,7 +24,10 @@
         />
 
         <!-- Custom styles for this template -->
-        <link href="css/dashboard.css" rel="stylesheet" />
+        <link href="/css/dashboard.css" rel="stylesheet" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     </head>
     <body>
         <header
@@ -46,14 +50,7 @@
                 <div class="nav-item text-nowrap">
                     <a class="" href="#"><i class="fas fa-home"></i></a>
 
-                    <a href="#" class="position-relative"
-                        ><i class="fas fa-bell"></i>
-                        <span
-                            class="position-absolute top-0 start-0 translate-middle p-1 bg-danger rounded-circle"
-                        >
-                            <span class="visually-hidden">New alerts</span>
-                        </span></a
-                    >
+                    <a href="#"><i class="fas fa-bell"></i></a>
                     <a href="#">
                         <i class="fas fa-user-circle"></i>
                     </a>
@@ -73,22 +70,38 @@
                                 <a
                                     class="nav-link active"
                                     aria-current="page"
-                                    href="management"
+                                    href="branchManagement"
                                 >
                                     <span data-feather="home"></span>
-                                    매장 현황
+                                    지점 관리
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="menuStatus">
+                                <a
+                                    class="nav-link"
+                                    aria-current="page"
+                                    href="studyManagement"
+                                >
+                                    <span data-feather="home"></span>
+                                    스터디 관리
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="menuManagement">
                                     <span data-feather="file"></span>
-                                    메뉴 상태 관리
+                                    메뉴 관리
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="bookStatus">
+                                <a class="nav-link" href="userManagement">
                                     <span data-feather="users"></span>
-                                    예약 상태 관리
+                                    회원 관리
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="mileageManagement">
+                                    <span data-feather="users"></span>
+                                    포인트 관리
                                 </a>
                             </li>
                         </ul>
@@ -113,33 +126,66 @@
                     <div
                         class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
                     >
-                        <h1 class="h2">매장 현황</h1>
+                        <h1 class="h2">지점 관리</h1>
+                        <div class="search">
+                            <input type="text" name="word" />
+                            <button><i class="fas fa-search"></i></button>
+                        </div>
+                        <button class="add-menu" onclick="location.href = '/admin/branch/branchRegister'">지점추가</button>
                     </div>
-                    <div class="counter">
-                        <div class="sell-counter">
-                            <h4>판매메뉴수</h4>
-                            <span>4</span>
-                            <b>개</b>
-                        </div>
-                        <div class="sold-out-counter">
-                            <h4>매진메뉴수</h4>
-                            <span>4</span>
-                            <b>개</b>
-                        </div>
-                        <div class="today-book-counter">
-                            <h4>오늘 예약자 수</h4>
-                            <span>4</span>
-                            <b>개</b>
-                        </div>
-                        <div class="book-counter">
-                            <h4>총 예약자 수</h4>
-                            <span>4</span>
-                            <b>개</b>
-                        </div>
+
+                                        <div class="table-responsive">
+                        <table class="table table-striped table-sm">
+                            <thead>
+                                <tr>
+                                    <th scope="col">지점번호</th>
+                                    <th scope="col">지점사진</th>
+                                    <th scope="col">지점명</th>
+                                    <th scope="col">지점주소</th>
+                                    <th scope="col">전화번호</th>
+                                    <th scope="col">지점장명</th>
+                                    <th scope="col">수정/삭제</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            	<c:forEach items="${list}" var="branch">
+                                <tr>
+                                    <td>${branch.id}</td>
+                                    <td><img src="${branch.profile }"></td>
+                                    <td>${branch.name}</td>
+                                    <td>${branch.addr}</td>
+                                    <td>${branch.phone}</td>
+                                    <td>${branch.manager.username}</td>
+                                    <td>
+                                        <button
+                                            type="button"
+                                            class="submit"
+                                            onclick="location.href = '/admin/branch/branchUpdate/'${branch.id}''"
+                                        >
+                                            수정
+                                        </button>
+                                        <button type="button" class="submit"
+								id="delete"
+								onclick="location.href='/admin/branch/delete/${branch.id}'">삭제</button>
+                                    </td>
+                                </tr>
+                                </c:forEach>
+                            </tbody>
+                        </table>
                     </div>
                 </main>
             </div>
         </div>
+
+        <ul class="paging">
+            <li class="prev"><i class="fas fa-angle-left"></i></li>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+            <li class="next"><i class="fas fa-angle-right"></i></li>
+        </ul>
     </body>
     <script src="js/bootstrap.bundle.min.js"></script>
 
@@ -154,4 +200,9 @@
         crossorigin="anonymous"
     ></script>
     <script src="js/dashboard.js"></script>
+    <script>
+        function switchStatus(id) {
+            console.log(id);
+        }
+    </script>
 </html>

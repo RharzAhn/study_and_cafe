@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -68,9 +68,9 @@
                         <ul class="nav flex-column">
                             <li class="nav-item">
                                 <a
-                                    class="nav-link active"
+                                    class="nav-link"
                                     aria-current="page"
-                                    href="#"
+                                    href="branchManagement"
                                 >
                                     <span data-feather="home"></span>
                                     지점 관리
@@ -78,28 +78,28 @@
                             </li>
                             <li class="nav-item">
                                 <a
-                                    class="nav-link active"
+                                    class="nav-link"
                                     aria-current="page"
-                                    href="#"
+                                    href="studyManagement"
                                 >
                                     <span data-feather="home"></span>
                                     스터디 관리
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">
+                                <a class="nav-link" href="menuManagement">
                                     <span data-feather="file"></span>
-                                    신메뉴 관리
+                                    메뉴 관리
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">
+                                <a class="nav-link" href="userManagement">
                                     <span data-feather="users"></span>
                                     회원 관리
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">
+                                <a class="nav-link active" href="mileageManagement">
                                     <span data-feather="users"></span>
                                     포인트 관리
                                 </a>
@@ -109,10 +109,10 @@
                         <h6
                             class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted"
                         >
-                            <span>로그아웃</span>
+                            <span><a href="/logout">로그아웃</a></span>
                             <a
                                 class="link-secondary"
-                                href="#"
+                                href="/logout"
                                 aria-label="Add a new report"
                             >
                                 <i class="fas fa-angle-right"></i>
@@ -126,7 +126,7 @@
                     <div
                         class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
                     >
-                        <h1 class="h2">지점관리(기능X)</h1>
+                        <h1 class="h2">포인트 관리(기능X)</h1>
                         <div class="search">
                             <input type="text" name="word" />
                             <button><i class="fas fa-search"></i></button>
@@ -138,23 +138,25 @@
                         <table class="table table-striped table-sm">
                             <thead>
                                 <tr>
-                                    <th scope="col">id</th>
+                                    <th scope="col">지점번호</th>
                                     <th scope="col">지점사진</th>
-                                    <th scope="col">지점이름</th>
+                                    <th scope="col">지점명</th>
                                     <th scope="col">지점주소</th>
-                                    <th scope="col">지점전화번호</th>
-                                    <th scope="col">수정 및 삭제</th>
+                                    <th scope="col">전화번호</th>
+                                    <th scope="col">지점장명</th>
+                                    <th scope="col">수정/삭제</th>
                                 </tr>
                             </thead>
                             <tbody>
+                            	<c:forEach items="${list}" var="branch">
                                 <tr>
-                                    <td>1,001</td>
-                                    <td>
-                                        <img src="images/interial.jpg" alt="" />
-                                    </td>
-                                    <td>random</td>
+                                    <td>${branch.id}</td>
+                                    <td>${branch.profile}</td>
+                                    <td>${branch.name}</td>
+                                    <td>${branch.addr}</td>
+                                    <td>${branch.phone}</td>
+                                    <td>${branch.manager}</td>
                                     <td>data</td>
-                                    <td>010-1111-5155</td>
                                     <td>
                                         <button
                                             type="button"
@@ -172,31 +174,7 @@
                                         </button>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>1,002</td>
-                                    <td>
-                                        <img src="/images/interial.jpg" alt="" />
-                                    </td>
-                                    <td>irrelevant</td>
-                                    <td>irrelevant</td>
-                                    <td>010-4448-5551</td>
-                                    <td>
-                                        <button
-                                            type="button"
-                                            class="submit"
-                                            onclick="switchStatus(5)"
-                                        >
-                                            수정
-                                        </button>
-                                        <button
-                                            type="button"
-                                            class="submit"
-                                            onclick="switchStatus(5)"
-                                        >
-                                            삭제
-                                        </button>
-                                    </td>
-                                </tr>
+                                </c:forEach>
                             </tbody>
                         </table>
                     </div>

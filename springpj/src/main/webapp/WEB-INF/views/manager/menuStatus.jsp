@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -67,7 +68,7 @@
                         <ul class="nav flex-column">
                             <li class="nav-item">
                                 <a
-                                    class="nav-link active"
+                                    class="nav-link"
                                     aria-current="page"
                                     href="management"
                                 >
@@ -76,13 +77,13 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">
+                                <a class="nav-link active" href="menuStatus">
                                     <span data-feather="file"></span>
                                     메뉴 상태 관리
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">
+                                <a class="nav-link" href="bookStatus">
                                     <span data-feather="users"></span>
                                     예약 상태 관리
                                 </a>
@@ -92,10 +93,10 @@
                         <h6
                             class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted"
                         >
-                            <span>로그아웃</span>
+                            <span><a href="/logout">로그아웃</a></span>
                             <a
                                 class="link-secondary"
-                                href="#"
+                                href="/logout"
                                 aria-label="Add a new report"
                             >
                                 <i class="fas fa-angle-right"></i>
@@ -114,12 +115,13 @@
                             <input type="text" name="word" />
                             <button><i class="fas fa-search"></i></button>
                         </div>
-                        <button class="add-menu">메뉴추가</button>
+                        <button class="add-menu" onclick="location.href='/manager/branchMenu'">메뉴추가</button>
                     </div>
 
                     <div class="table-responsive">
                         <table class="table table-striped table-sm">
                             <thead>
+                            
                                 <tr>
                                     <th scope="col">id</th>
                                     <th scope="col">메뉴이름</th>
@@ -128,45 +130,21 @@
                                     <th scope="col">메뉴적용</th>
                                 </tr>
                             </thead>
+                            <c:forEach items="${list}" var="menu">
                             <tbody>
                                 <tr>
-                                    <td>1,001</td>
-                                    <td>random</td>
-                                    <td>data</td>
+                                    <td>${menu.id }</td>
+                                    <td>${menu.name }</td>
+                                    <td>${menu.menuType }</td>
                                     <td>
                                         <div class="form-check form-switch">
                                             <input
-                                                disabled
+                                               
                                                 class="form-check-input"
                                                 type="checkbox"
                                                 role="switch"
                                                 id="flexSwitchCheckDefault"
-                                            />
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <button
-                                            type="button"
-                                            class="submit"
-                                            onclick="switchStatus(5)"
-                                        >
-                                            상태전환
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>1,002</td>
-                                    <td>placeholder</td>
-                                    <td>irrelevant</td>
-                                    <td>
-                                        <div class="form-check form-switch">
-                                            <input
-                                                checked
-                                                disabled
-                                                class="form-check-input"
-                                                type="checkbox"
-                                                role="switch"
-                                                id="flexSwitchCheckDefault"
+                                                onclick="switchStatus(${menu.id})"
                                             />
                                         </div>
                                     </td>
@@ -181,6 +159,7 @@
                                     </td>
                                 </tr>
                             </tbody>
+                            </c:forEach>
                         </table>
                     </div>
                 </main>
@@ -212,6 +191,7 @@
     <script src="js/dashboard.js"></script>
     <script>
         function switchStatus(id) {
+        	console.log($("#flexSwitchCheckDefault").val())
             console.log(id);
         }
     </script>

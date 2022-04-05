@@ -15,8 +15,9 @@
 <body>
 	<h2> 지점별 발주</h2>
 	<!--  -->
-	<form  action="/manamger/branchMenuSelect" method="get" id="fmt" enctype="multipart/form-data">
+	<form  action="/manager/branchMenuSelect" method="get" id="fmt" enctype="multipart/form-data">
 		<div>
+		<input type="hidden" name="branchId" value="${branchId}">
 			<c:forEach items="${Type}" var="type">
 				<h3>${type}</h3>
 				<c:forEach items="${list}" var="menu">
