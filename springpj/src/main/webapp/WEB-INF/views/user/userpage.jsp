@@ -30,14 +30,18 @@
 	            </tr>
 	            </thead>
 	            <tr>
-	                <th class="id"> ???</th>
-		           
+		            	<td class="id">${user.id}</td>
+		            	<td class="username">${user.username }</td>
+		            	<td class="nick">${user.nick }</td>  
+		            	<td class="addr">${user.addr }</td>  
+		            	<td class="email">${user.email }</td>  
+		            	<td class="mileage">${user.mileage }</td> 
+		            	<td class="role">${user.role }</td>  
+		            	<td class="regdate">${user.regdate }</td> 
 	            </tr>
 	            <tbody>
 	        <tr>
-	       
 	            	<td colspan="9">조회된 결과가 없습니다</td>
-	      
 	         </tr>
 	            </tbody>
 	   </table>

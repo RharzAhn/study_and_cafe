@@ -1,8 +1,13 @@
 package com.one.springpj.controller;
 
+import java.security.Principal;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,7 +17,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.one.springpj.model.User;
 import com.one.springpj.service.UserService;
 
+
 import lombok.extern.java.Log;
+
 @Log
 @Controller
 @RequestMapping("/admin/")
@@ -26,7 +33,7 @@ public class AdminController {
 		return "index";
 	}
 
-	@RequestMapping("userList")
+	@RequestMapping("userlist")
 	public String userlist(Model model) {
 		model.addAttribute("userlist", userService.getUserlist());
 		return "admin/userlist";
@@ -56,13 +63,50 @@ public class AdminController {
 		userService.update(user);
 	}
 	
+	@GetMapping("adminupdate")
+	public String adminupdateform(Model model,User user) {
+		model.addAttribute(user.getUsername());
+		user.getUsername();
+		user.getAddr();
+		user.getEmail();
+		user.getMileage();
+		user.getNick();
+		user.getRole();
+		userService.update(user);
+		
+		return "admin/userlist";
+	}
+	
+	@PostMapping("adminupdate")
+	@ResponseBody
+	public String adminupdate(User user) {
+		
+		user.setId(user.getId());
+		user.setUsername(user.getUsername());
+		user.setAddr(user.getAddr());
+		user.setEmail(user.getEmail());
+		user.setMileage(user.getMileage());
+		user.setNick(user.getNick());
+		user.setRole(user.getRole());
+		
+		userService.update(user);
+
+		
+	return "admin/userlist";
+		}
+
+	
+	@PostMapping("admindelete")
+	@ResponseBody
+	public String delete(long id) {
+		User user = userService.findById(id);
+		if(user==null) {	
+			log.info("삭제 실패");
+			return "failed";
+		}else{
+			userService.delete(id);
+			log.info("삭제 성공");
+		}
+		return "success";
+	}
 }
-
-
-
-
-
-
-
-
-

@@ -1,6 +1,3 @@
-/**
- * 
- */
  
 $(document).ready(function(){
 	
@@ -89,7 +86,7 @@ $(document).ready(function(){
 				location.href = "/join"
 			} else if (resp == "success") {
 				alert("로그인 성공");
-				location.href = "/board/list"
+				location.href = "/index"				
 			} else {
 				alert("비밀번호를 확인하세요");
 			}

@@ -1,5 +1,6 @@
 package com.one.springpj.service;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,13 +39,39 @@ public class UserServiceImpl implements UserService{
 	}
 	
 	@Override
-	public void delete(Long id) {
+	public void delete(long id) {
 		userRepository.deleteById(id);
+	
 	}
 
 	@Override
 	public void update(User user) {
 		userRepository.save(user);
 	}
+
+
+	@Override
+	public void userdelete(User user,Principal principal) {
+		// TODO Auto-generated method stub
+		if(user == principal) {
+		userRepository.delete(user);
+		}
+		
+	}
+
+	@Override
+	public void userupdate(User user, Principal principal) {
+		// TODO Auto-generated method stub
+		if(user == principal) {
+		userRepository.save(user);
+			}
+		}
+
+	@Override
+	public User findById(Long id) {
+		return userRepository.findById(id).get();
+	}
 	
-}
+	}
+
+

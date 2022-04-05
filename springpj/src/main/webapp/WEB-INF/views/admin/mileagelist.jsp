@@ -20,14 +20,13 @@
 
 		<input type="text" placeholder="검색어 입력">
 		<button type="submit" class="btn_mileage_select">검색</button>
-		<table id="mileage-list" class="mileage">
+		<table id="mileage_list" class="mileage">
 			<colgroup>
 				<col width="15%" />
 				<col width="*" />
 				<col width="15%" />
 				<col width="20%" />
 			</colgroup>
-
 			<tr>
 				<th scope="col">회원번호</th>
 				<th scope="col">회원명</th>
@@ -36,7 +35,6 @@
 				<th scope="col">포인트 지급</th>
 				<th scope="col">포인트 회수</th>
 			</tr>
-
 			<tbody>
 				<c:forEach items="${userlist}" var="user">
 					<tr>
@@ -60,7 +58,7 @@
 		<a href="/admin/userlist" class="btn"></a>
 	</div>
 
-	<script> 
+<script> 
 		function addMile(username){
 		    if(!jQuery.isNumeric($("#mileage_insert").val())){
 		            alert("숫자가 아닙니다.")
