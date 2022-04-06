@@ -20,6 +20,7 @@
 <link rel="stylesheet" href="/css/study_list.css" />
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" />
+
 </head>
 <body>
 	<div class="header">
@@ -28,76 +29,91 @@
 	    <p>스터디그룹에 가입해서 다양한 혜택을 받아보세요</p>
 	</div>
 	
-	<div id="search">
-		<form action="/study/list" method="get">
-			<select name="field">
-				<option value="both">내용/제목</option>
-				<option value="title">제목</option>
-				<option value="content">내용</option>
-			</select> <input type="text" name="word" placeholder="검색어를 입력하세요">
-			<button type="submit">검색</button>
-			<button><i class="fa-solid fa-magnifying-glass"></i></button>
-		</form>
-	</div>
+	<div class="container">
 	
-	<div class="study_my">
-		<c:forEach items="${joins}" var="joiner">
-			<div class="study_item">
-				<img class="study_item_img" src="${joiner.study.profile }"
-					onclick="myStudyEnter(${joiner.study.id })">
-				<p class="study_item_title">${joiner.study.title }</p>
-				<p class="study_item_content">${joiner.study.content}</p>
-				<c:if test="${joiner.joinStatus=='WAITING'}">
-				대기중
-			</c:if>
-			</div>
-		</c:forEach>
-		<div class="insert_study">
-			<button type="button" id="btnMkStudy">
-				+
-				<p>나만의 스터디 그룹 만들기</p>
-			</button>
-		</div>
-	</div>
-	<article>
-		<div class="order">
-            <select name="order" id="order">
-                <option value="likes">인기순</option>
-            </select>
-        </div>
-
-		<div class="study-items">
-			<c:forEach var="study" items="${studies}">
-				<div class="study-item">
-					<div class="study-status">진행중</div>
-					<img class="study-profile" src="${study.profile }"
-						onclick="location.href='/study/detail?id=${study.id}'">
-					<p class="study-title">제목 : ${study.title }</p>
-					<p class="study-info">내용 : ${study.content }</p>
-					<ul>
-						<li>지역</li>
-						<li>기간</li>
-						<li>멤버수</li>
-					</ul>
-					<div class="likes">
-						<i id="like" class="fa-regular fa-heart"></i>
-						<label for="like">${study.likes }</label>
-						<button type="button" id="like" onclick="clickLike(${study.id})">하트</button>
-					</div>
+		<div id="my-study">
+                <div class="main-my-study">
+                    <img src="/images/bookex.jpg" />
+                    <p class="study-title">독서모임스터디</p>
+                </div>
+                <div class="my-studyies">
+                    <div class="my-study">
+                        <img src="/images/bookex.jpg" />
+                        <p class="study-title">독서어쩌구</p>
+                    </div>
+                </div>
+                <div class="insert-my-study">
+                    <button type="button" id="btnMkStudy"><i class="fa-solid fa-plus"></i></button>
+                </div>
+            </div>
+		
+		<%-- <div class="study_my">
+			<c:forEach items="${joins}" var="joiner">
+				<div class="study_item">
+					<img class="study_item_img" src="${joiner.study.profile }"
+						onclick="myStudyEnter(${joiner.study.id })">
+					<p class="study_item_title">${joiner.study.title }</p>
+					<p class="study_item_content">${joiner.study.content}</p>
+					<c:if test="${joiner.joinStatus=='WAITING'}">
+					대기중
+				</c:if>
 				</div>
 			</c:forEach>
+		</div> --%>
+		
+		<div id="search">
+			<form action="/study/list" method="get">
+				<select name="field" id="field">
+					<option value="both">내용/제목</option>
+					<option value="title">제목</option>
+					<option value="content">내용</option>
+				</select> <input type="text" name="word" placeholder="검색어를 입력하세요">
+				<!-- <button type="submit">검색</button> -->
+				<button><i class="fa-solid fa-magnifying-glass"></i></button>
+			</form>
 		</div>
-		<ul class="paging">
-	         <li class="prev"><i class="fas fa-angle-left"></i></li>
-	         <li>1</li>
-	         <li>2</li>
-	         <li>3</li>
-	         <li>4</li>
-	         <li>5</li>
-	         <li class="next"><i class="fas fa-angle-right"></i></li>
-	     </ul>
-	</article>
+		
 
+		<article>
+			<div class="order">
+	            <select name="order" id="order">
+	                <option value="likes">인기순</option>
+	            </select>
+	        </div>
+	
+			<div class="study-items">
+				<c:forEach var="study" items="${studies}">
+					<div class="study-item">
+						<div class="study-status">진행중</div>
+						<img class="study-profile" src="${study.profile }"
+							onclick="location.href='/study/detail?id=${study.id}'">
+						<p class="study-title">제목 : ${study.title }</p>
+						<p class="study-info">내용 : ${study.content }</p>
+						<ul>
+							<li>지역</li>
+							<li>기간</li>
+							<li>멤버수</li>
+						</ul>
+						<div class="likes">
+							<i id="like" class="fa-regular fa-heart"></i>
+							<label for="like">${study.likes }</label>
+							<button type="button" id="like" onclick="clickLike(${study.id})">하트</button>
+						</div>
+					</div>
+				</c:forEach>
+			</div>
+			<ul class="paging">
+		         <li class="prev"><i class="fas fa-angle-left"></i></li>
+		         <li>1</li>
+		         <li>2</li>
+		         <li>3</li>
+		         <li>4</li>
+		         <li>5</li>
+		         <li class="next"><i class="fas fa-angle-right"></i></li>
+		     </ul>
+		</article>
+	</div>
+	
 	<script type="text/javascript">
 		function clickLike(id){
 			$.ajax({

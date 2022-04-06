@@ -17,24 +17,24 @@ import com.one.springpj.service.StudyService;
 @RequestMapping("/admin/studyGroup/")
 public class StudyGroupController {
 	
-	@Autowired
-	private StudyGroupService studyGroupService;
-	
-	@Autowired
-	private StudyService studyService;
-	
-	@GetMapping("delete/{id}")
-	public String delete(@PathVariable("id")Long id) {
-		studyGroupService.delete(id);
-		return "redirect:/admin/studyGroup/studyGroupList";
-	}
-	
-	@GetMapping("studyGroupList")
-	public void list(Model model) {
-		List<Study> studies = studyService.getList();
-		model.addAttribute("list",studies);
-		
-	}
-	
+//	@Autowired
+//	private StudyGroupService studyGroupService;
+//	
+//	@Autowired
+//	private StudyService studyService;
+//	
+//	@GetMapping("delete/{id}")
+//	public String delete(@PathVariable("id")Long id) {
+//		studyGroupService.delete(id);
+//		return "redirect:/admin/studyGroup/studyGroupList";
+//	}
+//	
+//	@GetMapping("studyGroupList")
+//	public void list(Model model) {
+//		List<Study> studies = studyService.getList();
+//		model.addAttribute("list",studies);
+//		
+//	}
+//	
 
 }

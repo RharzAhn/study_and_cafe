@@ -10,13 +10,22 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css"
+        />
+        <link rel="stylesheet" href="/css/index.css" />
+        <link rel="stylesheet" href="/css/study_detail.css" />
 </head>
 <body>
-
+<div class="header"></div>
 	<sec:authorize access="isAuthenticated()">
 		<sec:authentication property="principal" var="principal" />
 	</sec:authorize>
@@ -54,25 +63,32 @@
 							value="${study.endDate}" /></li>
 					<li>제한인원 : ${study.limitCount }</li>
 				</ul>
-				<c:if test="${principal.user.id != study.leader.id }">
-					<button type="button" id="applyBtn">참여 신청</button>
-				</c:if>
+				<div class="likes">
+                    <i id="like" class="fa-regular fa-heart"></i>
+                    <label for="like">10</label>
+                </div>				
 			</div>
+			<c:if test="${principal.user.id != study.leader.id }">
+				<button id="apply">신청하기</button>
+				<!-- <button type="button" id="applyBtn">참여 신청</button> -->
+			</c:if>
 		</div>
+		<div class="study_content">
+			<h1>${study.title }</h1>
+		        <div class="study-content-detail">
+		            ${study.content }
+		        </div>
+		        <div class="controller">
+	                <c:if test="${principal.user.id == study.leader.id }">
+		                <button class="delete">삭제</button>
+		                <button class="modify">수정</button>
+	                </c:if>
+	                <button class="list" onclick="location.href='/study/list'">목록</button>
+	            </div>
+		</div>
+		
 	</article>
-	<div class="study_content">
-		<h1>${study.title }</h1>
-	        <div class="study-content-detail">
-	            ${study.content }
-	        </div>
-	        <div class="controller">
-                <c:if test="${principal.user.id == study.leader.id }">
-	                <button class="delete">삭제</button>
-	                <button class="modify">수정</button>
-                </c:if>
-                <button class="list">목록</button>
-            </div>
-	</div>
+
 	</div>
 </body>
 <style>
