@@ -47,11 +47,11 @@
             </button>
             <div class="w-100"></div>
             <div class="navbar-nav">
-                <div class="nav-item text-nowrap">
-                    <a class="" href="#"><i class="fas fa-home"></i></a>
+                 <div class="nav-item text-nowrap">
+                    <a class="" href="/index"><i class="fas fa-home"></i></a>
 
                     <a href="#"><i class="fas fa-bell"></i></a>
-                    <a href="#">
+                    <a href="/user/user">
                         <i class="fas fa-user-circle"></i>
                     </a>
                 </div>
@@ -70,20 +70,20 @@
                                 <a
                                     class="nav-link "
                                     aria-current="page"
-                                    href="management"
+                                    href="/manager/currentStatus"
                                 >
                                     <span data-feather="home"></span>
                                     매장 현황
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="menuStatus">
+                                <a class="nav-link" href="/manager/cafeMenu/cafeMenuList">
                                     <span data-feather="file"></span>
                                     메뉴 상태 관리
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" href="bookStatus">
+                                <a class="nav-link active" href="/manager/bookStatus">
                                     <span data-feather="users"></span>
                                     예약 상태 관리
                                 </a>

@@ -48,10 +48,10 @@
             <div class="w-100"></div>
             <div class="navbar-nav">
                 <div class="nav-item text-nowrap">
-                    <a class="" href="#"><i class="fas fa-home"></i></a>
+                    <a class="" href="/index"><i class="fas fa-home"></i></a>
 
                     <a href="#"><i class="fas fa-bell"></i></a>
-                    <a href="#">
+                    <a href="/user/user">
                         <i class="fas fa-user-circle"></i>
                     </a>
                 </div>
@@ -70,40 +70,42 @@
                                 <a
                                     class="nav-link"
                                     aria-current="page"
-                                    href="branchManagement"
+                                    href="/admin/branch/branchList"
                                 >
                                     <span data-feather="home"></span>
                                     지점 관리
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a
-                                    class="nav-link"
-                                    aria-current="page"
-                                    href="studyManagement"
-                                >
-                                    <span data-feather="home"></span>
-                                    스터디 관리
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link active" href="menuManagement">
+                                <a class="nav-link active" href="/admin/menu/menuList">
                                     <span data-feather="file"></span>
                                     메뉴 관리
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="userManagement">
+                                <a class="nav-link" href="/admin/mileage/mileageList">
+                                    <span data-feather="users"></span>
+                                    마일리지 관리
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a
+                                    class="nav-link"
+                                    aria-current="page"
+                                    href="/admin/study/studyList"
+                                >
+                                    <span data-feather="home"></span>
+                                    스터디 관리
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="/admin/user/userList">
                                     <span data-feather="users"></span>
                                     회원 관리
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="mileageManagement">
-                                    <span data-feather="users"></span>
-                                    포인트 관리
-                                </a>
-                            </li>
+                            
                         </ul>
 
                         <h6
@@ -135,7 +137,7 @@
                     </div>
 					<div class="container">
 					 		 <h2>메뉴추가</h2>
-					 		 <form action="insert" method="post" enctype="multipart/form-data">
+					 		 <form action="/admin/menu/insert" method="post" enctype="multipart/form-data">
 					  			 <div class="form-group">
 					   				  <label for="id">메뉴번호:</label>
 					   				  <input type="text" class="form-control" id="id" placeholder="메뉴번호" name="id">

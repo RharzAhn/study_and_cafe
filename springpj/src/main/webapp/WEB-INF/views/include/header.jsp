@@ -66,9 +66,9 @@
 				</sec:authorize>
 				<sec:authorize access="isAuthenticated()">
 					<li><a href="/logout">로그아웃(${principal.user.username})</a>
-						<a href="../user/userpage">마이페이지(${principal.user.username})</a>
+						<a href="../user/user">마이페이지(${principal.user.username})</a>
 						
-						<a href="/admin/branchManagement">관리자페이지(${principal.user.username})</a>
+						<a href="/admin/admin">관리자페이지(${principal.user.username})</a>
 						
 						<a href="/manager/manager">매니저페이지(${principal.user.username})</a>
 					</li>

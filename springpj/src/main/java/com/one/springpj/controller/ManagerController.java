@@ -42,24 +42,22 @@ public class ManagerController {
 	public void managerPage() {
 		
 	}
+	//--------------------------매장현황-----------------------------------
 	
-	@GetMapping("management")
-	public void managementPage() {
-		
+	@GetMapping("currentStatus")
+	public void statusPage() {
 	}
 	
-	@GetMapping("menuStatus")
+	//===================================================================
+	
+	//-------------------------메뉴상태관리--------------------------------
+	
+	@GetMapping("cafeMenu/cafeMenuList")
 	public void menuStatus(Model model) {
 //		model.addAttribute("list", cafeMenuService.findAll());
-		
 	}
 	
-	@GetMapping("bookStatus")
-	public void bookStatus() {
-		
-	}
-	
-	@GetMapping("branchMenu")
+	@GetMapping("cafeMenu/cafeMenuBalju")
 	public void list(Model model, Principal principal) {
 		User user = userService.findByUsername(principal.getName());
 		Branch branch = branchService.findByManager(user);
@@ -79,7 +77,7 @@ public class ManagerController {
 	}
 	
 
-	@GetMapping("branchMenuSelect")
+	@GetMapping("cafeMenu/cafeMenuSelect")
 	public void branchMenu(Long[] ch, Long branchId){
 		Branch branch = branchService.findById(branchId);
 		for(int i=0; i<ch.length; i++) {
@@ -90,4 +88,17 @@ public class ManagerController {
 			cafeMenuService.save(cafeMenu);
 		}
 	}
+	
+	//=====================================================================
+	
+	//---------------------------예약상태 관리-----------------------------
+	
+	@GetMapping("bookStatus")
+	public void bookStatus() {
+		
+	}
+	
+	//======================================================================
+	
+
 }

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,6 +22,7 @@ import com.one.springpj.model.Study;
 import com.one.springpj.model.User;
 import com.one.springpj.service.BranchService;
 import com.one.springpj.service.MenuService;
+import com.one.springpj.service.StudyGroupService;
 import com.one.springpj.service.StudyService;
 import com.one.springpj.service.UserService;
 
@@ -40,51 +42,154 @@ public class AdminController {
 	private StudyService studyService;
 	
 	@Autowired
+	private StudyGroupService studyGroupService;
+	
+	@Autowired
 	private MenuService menuService;
 	
-	@GetMapping("branchManagement")
+	@GetMapping("admin")
+	public void adminPage() {
+	}
+	
+
+	// -----------------------------지점(branch) 컨트롤------------------------------------
+	
+	//branchList 입장+List불러오기
+	@GetMapping("branch/branchList")
 	public void list(Model model) {
 		model.addAttribute("list", branchService.branchList());
-
 	}
 	
-	@PostMapping("branchUpdate")
-	public String update(Branch branch,MultipartFile file, HttpSession session) {
-		String imagePath = FileMaker.save(file, session);
-		branch.setProfile(imagePath);
-		branchService.update(branch);
-		return "redirect:/admin/branchManagement";
+	//branchRegister 입장
+	@GetMapping("branch/branchRegister")
+	public void insertForm(Branch branch) {
 	}
 	
-	@PostMapping("insert")
+	//branch추가
+	@PostMapping("branch/insert")
 	public String insert(Branch branch,MultipartFile file, HttpSession session) {
 		String imagePath = FileMaker.save(file, session);
 		branch.setProfile(imagePath);
 		branchService.insert(branch);
-		return "redirect:/admin/branchManagement";
+		return "redirect:/admin/branch/branchList";
 	}
 	
-	@GetMapping("studyManagement")
-	public void studyList(Model model) {
-		List<Study> studies = studyService.getList();
-		model.addAttribute("list",studies);
-		
+	// id값을 가지고 branchUpdate 입장
+	@GetMapping("/banch/branchUpdate/{id}")
+	public String updateForm(@PathVariable("id") Long id, Model model) {
+		Branch branch = branchService.findById(id);
+		model.addAttribute("branch", branch);
+		return "/admin/branch/branchUpdate";
 	}
 	
-	@GetMapping("menuManagement")
+//	@PostMapping("branchUpdate")
+//	public String update(Branch branch) {
+//		branchService.update(branch);
+//		return "redirect:/admin/branch/branchList";
+//	}
+	
+	//수정한 값 보내기
+	@PostMapping("branchUpdate")
+	public String update(Branch branch, MultipartFile file, HttpSession session) {
+		String imagePath = FileMaker.save(file, session);
+		branch.setProfile(imagePath);
+		branchService.update(branch);
+		return "redirect:/admin/branch/branchList";
+	}
+	
+	//삭제
+	@GetMapping("/branch/delete/{id}")
+	public String branchDelete(@PathVariable("id")Long id) {
+		branchService.delete(id);
+		return "redirect:/admin/branch/branchList";
+	}
+	
+	
+	//===========================================================================
+
+	//-----------------------메뉴(menu)컨트롤--------------------------------------
+	
+	//menuList 입장+List 불러오기
+	@GetMapping("menu/menuList")
 	public void menuList(Model model) {
 		model.addAttribute("list", menuService.menuList());
-
 	}
 	
-	@GetMapping("userManagement")
-	public void userManagement() {
+	//menuRegister 입장
+	@GetMapping("menu/menuRegister")
+	public void insertForm(Menu menu) {
+	}	
+	
+	//	menuRegister의 submit타입 버튼에 의해 form action명 insert로 post된거 처리
+	@PostMapping("menu/insert")
+	public String insert(Menu menu,MultipartFile file, HttpSession session) {
+		String imagePath = FileMaker.save(file, session);
+		menu.setProfile(imagePath);
+		menuService.insert(menu);
+		return "redirect:/admin/menu/menuList";
+	}	
+	
+	//menuUpdate로 아이디들고 들어가기
+	@GetMapping("/menu/menuUpdate/{id}")
+	public String menuupdateForm(@PathVariable("id") Long id, Model model) {
+		Menu menu = menuService.findById(id);
+		model.addAttribute("menu", menu);
+		return "/admin/menu/menuUpdate";
 	}
 	
-	@GetMapping("mileageManagement")
-	public void mileageManagement() {
+	//수정
+	@PostMapping("/menu/menuUpdate")
+	public String menuupdate(Menu menu,MultipartFile file, HttpSession session) {
+		String imagePath = FileMaker.save(file, session);
+		menu.setProfile(imagePath);
+		menuService.update(menu);
+		return "redirect:/admin/menu/menuList";
 	}
+	
+	//삭제
+	@GetMapping("menu/delete/{id}")
+	public String menuDelete(@PathVariable("id") Long id) {
+		menuService.delete(id);
+		return "redirect:/admin/menu/menuList";
+	}	
+	
+	//==========================================================================
+	
+	//----------------------마일리지(mileage)컨트롤------------------------------
+	
+	@GetMapping("mileage/mileageList")
+	public void mileageList() {
+	}
+	
+	//==========================================================================
 
+	//-----------------------스터디(study)컨트롤---------------------------------
+	
+	//studyList 입장+List
+	@GetMapping("/study/studyList")
+	public void studyList(Model model) {
+		List<Study> studies = studyService.getList();
+		model.addAttribute("list",studies);	
+	}
+	
+	@GetMapping("/study/delete/{id}")
+	public String delete(@PathVariable("id")Long id) {
+		studyGroupService.delete(id);
+		return "redirect:/admin/study/studyList";
+	}
+	
+	
+	//============================================================================
+	
+	//---------------------------유저(user) 컨트롤----------------------------------
+	
+	@GetMapping("user/userList")
+	public void userList() {
+	}
+	
+	//===============================================================================
+
+	
 	@RequestMapping(value = { "", "index" }, method = RequestMethod.GET)
 	public String root() {
 		return "index";
