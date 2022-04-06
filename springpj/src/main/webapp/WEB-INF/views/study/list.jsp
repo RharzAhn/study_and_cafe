@@ -87,7 +87,7 @@ img {
 		
 		
 		function myStudyEnter(id){
-			location.href="/study/board/"+id
+			location.href="/study/"+id
 // 			$.ajax({
 // 				type:"get",
 // 				url:"/study/board/"+id,

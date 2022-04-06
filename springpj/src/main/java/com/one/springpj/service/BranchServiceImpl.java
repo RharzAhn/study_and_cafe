@@ -77,6 +77,10 @@ public class BranchServiceImpl implements BranchService{
 	public List<CafeMenu> cafeMenufindByBranchId(Branch branch) {
 		return cafeMenuRepository.findByBranch(branch);
 	}
+	@Override
+	public CafeMenu cafeMenuFindById(Long id) {
+		return cafeMenuRepository.findById(id).get();
+	}
 	
 
 }

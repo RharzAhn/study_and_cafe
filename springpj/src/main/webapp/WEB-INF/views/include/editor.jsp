@@ -15,7 +15,6 @@
 <body>
 	<div id="content"></div>
 	<script>
-        <script>
         let editor = new FroalaEditor("div#content", {
             heightMin:150,
             heightMax:150
@@ -25,7 +24,6 @@
         $("#btnInsert").click(() => {
             console.log(editor.html.get());
         });
-        </script>
 	</script>
 </body>
 </html>

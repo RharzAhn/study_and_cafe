@@ -19,4 +19,6 @@ public interface StudyService {
 	
 	
 	public List<Board> findByStudyId(Long id);
+	
+	public void insertBoard(Board board); 
 }

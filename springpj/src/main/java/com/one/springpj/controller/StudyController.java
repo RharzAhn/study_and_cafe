@@ -1,7 +1,9 @@
 package com.one.springpj.controller;
 
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -113,7 +115,7 @@ public class StudyController {
 	}
 	
 	
-	@GetMapping("board/{id}")
+	@GetMapping("/{id}")
 	public String enterStudy(@PathVariable("id") Long id, Principal principal, Model model) {
 		if(principal==null){
 			return "/study/list";
@@ -127,17 +129,33 @@ public class StudyController {
 			List<Board> boardList = studyService.findByStudyId(id);
 			//추가 예약정보
 			model.addAttribute("study", study);
-//			model.addAttribute("boardList", boardList);
+			model.addAttribute("boardList", boardList);
 			return "/study/board";
 		}
 	}
 	
+	@PostMapping("board/register")
+	@ResponseBody
+	public void insertBoard(Board board) {
+//		board.setWriter(userService.findByUsername(principal.getName()));
+		studyService.insertBoard(board);
+//		return "/study/board/"+board.getStudy().getId();
+	}
 	
+	@PostMapping("board/imgupload")
+	@ResponseBody
+	public Object imageUpload(MultipartFile file, HttpSession session) {
+		String path = FileMaker.save(file, session);
+		Map<String,String> result = new HashMap<String, String>();
+		result.put("link", path);
+		log.info("====================="+path);
+		return result;
+	}
 	
-	
-//	@GetMapping("{id}")
-//	public String enterStudyRoom(@PathVariable("id") Long id) {
-//		
-//	}
-
+	@GetMapping("board/{id}")
+	@ResponseBody
+	public List<Board> enterWithBoard(@PathVariable("id") Long id) {
+		List<Board> boardList = studyService.findByStudyId(id);
+		return boardList;
+	}
 }

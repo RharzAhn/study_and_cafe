@@ -26,4 +26,5 @@ public interface BranchService {
 	
 	public List<Seat> findByBranchId(Long id);
 	public List<CafeMenu> cafeMenufindByBranchId(Branch id); 
+	public CafeMenu cafeMenuFindById(Long id);
 }

@@ -36,12 +36,19 @@ form label {
 <body>
 	<%@include file="../include/header.jsp"%>
 	<button type="button" onclick="selectStudy()">그룹 선택</button>
-	
-	
 
-	<form action="/book/bookMenu" method="get">
-		<input type="hidden" readonly name="studyId" id="studyId" >
-		<input type="hidden" name="cafeId" value="${cafeId}">
+	<input type="date" name="bookdate">
+
+	<input type="button" value="10:00">
+	<input type="button" value="11:00">
+	<input type="button" value="12:00">
+	<input type="button" value="13:00">
+
+
+	<form action="/book/bookMenu" method="get" id="frm">
+		<input type="hidden" readonly name="studyId" id="studyId"> <input
+			type="hidden" name="cafeId" value="${cafeId}">
+		<input type="hidden" name="dateTime" id="dateTime">
 		<c:forEach begin="0" end="9" var="i" step="1">
 			<c:forEach begin="0" end="9" var="j" step="1">
 				<input type="checkbox" name="seat" id="${i}${j}" disabled>
@@ -52,27 +59,58 @@ form label {
 
 		<div>선택한 좌석</div>
 		<input type="text" readonly id="selectSeat">
-		<button type="submit" id="btnNextBook">버튼</button>
+		<button type="button" id="btnNextBook">버튼</button>
 
 	</form>
 </body>
 <script type="text/javascript">
 	<c:forEach items="${seats}" var="seat">
-	var data = '${seat.name}'
-	<c:choose>
-	<c:when test="${seat.book==null}">
-	$("#${seat.x}${seat.y}").attr("disabled", false);
-	$("#${seat.x}${seat.y}").val("${seat.name}")
-	</c:when>
-
-	<c:otherwise>
-	$("#${seat.x}${seat.y}").addClass("aleady")
-	$("#${seat.x}${seat.y}").attr("disabled", true);
-	</c:otherwise>
-	</c:choose>
+		var data = '${seat.name}'
+		$("#${seat.x}${seat.y}").attr("disabled", false);
+		$("#${seat.x}${seat.y}").val("${seat.name}")
 	</c:forEach>
+	
+	$("input:button").click(function(event){
+		var date = $("input[type='date']").val()
+		var time = $(this).val()
+		if(date==""){
+			alert("날짜를 선택하세요")
+			return;
+		}
+		var dateTime = date+" "+time
+		$("#dateTime").val(dateTime)
+		var data = {
+				"dateTime":dateTime,
+				"branchId":"${cafeId}"
+			}
+		$.ajax({
+			type:"post",
+			url:"/book/bookSeat",
+			data: data
+		}).done(function(resp){
+				$("input[type=checkbox]").prop("checked", false); 
+				
+				$("#selectSeat").val("")
+				<c:forEach items="${seats}" var="seat">
+					var data = '${seat.name}'
+					$("#${seat.x}${seat.y}").removeClass("aleady")
+					$("#${seat.x}${seat.y}").attr("disabled", false);
+					$("#${seat.x}${seat.y}").val("${seat.name}")
+				</c:forEach>
+			$.each(resp, (key,val)=>{
+				
+				if(val){
+					var unable = "#"+val.x+val.y
+					$(unable).addClass("aleady")
+					$(unable).attr("disabled", true)
+				}
+			})
+		})
+
+	})
 
 	$("input:checkbox").click(function() {
+		
 		var selectList = $("#selectSeat").val()
 		if ($(this).is(":checked")) {
 			$("#selectSeat").val(selectList + " "+ $(this).val())			
@@ -83,6 +121,7 @@ form label {
 	
 	
 	$("input:radio").click(function() {
+		var stduyTitle = $("#studyTitle").val()
 		var stduyTitle = $("#studyTitle").val()
 		console.log(stduyTitle)
 		console.log("text")
@@ -104,5 +143,24 @@ form label {
 			$("#studyId").val(studyId)
 		})
 	}
+	
+	$("#btnNextBook").click(()=>{
+		if($("#studyId").val()==""){
+			alert("스터디 그룹을 선택해주세요")
+			return
+		}
+		if($("#dateTime").val()==""){
+			alert("날짜 및 시간을 선택해주세요")
+			return
+		}
+		if($("#selectSeat").val()==""){
+			alert("좌석을 선택해주세요")
+			return
+		}
+		
+		$("#frm").submit()
+	})
+
+	
 </script>
 </html>

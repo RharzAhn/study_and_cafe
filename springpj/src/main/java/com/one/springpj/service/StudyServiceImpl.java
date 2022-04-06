@@ -72,5 +72,10 @@ public class StudyServiceImpl implements StudyService {
 		return boardRepository.findByStudy(study);
 	}
 
+	@Override
+	public void insertBoard(Board board) {
+		boardRepository.save(board);
+	}
+
 
 }

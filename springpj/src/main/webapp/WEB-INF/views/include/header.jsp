@@ -43,13 +43,13 @@
 			</li>
 		</ul>
 	</header>
-	<input id="inputMsgBox" style="width: 250px;" type="text" onkeypress="inputMsgBox_onkeypress()">
+	<!-- <input id="inputMsgBox" style="width: 250px;" type="text" onkeypress="inputMsgBox_onkeypress()">
     <input id="sendButton" value="Send" type="button" onclick="sendButton_onclick()">
     <input id="disconnectButton" value="Disconnect" type="button" onclick="disconnectButton_onclick()">
     <br/>
-    <textarea id="chatBoxArea" style="width: 100%;" rows="10" cols="50" readonly="readonly"></textarea>
+    <textarea id="chatBoxArea" style="width: 100%;" rows="10" cols="50" readonly="readonly"></textarea> -->
     
-    <script src="/js/socket.js"></script>
+<!--     <script src="/js/socket.js"></script> -->
 	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<script>
 		function alertBtn(){

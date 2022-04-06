@@ -30,7 +30,7 @@
  	<br><a href="/user/usermilage">유저 마일리지 바로가기</a></br>
  	<br><a href="/user/userupdate">유저 수정,삭제 바로가기</a></br>
  	
- 	
+ 	<br><a href="/book/bookCafe">카페예약</a></br>
  	<br><a href="/admin/branch/branchList">브랜치 추가</a></br>
  	<br><a href="/book/bookSeat">좌석예약</a></br>
  			
