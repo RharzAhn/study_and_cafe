@@ -1,5 +1,6 @@
-package com.one.springpj.controller;
+﻿package com.one.springpj.controller;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,8 +13,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.one.springpj.constant.FileMaker;
 import com.one.springpj.model.Branch;
 import com.one.springpj.model.Seat;
 import com.one.springpj.model.User;
@@ -45,11 +48,6 @@ public class BranchController {
 	public void insertForm(Branch branch) {
 		
 	}
-	@GetMapping("branchUpdate")
-	public void updateForm(Branch branch) {
-		
-	}
-	
 	
 	@GetMapping("branchUpdate/{id}")
 	public String updateForm(@PathVariable("id") Long id, Model model) {
@@ -57,6 +55,7 @@ public class BranchController {
 		model.addAttribute("branch", branch);
 		return "/admin/branch/branchUpdate";
 	}
+	
 	@PostMapping("branchUpdate")
 	public String update(Branch branch) {
 		branchService.update(branch);
@@ -98,6 +97,6 @@ public class BranchController {
 	@GetMapping("delete/{id}")
 	public String delete(@PathVariable("id")Long id) {
 		branchService.delete(id);
-		return "redirect:/admin/branch/branchList";
+		return "redirect:/admin/branchManagement";
 	}
 }

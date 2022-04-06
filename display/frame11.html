@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css"
+        />
+        <link rel="stylesheet" href="css/index.css" />
+        <link rel="stylesheet" href="css/study_list.css" />
+    </head>
+    <body>
+        <header>
+            <div class="nav">
+                <ul class="container nav-menu">
+                    <li>
+                        <a href="/menu/list">
+                            <p class="kor">카페소개</p>
+                            <p class="en">ABOUT US</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/book/list">
+                            <p class="kor">예약</p>
+                            <p class="en">BOOK</p>
+                        </a>
+                    </li>
+                    <div class="header-index"><a href="/index">BOOK</a></div>
+                    <li>
+                        <a href="/study/list">
+                            <p class="kor">스터디그룹</p>
+                            <p class="en">STUDY GROUP</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/user/list">
+                            <p class="kor">마이페이지</p>
+                            <p class="en">MY PAGE</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="nav-content">
+                <ul class="container nav-menu-content">
+                    <li>
+                        <a href="">메뉴</a>
+                        <a href="">전국지점찾기</a>
+                    </li>
+                    <li>
+                        <a href="">메뉴</a>
+                        <a href="">전국지점찾기</a>
+                    </li>
+                    <div class="header-index"></div>
+                    <li>
+                        <a href="">메뉴</a>
+                        <a href="">전국지점찾기</a>
+                    </li>
+                    <li>
+                        <a href="/login">로그인</a>
+                        <a href="">회원가입</a>
+                    </li>
+                </ul>
+            </div>
+        </header>
+        <div class="header">
+            <h1>OUR MENU</h1>
+            <span></span>
+            <p>저희 카페에 오신 것을 환영합니다</p>
+        </div>
+
+        <!-- ----------------------header--------------------------- -->
+
+        <div class="container"></div>
+        <!-- ----------------------footer--------------------------- -->
+        <footer>
+            <div class="container">
+                <p>부산IT교육센터 1조</p>
+                <p>팀장 김은진 | 팀원 유우종 안영륜</p>
+                <p>
+                    부산광역시 부산진구 중앙대로 708 부산파이낸스센터 4층 |
+                    0507-1327-5600
+                </p>
+                <br />
+                <ul>
+                    <li>북 운영정책</li>
+                    <li>개인정보처리방침</li>
+                    <li>이용약관</li>
+                    <li>공지사항</li>
+                </ul>
+            </div>
+        </footer>
+
+        <script>
+            const navMenu = document.querySelector(".nav-menu");
+            const nav = document.querySelector(".nav");
+            const navContent = document.querySelector(".nav-content");
+            navMenu.addEventListener("mouseover", () => {
+                nav.style.background = "var(--color-main)";
+                navContent.style.height = "150px";
+                navContent.style.display = "flex";
+            });
+            navMenu.addEventListener("mouseout", () => {
+                nav.style.background = "none";
+                navContent.style.height = "0";
+            });
+            navContent.addEventListener("mouseover", () => {
+                nav.style.background = "var(--color-main)";
+                navContent.style.height = "150px";
+                navContent.style.display = "flex";
+            });
+            navContent.addEventListener("mouseout", () => {
+                nav.style.background = "none";
+                navContent.style.height = "0";
+            });
+        </script>
+    </body>
+</html>

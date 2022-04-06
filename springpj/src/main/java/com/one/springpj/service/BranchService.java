@@ -3,6 +3,7 @@ package com.one.springpj.service;
 import java.util.List;
 
 import com.one.springpj.model.Branch;
+import com.one.springpj.model.User;
 import com.one.springpj.model.CafeMenu;
 import com.one.springpj.model.Seat;
 
@@ -16,8 +17,11 @@ public interface BranchService {
 
 	public Branch findById(Long id);
 
-	void update(Branch branch);
+	public void update(Branch branch);
 	
+
+	public Branch findByManager(User user);
+
 	public Long countIdMax();
 	public Long count();
 	

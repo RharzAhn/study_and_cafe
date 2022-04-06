@@ -42,6 +42,35 @@ public class UserController {
 	@Autowired
 	UserService userService;
 	
+	
+	@GetMapping("user")
+	public void userForm() {	
+	}
+	
+	//-------------------------내정보-----------------------------------
+	
+	@GetMapping("myPage")
+	public void myPageForm() {	
+	}
+	
+	//=========================================================
+	
+	//------------------------내스터디------------------------------------
+	
+	@GetMapping("myStudy")
+	public void myStudyForm() {	
+	}
+	
+	//=================================================================
+	
+	//-------------------------내마일리지---------------------------------
+	
+	@GetMapping("myMileage")
+	public void myMileageForm() {	
+	}
+	
+	//=============================================================
+	
 	@GetMapping("joiner")
 	public void joiner(Model model, Principal principal) {
 		User user = userService.findByUsername(principal.getName());

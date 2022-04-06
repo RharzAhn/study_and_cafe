@@ -1,25 +1,50 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<div class="container">
-<h2>로그인</h2>
-<form action="/loginProc" method="post">
+<%@ include file="/WEB-INF/views/include/header.jsp" %>
 
-		<div class="form-group">
-			<label for="username">아이디:</label> 
-			<input type="text" class="form-control"
-				id="username" placeholder="Enter username" name="username">
-		</div>
-		<div class="form-group">
-			<label for="password">비밀번호:</label> <input type="password"
-				class="form-control" id="password" placeholder="Enter password"
-				name="password">
-		</div>
-		<button type="submit" class="btn btn-primary btn-sm" id="btnLogin">로그인</button>
-		<button type="button" class="btn btn-secondary btn-sm" id="join">회원가입</button>
-	</form>
-</div>
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<script>
+		function logo() {
+			location.href = '/index'
+		}
+	</script>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Document</title>
+	<link rel="stylesheet" href="css/index.css" />
+	<link rel="stylesheet" href="css/login.css" />
+</head>
+<body>
+        <nav>
+            <div class="logo"></div>
+        </nav>
+        <section class="loginform">
+            <form action="/loginProc" method="post">
+                <h3 onclick="location.href = '/index'">BOOK</h3>
+                <p>하나의 아이디로 북 서비스를 즐겨보세요</p>
+                <input
+                    type="text"
+                    name="username"
+                    id="username"
+                    placeholder="아이디"
+                />
+                <input
+                    type="password"
+                    name="password"
+                    id="password"
+                    placeholder="비밀번호"
+                />
+                <input type="submit" value="로그인" id="btnLongin"/>
+                <button type="button" class="btn btn-secondary btn-sm" id="join">회원가입</button>
+            </form>
+        </section>
+    </body>
+    
 <script type="text/javascript" src="/js/member.js"></script>
 <script type="text/javascript">
 	$("#join").click(function() {
@@ -29,4 +54,36 @@
 	});
 
 </script>
+    
+    
+    
+    
+    
+    
+    <script>
+        const navMenu = document.querySelector(".nav-menu");
+        const nav = document.querySelector(".nav");
+        const navContent = document.querySelector(".nav-content");
+        
+        navMenu.addEventListener("mouseover", () => {
+            nav.style.background = "var(--color-main)";
+            navContent.style.height = "150px";
+            navContent.style.display = "flex";
+        });
+        navMenu.addEventListener("mouseout", () => {
+        	nav.style.background = "var(--color-main)";
+            navContent.style.height = "0";
+        });
+        navContent.addEventListener("mouseover", () => {
+            nav.style.background = "var(--color-main)";
+            navContent.style.height = "150px";
+            navContent.style.display = "flex";
+        });
+        navContent.addEventListener("mouseout", () => {
+            nav.style.background = "var(--color-main)";
+            navContent.style.height = "0";
+        });
+    </script>
+</html>
+
 

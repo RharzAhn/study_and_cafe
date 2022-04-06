@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.one.springpj.model.Branch;
+import com.one.springpj.model.User;
 import com.one.springpj.model.CafeMenu;
 import com.one.springpj.model.Seat;
 import com.one.springpj.repository.BranchRepository;
@@ -17,6 +18,8 @@ public class BranchServiceImpl implements BranchService{
 	
 	@Autowired
 	private BranchRepository branchRepository;
+	
+	
 	@Autowired
 	private SeatRepository seatRepository;
 	
@@ -51,10 +54,17 @@ public class BranchServiceImpl implements BranchService{
 	@Override
 	public void update(Branch branch) {
 		Branch b = branchRepository.findById(branch.getId()).get();
+		b.setProfile(branch.getProfile());
 		b.setName(branch.getName());
 		b.setAddr(branch.getAddr());
 		b.setPhone(branch.getPhone());
+		b.setManager(branch.getManager());
 		branchRepository.save(b);
+	}
+	@Override
+	public Branch findByManager(User user) {
+		return branchRepository.findByManager(user);
+	
 	}
 	@Override
 	public void insertSeat(Seat seat) {
