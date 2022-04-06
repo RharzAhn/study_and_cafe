@@ -3,6 +3,7 @@
 <%@taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html>
@@ -12,10 +13,7 @@
 	<sec:authentication property="principal" var="principal" />
 </sec:authorize>
 <head>
-<meta charset="UTF-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Document</title>
+
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
 <script
@@ -24,6 +22,7 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
 <link rel="stylesheet" href="/css/index.css" />
 <link rel="stylesheet" href="/css/home.css" />
@@ -65,19 +64,16 @@
 					<li><a href="/login">로그인</a> <a href="/join">회원가입</a></li>
 				</sec:authorize>
 				<sec:authorize access="isAuthenticated()">
-					<li><a href="/logout">로그아웃(${principal.user.username})</a>
-						<a href="../user/user">마이페이지(${principal.user.username})</a>
-						
-						<a href="/admin/admin">관리자페이지(${principal.user.username})</a>
-						
-						<a href="/manager/manager">매니저페이지(${principal.user.username})</a>
-					</li>
+					<li><a href="/logout">로그아웃(${principal.user.username})</a> <a
+						href="../user/user">마이페이지(${principal.user.username})</a> <a
+						href="/admin/admin">관리자페이지(${principal.user.username})</a> <a
+						href="/manager/manager">매니저페이지(${principal.user.username})</a></li>
 				</sec:authorize>
 				</li>
 			</ul>
 		</div>
 	</header>
-
+	<div class="header"></div>
 	<script>
         const navMenu = document.querySelector(".nav-menu");
         const nav = document.querySelector(".nav");

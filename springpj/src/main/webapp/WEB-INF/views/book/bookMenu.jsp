@@ -23,8 +23,26 @@
 		</c:forEach>
 		<div id="cafeOrderList"></div>
 
-		<input type="text" value="0" id="totalPrice"> <input
-			type="submit" id="submitBtn" value="전송">
+
+		<h3>결제 방식</h3>
+
+		<div>
+			<p>사용 가능한 마일리지</p>
+			<p id="mymileage">${principal.user.mileage }</p>
+			<p>
+				<input type="number" id="useMileage" name="useMile" value="0">
+			</p>
+		</div>
+
+
+
+		<input type="text" value="0" id="totalPrice" name="totalPrice"> 
+		<input type="hidden" value="0" id="totalHidden"> 
+		
+		
+		
+		<input
+			type="submit" id="submitBtn" value="결제">
 	</form>
 
 	<script>
@@ -35,29 +53,39 @@
 					<input type="text" readonly id="menuName"  value="`+name+`">
 					<input type="text" readonly id="menuCount" value="1" name="count">
 					<input type="text" readonly id="menuPrice" value="`+price+`" />
-					<input type="text" readonly id="menuTotal" value="`+price+`" name="totalPrice"/>
+					<input type="text" readonly id="menuTotal" value="`+price+`" name="menuTotal"/>
 					<input type="hidden" id="cafeMenuId" name="cafeMenuId" value="`+id+`">
 					<a href="javascript:delMenu(`+id+`)" id="delMenu">삭제</a>
 					<a href="javascript:addCountMenu(`+id+`)" id="addCountMenu">추가</a>
 					<a href="javascript:subCountMenu(`+id+`)" id="subCountMenu">빼기</a>
 				</div>`)
+				
 			var total = $("#totalPrice")
+			var totalHidden = $("#totalHidden")
 			total.val(Number(total.val())+Number(price))
+			
+			totalHidden.val(total.val())
 			}
 			
 		}
-		var total = $("#totalPrice")
 		
 		function addCountMenu(id){
+			var total = $("#totalPrice")
+			var totalHidden = $("#totalHidden")
 			var count = $("."+id).children('input:eq(1)')
 			var price = $("."+id).children('input:eq(2)')
 			var totprice = $("."+id).children('input:eq(3)')
+			
 			count.val(Number(count.val())+1)
 			totprice.val(Number(count.val())*Number(price.val()))
 			total.val(Number(total.val())+Number(price.val()))
+			
+			totalHidden.val(total.val())
 		}
 		
 		function subCountMenu(id){
+			var total = $("#totalPrice")
+			var totalHidden= $("#totalHidden")
 			var count = $("."+id).children('input:eq(1)')
 			var price = $("."+id).children('input:eq(2)')
 			var totprice = $("."+id).children('input:eq(3)')
@@ -65,12 +93,55 @@
 			
 			count.val(Number(count.val())-1<1?1:Number(count.val())-1)
 			totprice.val(Number(count.val())*Number(price.val()))
+			
+			totalHidden.val(total.val())
 		}
 		function delMenu(id){
+			var total = $("#totalPrice")
+			var totalHidden = $("#totalHidden")
 			var totprice = $("."+id).children('input:eq(3)')
 			total.val(Number(total.val())-Number(totprice.val()))
 			$("."+id).remove()
+			
+			totalHidden.val(total.val())
 		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		$("#useMileage").on('input',()=>{
+			const use =$("#useMileage")
+			const my = $("#mymileage")
+			const tot = $("#totalPrice")
+			
+			var usemile =Number(use.val())
+			var mymile = ${principal.user.mileage }
+			var total = Number($("#totalHidden").val())
+			
+			if(mymile-usemile>0){
+				my.html(mymile-usemile)
+			}else{
+				use.val(mymile)
+				my.html(0)
+			}
+			
+			if(total-usemile>0){			
+				tot.val(total-usemile)
+			}else{
+				tot.val(0)
+				use.val(total)
+				my.html(usemile-total)
+			}
+		})
 		
 	</script>
 </body>

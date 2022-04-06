@@ -66,24 +66,6 @@
 			use.html(total-usemile)
 		}
 	})
-	
-		
-	$("#confirmBtn").click(()=>{
-		const data={
-				"book" :"${book}",
-				"bookSeatList":"${bookSeatList}",
-				
-				"total":$("#total").html()
-		}
-		$.ajax({
-			type: "post",
-			url: "/book/bookAll",
-			contentType: "application/json;charset=utf-8",
-			data: JSON.stringify(data)
-		}).done((res) => {
-				console.log(res)
-			})
-	})
 </script>
 </body>
 </html>

@@ -82,7 +82,7 @@ public class ManagerController {
 		Branch branch = branchService.findById(branchId);
 		for(int i=0; i<ch.length; i++) {
 			CafeMenu cafeMenu = new CafeMenu();
-			cafeMenu.setCafe(branch);
+			cafeMenu.setBranch(branch);
 			cafeMenu.setMenu(menuService.findById(ch[i]));
 			cafeMenu.setMenuStatus(MenuStatus.SELL);
 			cafeMenuService.save(cafeMenu);

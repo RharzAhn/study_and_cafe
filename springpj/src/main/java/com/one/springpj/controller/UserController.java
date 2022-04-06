@@ -1,35 +1,22 @@
 package com.one.springpj.controller;
 
 import java.security.Principal;
+import java.util.List;
 
-import javax.transaction.Transactional;
-import javax.websocket.Decoder.Text;
-import org.hibernate.sql.Update;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.support.SessionStatus;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.one.springpj.constant.Role;
-import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
-import com.one.springpj.config.auth.PrincipalDetailsService;
 import com.one.springpj.constant.JoinStatus;
 import com.one.springpj.constant.StudyRole;
 import com.one.springpj.model.Joiner;
 import com.one.springpj.model.User;
 import com.one.springpj.service.JoinerService;
 import com.one.springpj.service.UserService;
-import com.one.springpj.service.UserServiceImpl;
 
 import lombok.extern.java.Log;
 
@@ -121,6 +108,7 @@ public class UserController {
 		user.getUsername();
 		userService.userupdate(user, principal);
 		return "user/userupdate";
+	}
 
 	@PostMapping("joinerAccept")
 	@ResponseBody

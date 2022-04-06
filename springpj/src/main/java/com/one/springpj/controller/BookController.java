@@ -118,21 +118,30 @@ public class BookController {
 			String bookdate,
 			Long[] cafeMenuId, //
 			int[] count, //
-			int[] totalPrice,
+			int[] menuTotal,//
+			int totalPrice,//
+			int useMile,//
 			Model model) throws ParseException {
 		
 		SimpleDateFormat sdformat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		Date date = sdformat.parse(bookdate);
 		Branch branch = branchService.findById(cafeId);
+		
+		User user = userService.findByUsername(principal.getName());
+		user.setMileage(user.getMileage()-useMile);
+		userService.update(user);
+		
+		
 		Book book = new Book();
 		book.setBookDate(date);
-		book.setBooker(userService.findByUsername(principal.getName()));
+		book.setBooker(user);
 		book.setBranch(branch);
 		book.setStudy(studyService.read(studyId));
 		book.setBookStatus(BookStatus.BOOKED);
+		book.setTotal(totalPrice);
 		
 		
-//		bookService.bookSave(book);
+		bookService.bookSave(book);
 		
 		List<BookSeat> bookSeatList = new ArrayList<BookSeat>();
 		for(int i=0; i<seat.length; i++) {
@@ -140,25 +149,20 @@ public class BookController {
 			bookSeat.setBook(book);
 			bookSeat.setSeat(bookService.findSeatByBranchAndName(branch, seat[i]));
 			bookSeatList.add(bookSeat);
-//			bookService.saveBookSeat(bookSeat);
+			bookService.saveBookSeat(bookSeat);
 		}
 		List<BookMenu> bookMenuList = new ArrayList<BookMenu>();
 		
-		int total = 0;
 		for (int i=0; i<cafeMenuId.length; i++) {
 			BookMenu bookMenu = new BookMenu();
 			CafeMenu cafeMenu =branchService.cafeMenuFindById(cafeMenuId[i]);
 			bookMenu.setCafeMenu(cafeMenu);
 			bookMenu.setCount(count[i]);
-			bookMenu.setTotalPrice(totalPrice[i]);
+			bookMenu.setTotalPrice(menuTotal[i]);
 			bookMenu.setBook(book);
 			bookMenuList.add(bookMenu);
-//			bookService.saveBookMenu(bookMenu);
-			
-			total+=totalPrice[i];
+			bookService.saveBookMenu(bookMenu);
 		}
-		
-		book.setTotal(total);
 
 		model.addAttribute("book", book);
 		model.addAttribute("bookSeatList",bookSeatList);
