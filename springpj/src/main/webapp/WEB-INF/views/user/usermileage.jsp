@@ -9,7 +9,7 @@
 <body>
 <div class="container">
 	<h2>유저 목록</h2>
-	<table class="user_page">
+	<table class="user_mileage">
 	<colgroup>
 	                <col width="15%"/>
 	                <col width="*"/>
@@ -18,21 +18,19 @@
 	            </colgroup>
 	            <thead>
 	            <tr>
-		            
+	           		<th scope="col"> 아이디</th>
+		            <th scope="col"> 닉네임</th>
 		            <th scope="col"> 마일리지</th>
-		            
 		        </tr>
 	            </thead>
 	            <tbody>
- 	          
 	            <tr> 
-	            	
- 	            	<td class="mileage">${user.mileage }</td> 
-	            	
- 	            	</tr> 
-	         
+	           		<td class="username">${user.username }</td>
+		            <td class="nick">${user.nick }</td>  
+	           		<td class="mileage">${user.mileage }</td> 
+				</tr> 
 	            	<td colspan="9">조회된 결과가 없습니다</td> 
-            </tr> 
+           		 </tr> 
 	            </tbody>
 	   </table>
 	   <a href="/user/userpage" class="btn"></a>
