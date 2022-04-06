@@ -1,16 +1,22 @@
 package com.one.springpj.model;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter @Setter
 @Entity
 public class Branch {
 	@Id
@@ -31,4 +37,14 @@ public class Branch {
 	private User manager;
 	
 	private String profile;
+	
+	@OneToMany(mappedBy = "branch",
+			cascade = CascadeType.ALL,
+			fetch = FetchType.LAZY)
+	private List<Seat> seats;
+	
+	@OneToMany(mappedBy = "branch",
+			cascade = CascadeType.ALL,
+			fetch = FetchType.LAZY)
+	private List<CafeMenu> cafeMenus;
 }

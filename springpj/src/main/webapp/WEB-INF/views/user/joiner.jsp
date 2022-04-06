@@ -53,7 +53,7 @@ function applyDecline(id){
 		$.ajax({
 			type:"post",
 			url:"/user/joinerDecline",
-			data: "id":id
+			data: {"id":id}
 		})
 		.done(()=>{
 			alert("거절되었습니다.")

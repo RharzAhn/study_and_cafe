@@ -2,6 +2,7 @@ package com.one.springpj.service;
 
 import java.util.List;
 
+import com.one.springpj.model.Board;
 import com.one.springpj.model.Likes;
 import com.one.springpj.model.Study;
 
@@ -15,4 +16,9 @@ public interface StudyService {
 	public void insertLike(Likes like);
 	public Likes isLike(Long studyId, Long userId);
 	public void deleteLike(Long id);
+	
+	
+	public List<Board> findByStudyId(Long id);
+	
+	public void insertBoard(Board board); 
 }

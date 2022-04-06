@@ -16,13 +16,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Bean
 	public BCryptPasswordEncoder encodePwd() {
-		return new BCryptPasswordEncoder(); //?�스?�드 ?�호??
+		return new BCryptPasswordEncoder(); //?�스?�드 ?�호??
 	}
 	
 	protected void configure(HttpSecurity http) throws Exception{
 		http.csrf().disable();
 		http.authorizeRequests()
-			.antMatchers("/user/**").authenticated()
+			.antMatchers("/user/**","/book/**").authenticated()
 			.antMatchers("/manager/**").access("hasRole('ADMIN') or hasRole('MANAGER')")
 			.antMatchers("/admin/**").hasRole("ADMIN")
 			.anyRequest().permitAll()

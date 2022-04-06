@@ -1,7 +1,9 @@
 package com.one.springpj.controller;
 
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -18,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.one.springpj.constant.FileMaker;
 import com.one.springpj.constant.JoinStatus;
 import com.one.springpj.constant.StudyRole;
+import com.one.springpj.model.Board;
 import com.one.springpj.model.Joiner;
 import com.one.springpj.model.Likes;
 import com.one.springpj.model.Study;
@@ -112,21 +115,47 @@ public class StudyController {
 	}
 	
 	
-	@PostMapping("{id}")
-	@ResponseBody
-	public String enterStudy(@PathVariable("id") Long id, Principal principal) {
+	@GetMapping("/{id}")
+	public String enterStudy(@PathVariable("id") Long id, Principal principal, Model model) {
+		if(principal==null){
+			return "/study/list";
+		}
 		User user = userService.findByUsername(principal.getName());
-		List<Joiner> joinList = joinerService.findJoinUserList(user.getId(), JoinStatus.ACCEPT);
-		if (joinList !=null) {
-			return "success";
+		int check = joinerService.joinCheck(user.getId(), JoinStatus.ACCEPT, id);
+		if (check ==0) {
+			return "/study/list";
 		}else {
-			return "failed";
+			Study study = studyService.read(id);
+			List<Board> boardList = studyService.findByStudyId(id);
+			//추가 예약정보
+			model.addAttribute("study", study);
+			model.addAttribute("boardList", boardList);
+			return "/study/board";
 		}
 	}
 	
-//	@GetMapping("{id}")
-//	public String enterStudyRoom(@PathVariable("id") Long id) {
-//		
-//	}
-
+	@PostMapping("board/register")
+	@ResponseBody
+	public void insertBoard(Board board) {
+//		board.setWriter(userService.findByUsername(principal.getName()));
+		studyService.insertBoard(board);
+//		return "/study/board/"+board.getStudy().getId();
+	}
+	
+	@PostMapping("board/imgupload")
+	@ResponseBody
+	public Object imageUpload(MultipartFile file, HttpSession session) {
+		String path = FileMaker.save(file, session);
+		Map<String,String> result = new HashMap<String, String>();
+		result.put("link", path);
+		log.info("====================="+path);
+		return result;
+	}
+	
+	@GetMapping("board/{id}")
+	@ResponseBody
+	public List<Board> enterWithBoard(@PathVariable("id") Long id) {
+		List<Board> boardList = studyService.findByStudyId(id);
+		return boardList;
+	}
 }

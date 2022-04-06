@@ -35,22 +35,16 @@ public class Book {
 	private User booker;
 	
 	@ManyToOne
-	@JoinColumn(name="cafe_id")
-	private Branch cafe;
+	@JoinColumn(name="branch_id")
+	private Branch branch;
 	
 	
 	@ManyToOne
 	@JoinColumn(name="study_id")
 	private Study study;
 	
-	@DateTimeFormat(pattern = "yy.MM.dd")
+	@DateTimeFormat(pattern = "yy.MM.dd HH:MM")
 	private Date bookDate;
-	
-	@DateTimeFormat(pattern = "HH:MM")
-	private Date startTime;
-	
-	@DateTimeFormat(pattern = "HH:MM")
-	private Date endTime;
 	
 	@Enumerated(EnumType.STRING)
 	private BookStatus bookStatus;
@@ -63,5 +57,7 @@ public class Book {
 	@OneToMany(mappedBy = "book",
 			fetch = FetchType.LAZY,
 			cascade = CascadeType.ALL)
-	private List<Seat> seats;
+	private List<BookSeat> bookseats;
+	
+	private int total;
 }

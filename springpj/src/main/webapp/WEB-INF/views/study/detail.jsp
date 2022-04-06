@@ -60,8 +60,8 @@ img {
 				type:"post",
 				url:"/study/apply",
 				data:{
-					"studyId":${study.id},
-					"userId":${principal.user.id}
+					"studyId":"${study.id}",
+					"userId":"${principal.user.id}"
 				}
 			}).done((resp)=>{
 				alert("신청이 완료되었습니다.")

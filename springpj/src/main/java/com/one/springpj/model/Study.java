@@ -18,13 +18,10 @@ import org.hibernate.annotations.ColumnDefault;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.one.springpj.constant.JoinStatus;
-import com.one.springpj.constant.StudyRole;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 //@Data
 @Entity
@@ -68,6 +65,7 @@ public class Study {
 	@OneToMany(mappedBy = "study",
 			fetch =FetchType.LAZY,
 			cascade = CascadeType.ALL)
+	@JsonManagedReference
 	private List<Board> boards;
 
 	

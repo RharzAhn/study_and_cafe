@@ -19,5 +19,7 @@
 		<textarea rows="10" cols="5" name="content"></textarea>
 		<button>전송</button>
 	</form>
+	
+	<script type="text/javascript" src="js/address.js"></script>
 </body>
 </html>

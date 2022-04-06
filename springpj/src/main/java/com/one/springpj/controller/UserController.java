@@ -6,6 +6,8 @@ import javax.transaction.Transactional;
 import javax.websocket.Decoder.Text;
 import org.hibernate.sql.Update;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -48,6 +50,15 @@ public class UserController {
 		
 		model.addAttribute("applyerList", applyerList);
 		model.addAttribute("joinedList",joinedList);
+	}
+	
+	@PostMapping("joinerAlert")
+	@ResponseBody
+	public Object joinerAlert(String username){
+		User user = userService.findByUsername(username);
+		List<Joiner> applyerList = joinerService.findApplyUser(user.getId());
+		List<Joiner> joinedList = joinerService.findJoinUserList(user.getId(), JoinStatus.ACCEPT);
+		return applyerList;
 	}
 	
 	@GetMapping("register")
