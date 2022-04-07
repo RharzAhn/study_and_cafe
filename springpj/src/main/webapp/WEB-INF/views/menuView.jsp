@@ -11,8 +11,28 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <meta charset="UTF-8">
 <title>메뉴 보기</title>
+        <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css"
+        />
+        <link rel="stylesheet" href="/css/index.css" />
+        <link rel="stylesheet" href="/css/menu.css" />
 </head>
 <body>
+
+        <div class="header">
+            <h1>OUR MENU</h1>
+            <span></span>
+            <p>저희 카페에 오신 것을 환영합니다</p>
+        </div>
+
         <div class="container article">
             <div class="category">
                 <ul>
@@ -56,9 +76,9 @@
             </div>
 
             <article>
-            
+            <div class="menu-list">
 				<c:forEach items="${list}" var="menu">
-					<div class="menu-list">
+					
 						<div class="menu-item">
 							<div class="menutype">${menu.menuType}</div>
 							<div>
@@ -68,8 +88,9 @@
 							<p class="menu-price">${menu.price}</p>
 							<p class="menu-info">${menu.intro}</p>
 						</div>
-					</div>	
-				</c:forEach>            
+					
+				</c:forEach>       
+				</div>	     
             </article>
         </div>
 </body>
