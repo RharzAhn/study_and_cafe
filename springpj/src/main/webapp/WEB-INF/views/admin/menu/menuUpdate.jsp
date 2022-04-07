@@ -33,7 +33,7 @@
         <header
             class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap shadow"
         >
-            <a class="logo-icon col-md-3 col-lg-2 me-0 px-3" href="../index">BOOK</a>
+            <a class="logo-icon col-md-3 col-lg-2 me-0 px-3" href="/index">BOOK</a>
             <button
                 class="navbar-toggler position-absolute d-md-none collapsed"
                 type="button"
@@ -153,7 +153,9 @@
 						    </div>
 						    <div class="form-group">
 						      <label for="file">사진:</label>
-						      <input type="file" class="form-control" id="file" placeholder="사진" name="file" >
+							<input type="file" name="file" id="file" /> <label for="file">
+								<i class="fas fa-image"></i>
+							</label> <input type="text" readonly class="upload-name form-control"></input>
 						    </div>
 						    <div class="form-group">
 						      <label for="price">가격:</label>
@@ -208,6 +210,11 @@
     ></script>
     <script src="js/dashboard.js"></script>
 <script type="text/javascript">
+	$("#file").on("change", function() {
+		var fileName = $("#file").val();
+		$(".upload-name").val(fileName);
+	});
+
 	$("#update").click(function() {
 		if($("#name").val()==""){
 			alert("메뉴명을 입력하세요");

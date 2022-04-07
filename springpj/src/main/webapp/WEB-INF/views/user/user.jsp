@@ -1,10 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
+        <sec:authorize access="isAuthenticated()">
+		<sec:authentication property="principal" var="principal" />
+		</sec:authorize>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Document</title>
@@ -28,7 +32,7 @@
             <p>안녕하세요, ${principal.user.username}님!</p>
             <a href="/user/myPage">내 정보 바로가기</a>
             <a href="/user/myStudy">내 스터디 바로가기</a>
-            <a href="/user/myMileage">마일리지 바로가기</a>
+            <!-- <a href="/user/myMileage">마일리지 바로가기</a> -->
             <a href="../index">홈 바로가기</a>
         </article>
     </body>

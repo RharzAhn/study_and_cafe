@@ -158,7 +158,27 @@ public class AdminController {
 	//----------------------마일리지(mileage)컨트롤------------------------------
 	
 	@GetMapping("mileage/mileageList")
-	public void mileageList() {
+	public void mileagelist(Model model) {
+		model.addAttribute("userlist", userService.getUserlist());
+		
+	}
+	
+	@PostMapping("/addmile")
+	@ResponseBody
+	public void addmileage(int mile, String username) {
+		log.info("mile:"+mile+"username:"+username);
+		User user = userService.findByUsername(username);
+		user.setMileage(user.getMileage()+mile);
+		userService.update(user);
+	}
+	
+	@PostMapping("/delmile")
+	@ResponseBody
+	public void delmileage(int mile, String username) {
+		log.info("mile:"+mile+"username:"+username);
+		User user = userService.findByUsername(username);
+		user.setMileage(user.getMileage()-mile);
+		userService.update(user);
 	}
 	
 	//==========================================================================
@@ -184,7 +204,22 @@ public class AdminController {
 	//---------------------------유저(user) 컨트롤----------------------------------
 	
 	@GetMapping("user/userList")
-	public void userList() {
+	public void userList(Model model) {
+		model.addAttribute("userlist", userService.getUserlist());
+	}
+	
+	@PostMapping("admindelete")
+	@ResponseBody
+	public String delete(long id) {
+		User user = userService.findById(id);
+		if(user==null) {	
+			log.info("삭제 실패");
+			return "failed";
+		}else{
+			userService.delete(id);
+			log.info("삭제 성공");
+		}
+		return "success";
 	}
 	
 	//===============================================================================
@@ -195,35 +230,35 @@ public class AdminController {
 		return "index";
 	}
 
-	@RequestMapping("userList")
+	@RequestMapping("userlist")
 	public String userlist(Model model) {
 		model.addAttribute("userlist", userService.getUserlist());
 		return "admin/userlist";
 	}
 	
-	@RequestMapping("mileagelist")
-	public String mileagelist(Model model) {
-		model.addAttribute("userlist", userService.getUserlist());
-		return "admin/mileagelist";
-	}
+//	@RequestMapping("mileagelist")
+//	public String mileagelist(Model model) {
+//		model.addAttribute("userlist", userService.getUserlist());
+//		return "admin/mileagelist";
+//	}
 	
-	@PostMapping("/addmile")
-	@ResponseBody
-	public void addmile(int mile, String username) {
-		log.info("mile:"+mile+"username:"+username);
-		User user = userService.findByUsername(username);
-		user.setMileage(user.getMileage()+mile);
-		userService.update(user);
-	}
-	
-	@PostMapping("/delmile")
-	@ResponseBody
-	public void delmile(int mile, String username) {
-		log.info("mile:"+mile+"username:"+username);
-		User user = userService.findByUsername(username);
-		user.setMileage(user.getMileage()-mile);
-		userService.update(user);
-	}
+//	@PostMapping("/addmile")
+//	@ResponseBody
+//	public void addmile(int mile, String username) {
+//		log.info("mile:"+mile+"username:"+username);
+//		User user = userService.findByUsername(username);
+//		user.setMileage(user.getMileage()+mile);
+//		userService.update(user);
+//	}
+//	
+//	@PostMapping("/delmile")
+//	@ResponseBody
+//	public void delmile(int mile, String username) {
+//		log.info("mile:"+mile+"username:"+username);
+//		User user = userService.findByUsername(username);
+//		user.setMileage(user.getMileage()-mile);
+//		userService.update(user);
+//	}
 	
 }
 

@@ -23,13 +23,13 @@
         />
 
         <!-- Custom styles for this template -->
-        <link href="css/dashboard.css" rel="stylesheet" />
+        <link href="/css/dashboard.css" rel="stylesheet" />
     </head>
     <body>
         <header
             class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap shadow"
         >
-            <a class="logo-icon col-md-3 col-lg-2 me-0 px-3" href="../index">BOOK</a>
+            <a class="logo-icon col-md-3 col-lg-2 me-0 px-3" href="/index">BOOK</a>
             <button
                 class="navbar-toggler position-absolute d-md-none collapsed"
                 type="button"

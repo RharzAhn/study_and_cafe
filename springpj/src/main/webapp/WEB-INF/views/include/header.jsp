@@ -34,22 +34,22 @@
 	<header>
 		<div class="nav">
 			<ul class="container nav-menu">
-				<li><a href="/menu/list">
+				<li><a href="#">
 						<p class="kor">카페소개</p>
 						<p class="en">ABOUT US</p>
 				</a></li>
-				<li><a href="/book/list">
+				<li><a href="#">
 						<p class="kor">예약</p>
 						<p class="en">BOOK</p>
 				</a></li>
 				<div class="header-index">
 					<a href="../index">BOOK</a>
 				</div>
-				<li><a href="/study/list">
+				<li><a href="#">
 						<p class="kor">스터디그룹</p>
 						<p class="en">STUDY GROUP</p>
 				</a></li>
-				<li><a href="/user/list">
+				<li><a href="#">
 						<p class="kor">마이페이지</p>
 						<p class="en">MY PAGE</p>
 				</a></li>
@@ -67,10 +67,12 @@
 				<sec:authorize access="isAuthenticated()">
 					<li><a href="/logout">로그아웃(${principal.user.username})</a>
 						<a href="../user/user">마이페이지(${principal.user.username})</a>
-						
+						<c:if test="${principal.user.role == 'ROLE_ADMIN' }">
 						<a href="/admin/admin">관리자페이지(${principal.user.username})</a>
-						
+						</c:if>
+						<c:if test="${principal.user.role == 'ROLE_MANAGER' }">
 						<a href="/manager/manager">매니저페이지(${principal.user.username})</a>
+						</c:if>
 					</li>
 				</sec:authorize>
 				</li>

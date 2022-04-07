@@ -1,10 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
+        <sec:authorize access="isAuthenticated()">
+		<sec:authentication property="principal" var="principal" />
+		</sec:authorize>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Document</title>
@@ -33,7 +38,7 @@
         <header
             class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap shadow"
         >
-            <a class="logo-icon col-md-3 col-lg-2 me-0 px-3" href="../index">BOOK</a>
+            <a class="logo-icon col-md-3 col-lg-2 me-0 px-3" href="/index">BOOK</a>
             <button
                 class="navbar-toggler position-absolute d-md-none collapsed"
                 type="button"
@@ -48,10 +53,10 @@
             <div class="w-100"></div>
             <div class="navbar-nav">
                 <div class="nav-item text-nowrap">
-                    <a class="" href="#"><i class="fas fa-home"></i></a>
+                    <a class="" href="/index"><i class="fas fa-home"></i></a>
 
                     <a href="#"><i class="fas fa-bell"></i></a>
-                    <a href="#">
+                    <a href="/user/user">
                         <i class="fas fa-user-circle"></i>
                     </a>
                 </div>
@@ -68,42 +73,26 @@
                         <ul class="nav flex-column">
                             <li class="nav-item">
                                 <a
-                                    class="nav-link"
+                                    class="nav-link active"
                                     aria-current="page"
-                                    href="branchManagement"
+                                    href="/user/myPage"
                                 >
                                     <span data-feather="home"></span>
-                                    지점 관리
+                                    내 정보
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a
-                                    class="nav-link"
-                                    aria-current="page"
-                                    href="studyManagement"
-                                >
-                                    <span data-feather="home"></span>
-                                    스터디 관리
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="menuManagement">
+                                <a class="nav-link" href="/user/myStudy">
                                     <span data-feather="file"></span>
-                                    메뉴 관리
+                                    내 스터디
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="userManagement">
+                            <!-- <li class="nav-item">
+                                <a class="nav-link" href="/user/myMileage">
                                     <span data-feather="users"></span>
-                                    회원 관리
+                                    마일리지
                                 </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link active" href="mileageManagement">
-                                    <span data-feather="users"></span>
-                                    포인트 관리
-                                </a>
-                            </li>
+                            </li>   -->                         
                         </ul>
 
                         <h6
@@ -126,71 +115,50 @@
                     <div
                         class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
                     >
-                        <h1 class="h2">포인트 관리(기능X)</h1>
-                        <div class="search">
-                            <input type="text" name="word" />
-                            <button><i class="fas fa-search"></i></button>
-                        </div>
-                        <button class="add-menu">지점추가</button>
+                        <h1 class="h2">내 정보</h1>
+                        
+                        
+                       
                     </div>
+                    
+                    <!--  ------------------------------------------------ -->
+                        
+                        <div class="container">
+						  <h2>메뉴수정</h2>
+						  <form action="/user/myPageUpdate" method="post" enctype="multipart/form-data" id="fmt">
+						  	<input type="hidden" name="username" value="${principal.user.username }">
+						      	<div class="form-group">
+							     	<label for="file">사진:</label>
+									<input type="file" name="file" id="file"/> <label for="file">
+									<i class="fas fa-image"></i>
+									</label> <input type="text" readonly class="upload-name form-control"></input>
+					   			</div>		
+					   						  
+							    <div class="form-group">
+							      <label for="nick">닉네임:</label>
+							      <input type="text" class="form-control" id="nick" value="${principal.user.nick }" name="nick">
+							    </div>
+							    <div class="form-group">
+							      <label for="addr">주소:</label>
+							      <input type="text" class="form-control" id="addr" value="${principal.user.addr }" name="addr" >
+							    </div>
+							    <div class="form-group">
+							      <label for="email">이메일:</label>
+							      <input type="text" class="form-control" id="email" value="${principal.user.email }" name="email" >
+							    </div>
+							    						   
+						  	  <button class="submit">수정</button>
+						  </form>
+						</div>
+      
+      
+                        <!--  ------------------------------------------------ -->
 
-                    <div class="table-responsive">
-                        <table class="table table-striped table-sm">
-                            <thead>
-                                <tr>
-                                    <th scope="col">지점번호</th>
-                                    <th scope="col">지점사진</th>
-                                    <th scope="col">지점명</th>
-                                    <th scope="col">지점주소</th>
-                                    <th scope="col">전화번호</th>
-                                    <th scope="col">지점장명</th>
-                                    <th scope="col">수정/삭제</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            	<c:forEach items="${list}" var="branch">
-                                <tr>
-                                    <td>${branch.id}</td>
-                                    <td>${branch.profile}</td>
-                                    <td>${branch.name}</td>
-                                    <td>${branch.addr}</td>
-                                    <td>${branch.phone}</td>
-                                    <td>${branch.manager}</td>
-                                    <td>data</td>
-                                    <td>
-                                        <button
-                                            type="button"
-                                            class="submit"
-                                            onclick="switchStatus(5)"
-                                        >
-                                            수정
-                                        </button>
-                                        <button
-                                            type="button"
-                                            class="submit"
-                                            onclick="switchStatus(5)"
-                                        >
-                                            삭제
-                                        </button>
-                                    </td>
-                                </tr>
-                                </c:forEach>
-                            </tbody>
-                        </table>
-                    </div>
                 </main>
             </div>
         </div>
 
-        <ul class="paging">
-            <li class="prev"><i class="fas fa-angle-left"></i></li>
-            <li>1</li>
-            <li>2</li>
-            <li>3</li>
-            <li>4</li>
-            <li>5</li>
-            <li class="next"><i class="fas fa-angle-right"></i></li>
-        </ul>
+        
     </body>
     <script src="js/bootstrap.bundle.min.js"></script>
 
@@ -208,6 +176,9 @@
     <script>
         function switchStatus(id) {
             console.log(id);
-        }
+        }$("#file").on("change", function() {
+    		var fileName = $("#file").val();
+    		$(".upload-name").val(fileName);
+    	});
     </script>
 </html>

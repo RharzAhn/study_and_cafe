@@ -140,38 +140,68 @@
                         <table class="table table-striped table-sm">
                             <thead>
                                 <tr>
-                                    <th scope="col">스터디번호</th>
-                                    <th scope="col">스터디명</th>
-                                    <th scope="col">지역</th>
-                                    <th scope="col">시작일</th>
-                                    <th scope="col">마감일</th>
-                                    <th scope="col">인원</th>
-                                    <th scope="col">스터디리더</th>
+                                    <th scope="col">회원번호</th>
+                                    <th scope="col">아이디</th>
+                                    <th scope="col">닉네임</th>
+                                    <th scope="col">주소</th>
+                                    <th scope="col">이메일</th>
                                     <th scope="col">마일리지</th>
-                                    <th scope="col">좋아요</th>
-                                    <th scope="col">삭제</th>
+                                    <th scope="col">등급</th>
+                                    <th scope="col">가입일</th>                                   
                                 </tr>
                             </thead>
                             <tbody>
-                            	<c:forEach items="${list}" var="studyGroup">
+                            	<c:forEach items="${userlist}" var="user">
                                 <tr>
-									<td>${studyGroup.id}</td>
-									<td>${studyGroup.title}</td>
-									<td><%-- ${studyGroup.local} --%>지역</td>
-									<td>${studyGroup.startDate}</td>
-									<td>${studyGroup.endDate}</td>
-									<td><%-- ${studyGroup.}/ --%>${studyGroup.limitCount}</td>
-									<td>${studyGroup.leader}</td>
-									<td>${studyGroup.mileage}</td>
-									<td>${studyGroup.likes}</td>
-									<td><button type="button" class="submit"
-											id="delete"
-											onclick="location.href='/admin/study/delete/${studyGroup.id}'">삭제</button></td>
+									<td class="id">${user.id }</td>
+					            	<td class="username">${user.username }</td>
+					            	<td class="nick">${user.nick }</td>  
+					            	<td class="addr">${user.addr }</td>  
+					            	<td class="email">${user.email }</td>  
+					            	<td class="mileage">${user.mileage }</td> 
+					            	<td class="role">${user.role }</td>  
+					            	<td class="regdate">${user.regdate }</td>
                                 </tr>
                                </c:forEach>
                             </tbody>
                         </table>
                     </div>
+					<div>
+					
+					<form action="/admin/userdelete" method="post">
+						<br>
+							<input type="text" name="deleteid" id="deletetext" placeholder="삭제 회원번호를 입력"></br>
+						</br>
+						<a> 
+							<input type="button" onclick="admindelete()" name="delete" id="delete" value="삭제">
+						</a>
+						</br>
+					</form>
+					
+					</div>
+	<script type="text/javascript">
+	function admindelete(){
+	    if(!jQuery.isNumeric($("#deletetext").val())){
+	            alert("숫자가 아닙니다.")
+	            return
+	        }
+	        $.ajax({
+	            type: "post",
+	            url: "/admin/admindelete",
+	            data: {
+					"id" : $("#deletetext").val()
+				}
+	        }).done(function(res){
+	        	if(res=="success"){
+	        		alert("삭제 성공")
+	        	}else{
+	        		alert("없는 번호입니다.")
+	        	}
+	        	location.href="/admin/user/userList"
+	        }); 
+	}	
+	</script>                    
+                    
                 </main>
             </div>
         </div>
