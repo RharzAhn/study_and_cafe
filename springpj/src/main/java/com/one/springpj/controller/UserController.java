@@ -72,7 +72,10 @@ public class UserController {
 	public void myStudyForm(Principal principal,Model model) {	
 		User user = userService.findByUsername(principal.getName());
 		List<Joiner> joinerList = joinerService.findJoinUserList(user.getId(), JoinStatus.ACCEPT);
+		List<Joiner> waitingList = joinerService.findApplyUser(user.getId());
+		
 		model.addAttribute("joinerList", joinerList);
+		model.addAttribute("waitingList", waitingList);
 	}
 	
 	//=================================================================
@@ -109,7 +112,7 @@ public class UserController {
 		
 	}
 
-}
+
 	@RequestMapping("userpage")
 	public String userlist(Model model, Principal principal) {
 		User user = userService.findByUsername(principal.getName());
@@ -137,15 +140,6 @@ public class UserController {
 		userService.userupdate(user, principal);
 		return "user/userupdate";
 	}
-
-	@PostMapping("joinerAccept")
-	@ResponseBody
-	public void joinerAccept(Long id) {
-		Joiner joiner = joinerService.findById(id);
-		joiner.setJoinStatus(JoinStatus.ACCEPT);
-		joiner.setStudyRole(StudyRole.MEMBER);
-		joinerService.update(joiner);
-	}
 	
 	@PostMapping("userupdate")
 	public String userupdate(User user) {
@@ -171,6 +165,15 @@ public class UserController {
 	public void joinerDecline(Long id) {
 		Joiner joiner= joinerService.findById(id);
 		joiner.setJoinStatus(JoinStatus.DECLINE);
+		joinerService.update(joiner);
+	}
+	
+	@PostMapping("joinerAccept")
+	@ResponseBody
+	public void joinerAccept(Long id) {
+		Joiner joiner = joinerService.findById(id);
+		joiner.setJoinStatus(JoinStatus.ACCEPT);
+		joiner.setStudyRole(StudyRole.MEMBER);
 		joinerService.update(joiner);
 	}
 }

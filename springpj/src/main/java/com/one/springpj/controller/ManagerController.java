@@ -2,11 +2,13 @@ package com.one.springpj.controller;
 
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.one.springpj.constant.MenuStatus;
@@ -53,8 +55,12 @@ public class ManagerController {
 	//-------------------------메뉴상태관리--------------------------------
 	
 	@GetMapping("cafeMenu/cafeMenuList")
-	public void menuStatus(Model model) {
-//		model.addAttribute("list", cafeMenuService.findAll());
+	public void menuStatus(Model model, Principal principal) {
+		User user = userService.findByUsername(principal.getName());
+		Branch branch = branchService.findByManager(user);
+		log.info("+++++++++++++++++++++++++++"+branch);
+		List<CafeMenu> list = branchService.cafeMenufindByBranchId(branch);
+		model.addAttribute("list", list);
 	}
 	
 	@GetMapping("cafeMenu/cafeMenuBalju")
@@ -77,8 +83,8 @@ public class ManagerController {
 	}
 	
 
-	@GetMapping("cafeMenu/cafeMenuSelect")
-	public void branchMenu(Long[] ch, Long branchId){
+	@PostMapping("cafeMenu/cafeMenuSelect")
+	public String branchMenu(Long[] ch, Long branchId){
 		Branch branch = branchService.findById(branchId);
 		for(int i=0; i<ch.length; i++) {
 			CafeMenu cafeMenu = new CafeMenu();
@@ -87,6 +93,7 @@ public class ManagerController {
 			cafeMenu.setMenuStatus(MenuStatus.SELL);
 			cafeMenuService.save(cafeMenu);
 		}
+		return"redirect:/manager/cafeMenu/cafeMenuList";
 	}
 	
 	//=====================================================================

@@ -44,6 +44,7 @@ public class HomeController {
 		String encPassword = bCryptPasswordEncoder.encode(rawPassword);
 		user.setPassword(encPassword);
 		user.setMileage(0);
+		user.setProfile("/images/defaultUser.png");
 
 		userService.register(user);
 		return "success";

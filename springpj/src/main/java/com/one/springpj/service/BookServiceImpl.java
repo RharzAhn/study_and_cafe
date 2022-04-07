@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.one.springpj.model.Book;
@@ -12,6 +13,7 @@ import com.one.springpj.model.BookMenu;
 import com.one.springpj.model.BookSeat;
 import com.one.springpj.model.Branch;
 import com.one.springpj.model.Seat;
+import com.one.springpj.model.Study;
 import com.one.springpj.repository.BookMenuRepository;
 import com.one.springpj.repository.BookRepository;
 import com.one.springpj.repository.BookSeatRepository;
@@ -84,5 +86,14 @@ public class BookServiceImpl implements BookService {
 	public void saveBookSeat(BookSeat bookSeat) {
 		bookSeatRepository.save(bookSeat);
 		
+	}
+	@Override
+	public List<Book> findByStudy(Study study) {
+		Sort sort = sortByBookDate();
+		return bookRepository.findByStudy(study, sort);
+	}
+	
+	public Sort sortByBookDate() {
+		return Sort.by(Sort.Direction.DESC, "bookDate");
 	}
 }

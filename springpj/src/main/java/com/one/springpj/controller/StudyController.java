@@ -25,6 +25,7 @@ import com.one.springpj.model.Joiner;
 import com.one.springpj.model.Likes;
 import com.one.springpj.model.Study;
 import com.one.springpj.model.User;
+import com.one.springpj.service.BookService;
 import com.one.springpj.service.JoinerService;
 import com.one.springpj.service.StudyService;
 import com.one.springpj.service.UserService;
@@ -41,16 +42,21 @@ public class StudyController {
 	JoinerService joinerService;
 	@Autowired
 	UserService userService;
+	@Autowired
+	BookService bookService;
 
 	@GetMapping("list")
 	public void list(Model model, Principal principal) {
 		Long userId = null;
 		if (principal != null) {
 			userId = userService.findByUsername(principal.getName()).getId();
+			List<Joiner> joinedStudies = joinerService.findJoinUserList(userId, JoinStatus.ACCEPT);
+			if (joinedStudies.size() != 0) {
+				model.addAttribute("joins", joinedStudies);
+			}
 		}
 		List<Study> studies = studyService.getList();
 		model.addAttribute("studies", studies);
-		model.addAttribute("joins", joinerService.findJoinUserList(userId, JoinStatus.ACCEPT));
 
 	}
 
@@ -62,20 +68,20 @@ public class StudyController {
 	@PostMapping("register")
 	public String register(Study study, Principal principal, MultipartFile file, HttpSession session) {
 		String imagePath = FileMaker.save(file, session);
-		
+
 		User user = userService.findByUsername(principal.getName());
 		log.info("leader: " + study.getLeader());
 		study.setProfile(imagePath);
 		study.setLeader(user);
 		studyService.insert(study);
-		
+
 		Joiner joiner = new Joiner();
 		joiner.setStudyRole(StudyRole.LEADER);
 		joiner.setJoinStatus(JoinStatus.ACCEPT);
 		joiner.setStudy(study);
 		joiner.setUser(user);
 		joinerService.insert(joiner);
-		
+
 		return "redirect:/study/list";
 	}
 
@@ -115,27 +121,40 @@ public class StudyController {
 		studyService.update(study);
 
 	}
-	
-	
+
+	@PostMapping("confirm")
+	@ResponseBody
+	public String confirm(Long id, Principal principal) {
+		User user = userService.findByUsername(principal.getName());
+		Study study = studyService.read(id);
+		int joiend = joinerService.joinCheck(user.getId(), JoinStatus.ACCEPT, study.getId());
+		if (joiend == 0) {
+			return "failed";
+		}
+		return "success";
+	}
+
 	@GetMapping("/{id}")
 	public String enterStudy(@PathVariable("id") Long id, Principal principal, Model model) {
-		if(principal==null){
+		if (principal == null) {
 			return "/study/list";
 		}
 		User user = userService.findByUsername(principal.getName());
 		int check = joinerService.joinCheck(user.getId(), JoinStatus.ACCEPT, id);
-		if (check ==0) {
+		if (check == 0) {
 			return "/study/list";
-		}else {
+		} else {
 			Study study = studyService.read(id);
 			List<Board> boardList = studyService.findByStudyId(id);
-			//추가 예약정보
+			// 추가 예약정보
 			model.addAttribute("study", study);
 			model.addAttribute("boardList", boardList);
+			model.addAttribute("bookList", bookService.findByStudy(study));
 			return "/study/board";
+			
 		}
 	}
-	
+
 	@PostMapping("board/register")
 	@ResponseBody
 	public void insertBoard(Board board) {
@@ -143,17 +162,17 @@ public class StudyController {
 		studyService.insertBoard(board);
 //		return "/study/board/"+board.getStudy().getId();
 	}
-	
+
 	@PostMapping("board/imgupload")
 	@ResponseBody
 	public Object imageUpload(MultipartFile file, HttpSession session) {
 		String path = FileMaker.save(file, session);
-		Map<String,String> result = new HashMap<String, String>();
+		Map<String, String> result = new HashMap<String, String>();
 		result.put("link", path);
-		log.info("====================="+path);
+		log.info("=====================" + path);
 		return result;
 	}
-	
+
 	@GetMapping("board/{id}")
 	@ResponseBody
 	public List<Board> enterWithBoard(@PathVariable("id") Long id) {

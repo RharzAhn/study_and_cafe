@@ -17,15 +17,22 @@
 	</div>
 
 
-	<div class="container" id="selectSeat">
+	<div class="container" id="selectSeatForm">
 		<div class="select-other">
 			<button type="button" onclick="selectStudy()">그룹 선택</button>
-			<div class="select-date">
-				<input type="date" name="bookdate"> <input type="button"
+				<input type="date" name="bookdate"> 
+				<div class="book-time">
+				<input type="button"
 					value="10:00"> <input type="button" value="11:00">
 				<input type="button" value="12:00"> <input type="button"
 					value="13:00">
-			</div>
+					<input type="button"
+					value="14:00">
+					<input type="button"
+					value="15:00">
+					<input type="button"
+					value="16:00">
+					</div>
 		</div>
 
 		<form action="/book/bookMenu" method="get" id="frm" class="seat-form">
@@ -44,8 +51,8 @@
 			</c:forEach>
 
 			<div>선택한 좌석</div>
-			<input type="text" readonly id="selectSeat">
-			<button type="button" id="btnNextBook">버튼</button>
+			<input type="text" readonly id="selectSeat"></br>
+			<button type="button" id="btnNextBook">다음</button>
 
 		</form>
 	</div>

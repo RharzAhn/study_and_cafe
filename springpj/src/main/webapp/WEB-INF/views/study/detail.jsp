@@ -25,34 +25,15 @@
         <link rel="stylesheet" href="/css/study_detail.css" />
 </head>
 <body>
-<div class="header"></div>
-	<sec:authorize access="isAuthenticated()">
-		<sec:authentication property="principal" var="principal" />
-	</sec:authorize>
-	
+
     <div class="container">
-       <div id="search">
-           <form action="/study/list">
-               <select name="field" id="field">
-                   <option value="both">제목/내용</option>
-                   <option value="title">제목</option>
-                   <option value="content">내용</option>
-               </select>
-               <input
-                   type="text"
-                   name="word"
-                   placeholder="검색어를 입력하세요"
-               />
-               <button>
-                   <i class="fa-solid fa-magnifying-glass"></i>
-               </button>
-           </form>
-       </div>
 	
 	<article>
 		<div class="study-item">
 			<div class="study-status">진행중</div>
-			<img class="study-profile" src="${study.profile }">
+			<div class="study-profile">
+				<img  src="${study.profile }"/>
+			</div>
 			<div class="content">
 				<p class="study_title">제목:${study.title}</p>
 				<p class="study_info">소개:${study.info }</p>
@@ -91,15 +72,9 @@
 
 	</div>
 </body>
-<style>
 
-img {
-	width: 100px;
-	height: 100px;
-}
-</style>
 <script type="text/javascript">
-	$("#applyBtn").click(()=>{
+	$("#apply").click(()=>{
 		if(${empty principal}){
 			alert("로그인이 필요합니다.")
 			return
@@ -111,8 +86,8 @@ img {
 				type:"post",
 				url:"/study/apply",
 				data:{
-					"studyId":${study.id},
-					"userId":${principal.user.id}
+					"studyId":'${study.id}',
+					"userId":'${principal.user.id}'
 				}
 			}).done((resp)=>{
 				alert("신청이 완료되었습니다.")

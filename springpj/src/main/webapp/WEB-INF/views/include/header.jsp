@@ -3,7 +3,7 @@
 <%@taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,7 +24,9 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <link rel="stylesheet" href="/css/index.css" />
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" />
@@ -48,6 +50,7 @@
 						<p class="kor">스터디그룹</p>
 						<p class="en">STUDY GROUP</p>
 				</a></li>
+				<li><a href="/user/list">
 						<p class="kor">마이페이지</p>
 						<p class="en">MY PAGE</p>
 				</a></li>
@@ -63,17 +66,15 @@
 					<li><a href="/login">로그인</a> <a href="/join">회원가입</a></li>
 				</sec:authorize>
 				<sec:authorize access="isAuthenticated()">
-					<li><a href="/logout">로그아웃(${principal.user.username})</a>
-						<a href="../user/user">마이페이지(${principal.user.username})</a>
-						<c:if test="${principal.user.role == 'ROLE_ADMIN' }">
-						<a href="/admin/admin">관리자페이지(${principal.user.username})</a>
-						</c:if>
-						<c:if test="${principal.user.role == 'ROLE_MANAGER' }">
-						<a href="/manager/manager">매니저페이지(${principal.user.username})</a>
-						</c:if>
-					</li>
+					<li><a href="/logout">로그아웃(${principal.user.username})</a> <a
+						href="../user/user">마이페이지(${principal.user.username})</a> <c:if
+							test="${principal.user.role == 'ROLE_ADMIN' }">
+							<a href="/admin/admin">관리자페이지(${principal.user.username})</a>
+						</c:if> <c:if test="${principal.user.role == 'ROLE_MANAGER' }">
+							<a href="/manager/manager">매니저페이지(${principal.user.username})</a>
+						</c:if></li>
 				</sec:authorize>
-				</li>
+
 			</ul>
 		</div>
 	</header>

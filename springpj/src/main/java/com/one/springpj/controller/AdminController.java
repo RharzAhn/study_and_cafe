@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.one.springpj.constant.FileMaker;
 import com.one.springpj.model.Branch;
 import com.one.springpj.model.Menu;
+import com.one.springpj.model.Seat;
 import com.one.springpj.model.Study;
 import com.one.springpj.model.User;
 import com.one.springpj.service.BranchService;
@@ -249,31 +250,4 @@ public class AdminController {
 	
 	//===============================================================================
 
-	// ===============================================================================
-
-	@RequestMapping(value = { "", "index" }, method = RequestMethod.GET)
-	public String root() {
-		return "index";
-	}
-
-	@RequestMapping("userlist")
-	public String userlist(Model model) {
-		model.addAttribute("userlist", userService.getUserlist());
-		return "admin/userlist";
-	}
-
-
-	@PostMapping("admindelete")
-	@ResponseBody
-	public String delete(long id) {
-		User user = userService.findById(id);
-		if (user == null) {
-			log.info("삭제 실패");
-			return "failed";
-		} else {
-			userService.delete(id);
-			log.info("삭제 성공");
-		}
-		return "success";
-	}
 }

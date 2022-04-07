@@ -24,10 +24,10 @@
 					<c:if test="${menu.menuType == type }">
 						
 						<div>
-							<div><img class="menu_img" src="${menu.profile}" width="50px" height="10%"></div>
-							<div>${menu.name}</div>
-							<div>${menu.intro}</div>
-							<div>${menu.price}</div>
+							<div><img class="menu_img" src="${menu.menu.profile}" width="50px" height="10%"></div>
+							<div>${menu.menu.name}</div>
+							<div>${menu.menu.intro}</div>
+							<div>${menu.menu.price}</div>
 							<input type="checkbox" name="ch" value="${menu.id }"></input>
 						</div>
 					</c:if>

@@ -44,8 +44,7 @@
 				</tr>
 				<tr>
 					<th>시작일</th>
-					<td><input type="date" name="startDate" id="startDate" />
-					</td>
+					<td><input type="date" name="startDate" id="startDate" /></td>
 					<th>종료일</th>
 					<td><input type="date" name="endDate" id="endDate" /></td>
 				</tr>
@@ -56,30 +55,38 @@
 				</tr>
 				<tr>
 					<th>프로필</th>
-					<td colspan="3"><input type="file" name="file" id="file" /> 
-					<label
+					<td colspan="3"><input type="file" name="file" id="file" /> <label
 						for="file"> <i class="fas fa-image"></i>
-					</label>
-					 <input type="text" readonly class="upload-name"></input></td>
+					</label> <input type="text" readonly class="upload-name"></input></td>
 				</tr>
 			</table>
-			<div id="content">
-				내용 :
-				<textarea rows="10" cols="100" name="content"></textarea>
-			</div>
-			<button id="btnInsert">등록하기</button>
+			<div id="editor"></div>
+			<textarea style="display: none" id="content" name="content"></textarea>
+			<button type="button" id="btnInsert">등록하기</button>
 		</form>
 	</div>
 
 
 	<script>
+	let editor = new FroalaEditor("div#editor", {
+	    height:150,
+	    imageUploadURL:'/study/board/imgupload',
+	    imageUploadParam:'file',
+	    imageUploadMethod:'post',
+	    imageAllowedTypes:['jpeg','jpg','png'],
+
+	}, function () {
+		$("#content").val(editor.html.get())
+	});
+	
 	 	$("#file").on("change", function () {
 	       var fileName = $("#file").val();
 	       $(".upload-name").val(fileName);
 	   });
 
        $("#btnInsert").click(() => {
-           console.log(editor.html.get());
+    	   $("#content").val(editor.html.get())
+           $("#fmt").submit()
        });
    </script>
 

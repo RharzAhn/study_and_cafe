@@ -80,7 +80,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/manager/cafeMenu/cafeMenuList">
+                                <a class="nav-link" href="/manager/cafeMenu/cafeMenuList?username='${principal.user.username}'">
                                     <span data-feather="file"></span>
                                     메뉴 상태 관리
                                 </a>

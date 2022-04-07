@@ -14,40 +14,50 @@
 		<span></span>
 		<p>스터디그룹에 가입해서 다양한 혜택을 받아보세요</p>
 	</div>
-	
-	<form action="/book/bookConfirm" method="post">
-		<input type="text" name="studyId" value="${studyId}"> <input
-			type="text" name="cafeId" value="${cafeId}"> <input
-			type="text" name="bookdate" value="${dateTime}">
-		<c:forEach items="${seatList}" var="seat">
-			<input type="text" name="seat" value="${seat}">
-		</c:forEach>
-		<c:forEach items="${cafeMenus}" var="menu">
-			<div class="cafeMenu"
-				onclick="addMenu('${menu.id}','${menu.menu.name}','${menu.menu.price}')">
-				${menu.menu.profile} ${menu.menu.menuType} ${menu.menu.name}
-				${menu.menu.price}</div>
-		</c:forEach>
-		<div id="cafeOrderList"></div>
-
-
-		<h3>결제 방식</h3>
-
-		<div>
-			<p>사용 가능한 마일리지</p>
-			<p id="mymileage">${principal.user.mileage }</p>
-			<p>
-				<input type="number" id="useMileage" name="useMile" value="0">
-			</p>
-		</div>
-
-
-
-		<input type="text" value="0" id="totalPrice" name="totalPrice">
-		<input type="hidden" value="0" id="totalHidden"> <input
-			type="submit" id="submitBtn" value="결제">
-	</form>
-
+	<div class="container">
+		<form action="/book/bookConfirm" method="post" id="selectMenuForm">
+			<input type="hidden" name="studyId" value="${studyId}"> <input
+				type="hidden" name="cafeId" value="${cafeId}"> <input
+				type="hidden" name="bookdate" value="${dateTime}">
+			<c:forEach items="${seatList}" var="seat">
+				<input type="hidden" name="seat" value="${seat}">
+			</c:forEach>
+			<div class="menuForm">
+				<div class="container selectMenu">
+					<div class="row cafeMenu">
+						<c:forEach items="${cafeMenus}" var="menu">
+							<div class="card" style="width: 12rem;"
+								onclick="addMenu('${menu.id}','${menu.menu.name}','${menu.menu.price}')">
+								<img src="${menu.menu.profile}" class="card-img-top menu_img">
+								<div class="card-body">
+									<h5 class="card-title">${menu.menu.name}</h5>
+									<p class="card-text">${menu.menu.price}</p>
+								</div>
+							</div>
+						</c:forEach>
+					</div>
+				</div>
+				<div class="orderForm">
+					<div id="cafeOrderList"></div>
+					<h3>결제 방식</h3>
+					<div class="use-mile">
+						<p>
+							<b>사용가능 마일리지</b>
+						</p>
+						<p id="mymileage">${principal.user.mileage }</p>
+						<p>
+							<input type="number" id="useMileage" name="useMile" value="0">
+						</p>
+					</div>
+					<div class="totalForm">
+						<input type="text" value="0" id="totalPrice" name="totalPrice">
+						<input type="hidden" value="0" id="totalHidden"> <input
+							type="submit" id="submitBtn" value="결제">
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
 	<script>
 		function addMenu(id,name,price){
 			console.log($("."+id).length)
@@ -55,12 +65,12 @@
 			$("#cafeOrderList").append(`<div id="cafeOrder" class=`+id+`>
 					<input type="text" readonly id="menuName"  value="`+name+`">
 					<input type="text" readonly id="menuCount" value="1" name="count">
-					<input type="text" readonly id="menuPrice" value="`+price+`" />
+					<input type="hidden" readonly id="menuPrice" value="`+price+`" />
 					<input type="text" readonly id="menuTotal" value="`+price+`" name="menuTotal"/>
 					<input type="hidden" id="cafeMenuId" name="cafeMenuId" value="`+id+`">
-					<a href="javascript:delMenu(`+id+`)" id="delMenu">삭제</a>
-					<a href="javascript:addCountMenu(`+id+`)" id="addCountMenu">추가</a>
-					<a href="javascript:subCountMenu(`+id+`)" id="subCountMenu">빼기</a>
+					<div class="update-menu-btn"><a href="javascript:delMenu(`+id+`)" id="delMenu"><i class="fa-solid fa-xmark"></i></a>
+					<a href="javascript:addCountMenu(`+id+`)" id="addCountMenu"><i class="fa-solid fa-plus"></i></a>
+					<a href="javascript:subCountMenu(`+id+`)" id="subCountMenu"><i class="fa-solid fa-minus"></i></a></div>
 				</div>`)
 				
 			var total = $("#totalPrice")
@@ -142,7 +152,6 @@
 			}else{
 				tot.val(0)
 				use.val(total)
-				my.html(usemile-total)
 			}
 		})
 		

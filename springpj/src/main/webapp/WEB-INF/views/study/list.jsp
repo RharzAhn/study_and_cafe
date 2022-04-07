@@ -1,6 +1,6 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="../include/header.jsp" %>
+<%@ include file="../include/header.jsp"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -24,29 +24,29 @@
 </head>
 <body>
 	<div class="header">
-	    <h1>STUDY GROUP</h1>
-	    <span></span>
-	    <p>스터디그룹에 가입해서 다양한 혜택을 받아보세요</p>
+		<h1>STUDY GROUP</h1>
+		<span></span>
+		<p>스터디그룹에 가입해서 다양한 혜택을 받아보세요</p>
 	</div>
-	
+
 	<div class="container">
-	
+
 		<div id="my-study">
-                <div class="main-my-study">
-                    <img src="/images/bookex.jpg" />
-                    <p class="study-title">독서모임스터디</p>
-                </div>
-                <div class="my-studyies">
-                    <div class="my-study">
-                        <img src="/images/bookex.jpg" />
-                        <p class="study-title">독서어쩌구</p>
-                    </div>
-                </div>
-                <div class="insert-my-study">
-                    <button type="button" id="btnMkStudy"><i class="fa-solid fa-plus"></i></button>
-                </div>
-            </div>
-		
+			<div class="my-studyies">
+				<c:forEach items="${joins}" var="join">
+					<div class="my-study" onclick="myStudyEnter('${join.study.id}')">
+						<img src="${join.study.profile }" />
+						<p class="study-title">${join.study.title }</p>
+					</div>
+				</c:forEach>
+			</div>
+			<div class="insert-my-study">
+				<button type="button" id="btnMkStudy">
+					<i class="fa-solid fa-plus"></i>
+				</button>
+			</div>
+		</div>
+
 		<%-- <div class="study_my">
 			<c:forEach items="${joins}" var="joiner">
 				<div class="study_item">
@@ -60,7 +60,7 @@
 				</div>
 			</c:forEach>
 		</div> --%>
-		
+
 		<div id="search">
 			<form action="/study/list" method="get">
 				<select name="field" id="field">
@@ -69,51 +69,57 @@
 					<option value="content">내용</option>
 				</select> <input type="text" name="word" placeholder="검색어를 입력하세요">
 				<!-- <button type="submit">검색</button> -->
-				<button><i class="fa-solid fa-magnifying-glass"></i></button>
+				<button>
+					<i class="fa-solid fa-magnifying-glass"></i>
+				</button>
 			</form>
 		</div>
-		
+
 
 		<article>
 			<div class="order">
-	            <select name="order" id="order">
-	                <option value="likes">인기순</option>
-	            </select>
-	        </div>
-	
+				<select name="order" id="order">
+					<option value="likes">인기순</option>
+				</select>
+			</div>
 			<div class="study-items">
 				<c:forEach var="study" items="${studies}">
+					<fmt:formatDate value="${study.startDate}" pattern="yyyy.MM.dd"
+						var="start" />
+					<fmt:formatDate value="${study.endDate}" pattern="yyyy.MM.dd"
+						var="end" />
 					<div class="study-item">
 						<div class="study-status">진행중</div>
 						<img class="study-profile" src="${study.profile }"
 							onclick="location.href='/study/detail?id=${study.id}'">
-						<p class="study-title">제목 : ${study.title }</p>
-						<p class="study-info">내용 : ${study.content }</p>
-						<ul>
-							<li>지역</li>
-							<li>기간</li>
-							<li>멤버수</li>
-						</ul>
-						<div class="likes">
-							<i id="like" class="fa-regular fa-heart"></i>
-							<label for="like">${study.likes }</label>
-							<button type="button" id="like" onclick="clickLike(${study.id})">하트</button>
+						<div class="content">
+							<p class="study-title">${study.title}</p>
+							<p class="study-info">${study.info }</p>
+							<ul>
+								<li>지역 : 부산</li>
+								<li>기간 : ${start}-${end}</li>
+								<li>제한인원 : ${study.limitCount }</li>
+							</ul>
+							<div class="likes">
+								<i id="like" class="fa-regular fa-heart"></i> <label for="like">${study.likes }</label>
+								<button type="button" id="like" onclick="clickLike(${study.id})">하트</button>
+							</div>
 						</div>
 					</div>
 				</c:forEach>
 			</div>
 			<ul class="paging">
-		         <li class="prev"><i class="fas fa-angle-left"></i></li>
-		         <li>1</li>
-		         <li>2</li>
-		         <li>3</li>
-		         <li>4</li>
-		         <li>5</li>
-		         <li class="next"><i class="fas fa-angle-right"></i></li>
-		     </ul>
+				<li class="prev"><i class="fas fa-angle-left"></i></li>
+				<li>1</li>
+				<li>2</li>
+				<li>3</li>
+				<li>4</li>
+				<li>5</li>
+				<li class="next"><i class="fas fa-angle-right"></i></li>
+			</ul>
 		</article>
 	</div>
-	
+
 	<script type="text/javascript">
 		function clickLike(id){
 			$.ajax({
@@ -141,9 +147,9 @@
 		function myStudyEnter(id){
 			$.ajax({
 				type:"post",
-				url:"/study/"+id,
+				url:"/study/confirm",
 				data:{
-					"id":id
+					"id": id
 				}
 			}).done((res)=>{
 				if(res=="success"){
@@ -154,196 +160,6 @@
 			})
 		}
 	</script>
-
-	<!--         <div class="container">
-            <div id="my-study">
-                <div class="main-my-study">
-                    <img src="images/bookex.jpg" />
-                    <p class="study-title">독서모임스터디</p>
-                </div>
-                <div class="my-studyies">
-                    <div class="my-study">
-                        <img src="images/bookex.jpg" />
-                        <p class="study-title">독서어쩌구</p>
-                    </div>
-                </div>
-                <div class="insert-my-study">
-                    <i class="fa-solid fa-plus"></i>
-                </div>
-            </div>
-
-            <div id="search">
-                <form action="/study/list">
-                    <select name="field" id="field">
-                        <option value="both">제목/내용</option>
-                        <option value="title">제목</option>
-                        <option value="content">내용</option>
-                    </select>
-                    <input
-                        type="text"
-                        name="word"
-                        placeholder="검색어를 입력하세요"
-                    />
-                    <button>
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                    </button>
-                </form>
-            </div>
-
-            <article>
-                <div class="order">
-                    <select name="order" id="order">
-                        <option value="likes">인기순</option>
-                    </select>
-                </div>
-                <div class="study-items">
-                    <div class="study-item">
-                        <div class="study-status">진행중</div>
-                        <div class="study-profile">
-                            <img src="images/bookex.jpg" />
-                        </div>
-                        <div class="content">
-                            <p class="study-title">독서모임스터디</p>
-                            <p class="study-info">
-                                모여소덕소도서더걱모여소덕소도서더걱모여소덕소도서더걱모여소덕소도서더걱모여소덕소도서더걱
-                            </p>
-                            <ul>
-                                <li>지역 : 부산 동래구</li>
-                                <li>기간 : 2031.15.21-44.11.22</li>
-                                <li>멤버수 : 2/3</li>
-                            </ul>
-
-                            <div class="likes">
-                                <i id="like" class="fa-regular fa-heart"></i>
-                                <label for="like">10</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="study-item">
-                        <div class="study-status">진행중</div>
-                        <div class="study-profile">
-                            <img src="images/bookex.jpg" />
-                        </div>
-                        <div class="content">
-                            <p class="study-title">독서모임스터디</p>
-                            <p class="study-info">
-                                모여소덕소도서더걱모여소덕소도서더걱모여소덕소도서더걱모여소덕소도서더걱모여소덕소도서더걱
-                            </p>
-                            <ul>
-                                <li>지역 : 부산 동래구</li>
-                                <li>기간 : 2031.15.21-44.11.22</li>
-                                <li>멤버수 : 2/3</li>
-                            </ul>
-
-                            <div class="likes">
-                                <i id="like" class="fa-regular fa-heart"></i>
-                                <label for="like">10</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="study-item">
-                        <div class="study-status">진행중</div>
-                        <div class="study-profile">
-                            <img src="images/bookex.jpg" />
-                        </div>
-                        <div class="content">
-                            <p class="study-title">독서모임스터디</p>
-                            <p class="study-info">
-                                모여소덕소도서더걱모여소덕소도서더걱모여소덕소도서더걱모여소덕소도서더걱모여소덕소도서더걱
-                            </p>
-                            <ul>
-                                <li>지역 : 부산 동래구</li>
-                                <li>기간 : 2031.15.21-44.11.22</li>
-                                <li>멤버수 : 2/3</li>
-                            </ul>
-
-                            <div class="likes">
-                                <i id="like" class="fa-regular fa-heart"></i>
-                                <label for="like">10</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="study-item">
-                        <div class="study-status">진행중</div>
-                        <div class="study-profile">
-                            <img src="images/bookex.jpg" />
-                        </div>
-                        <div class="content">
-                            <p class="study-title">독서모임스터디</p>
-                            <p class="study-info">
-                                모여소덕소도서더걱모여소덕소도서더걱모여소덕소도서더걱모여소덕소도서더걱모여소덕소도서더걱
-                            </p>
-                            <ul>
-                                <li>지역 : 부산 동래구</li>
-                                <li>기간 : 2031.15.21-44.11.22</li>
-                                <li>멤버수 : 2/3</li>
-                            </ul>
-
-                            <div class="likes">
-                                <i id="like" class="fa-regular fa-heart"></i>
-                                <label for="like">10</label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="study-item">
-                        <div class="study-status">진행중</div>
-                        <div class="study-profile">
-                            <img src="images/bookex.jpg" />
-                        </div>
-                        <div class="content">
-                            <p class="study-title">독서모임스터디</p>
-                            <p class="study-info">
-                                모여소덕소도서더걱모여소덕소도서더걱모여소덕소도서더걱모여소덕소도서더걱모여소덕소도서더걱
-                            </p>
-                            <ul>
-                                <li>지역 : 부산 동래구</li>
-                                <li>기간 : 2031.15.21-44.11.22</li>
-                                <li>멤버수 : 2/3</li>
-                            </ul>
-
-                            <div class="likes">
-                                <i id="like" class="fa-regular fa-heart"></i>
-                                <label for="like">10</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <ul class="paging">
-                    <li class="prev"><i class="fas fa-angle-left"></i></li>
-                    <li>1</li>
-                    <li>2</li>
-                    <li>3</li>
-                    <li>4</li>
-                    <li>5</li>
-                    <li class="next"><i class="fas fa-angle-right"></i></li>
-                </ul>
-            </article>
-        </div>
-        <script>
-        const navMenu = document.querySelector(".nav-menu");
-        const nav = document.querySelector(".nav");
-        const navContent = document.querySelector(".nav-content");
-        navMenu.addEventListener("mouseover", () => {
-            nav.style.background = "var(--color-main)";
-            navContent.style.height = "150px";
-            navContent.style.display = "flex";
-        });
-        navMenu.addEventListener("mouseout", () => {
-            nav.style.background = "none";
-            navContent.style.height = "0";
-        });
-        navContent.addEventListener("mouseover", () => {
-            nav.style.background = "var(--color-main)";
-            navContent.style.height = "150px";
-            navContent.style.display = "flex";
-        });
-        navContent.addEventListener("mouseout", () => {
-            nav.style.background = "none";
-            navContent.style.height = "0";
-        });
-    </script> -->
 </body>
 </html>
-<%@ include file="../include/footer.jsp" %>
+<%@ include file="../include/footer.jsp"%>

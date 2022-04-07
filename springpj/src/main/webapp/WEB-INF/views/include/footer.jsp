@@ -28,7 +28,7 @@
             </div>
         </footer>
 
-        <script>
+        <!-- <script>
             const navMenu = document.querySelector(".nav-menu");
             const nav = document.querySelector(".nav");
             const navContent = document.querySelector(".nav-content");
@@ -50,7 +50,7 @@
                 nav.style.background = "none";
                 navContent.style.height = "0";
             });
-        </script>
+        </script> -->
 
 
 </body>

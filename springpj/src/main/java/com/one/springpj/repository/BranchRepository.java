@@ -9,6 +9,7 @@ import com.one.springpj.model.User;
 public interface BranchRepository extends JpaRepository<Branch, Long>{
 
 	public Branch findByManager(User user);
+	
 	@Query(value="select max(id) from branch", nativeQuery = true)
 	public Long countMax();
 }

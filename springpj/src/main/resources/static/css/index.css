@@ -231,7 +231,6 @@ label {
 
 #search {
     position: relative;
-    top: -250px;
     display: flex;
     justify-content: flex-end;
     box-sizing: border-box;
@@ -240,18 +239,18 @@ label {
 #search form {
     width: 25em;
     display: flex;
-    border: solid 3px var(--color-lighter);
+    border: solid 3px var(--color-darker);
     justify-content: space-around;
 }
 #search select {
-    color: var(--color-lighter);
+    color: var(--color-main);
     height: 3em;
     margin: 0;
 }
 
 #search input {
     height: 3em;
-    color: var(--color-lighter);
+    color: var(--color-darker);
     padding-left: 20px;
 }
 
@@ -259,7 +258,7 @@ label {
     color: var(--colror-darker);
 }
 #search button i {
-    color: var(--color-lighter);
+    color: var(--color-main);
 }
 
 footer {
@@ -286,6 +285,7 @@ footer li {
 }
 
 .paging {
+	position:relative;
     display: flex;
     justify-content: center;
     margin-top: 100px;

@@ -3,9 +3,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="/css/home.css" />
+<link rel="stylesheet" href="/css/index.css" />
 </head>
 <body>
 	<%@ include file="include/header.jsp"%>

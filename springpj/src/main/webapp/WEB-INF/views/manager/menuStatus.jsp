@@ -77,7 +77,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" href="menuStatus">
+                                <a class="nav-link active" href="menuStatus?username=${principal.user.username}">
                                     <span data-feather="file"></span>
                                     메뉴 상태 관리
                                 </a>

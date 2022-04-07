@@ -17,25 +17,49 @@
 
 <body>
 	<div class="container">
-		<section class="study-item">
-			<div class="study-profile">
-				<img src="${study.profile}">
-			</div>
-			<div class="content">
-				<p class="study-title">${study.title}</p>
-				<p class="study-info">${study.info}</p>
-				<p class="study-date">
-					<fmt:formatDate value="${study.startDate}" pattern="yyyy-MM-dd" />
-					-
-					<fmt:formatDate value="${study.endDate}" pattern="yyyy-MM-dd" />
-				<p class="study-joined">/${study.limitCount}</p>
-				<p class="study-mile">
-					현재 <b>${study.mileage}</b> 마일리지 적립 중 🏃‍♂️
-				</p>
+		<div class="board-header">
+			<section class="study-item">
+				<div class="study-profile">
+					<img src="${study.profile}">
+				</div>
+				<div class="content">
+					<p class="study-title">${study.title}</p>
+					<p class="study-info">${study.info}</p>
+					<p class="study-date">
+						<fmt:formatDate value="${study.startDate}" pattern="yyyy-MM-dd" />
+						-
+						<fmt:formatDate value="${study.endDate}" pattern="yyyy-MM-dd" />
+					<p class="study-joined">/${study.limitCount}</p>
+					<p class="study-mile">
+						현재 <b>${study.mileage}</b> 마일리지 적립 중 🏃‍♂️
+					</p>
 
+				</div>
+			</section>
+			<div class="table-responsive">
+				<h3>예약 일정</h3>
+				<table class="table table-striped table-sm">
+					<thead>
+						<tr>
+							<th scope="col">예약번호</th>
+							<th scope="col">예약일자</th>
+							<th scope="col">주최자</th>
+							<th scope="col">장소</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach items="${bookList}" var="book">
+							<tr>
+								<td>${book.id}</td>
+								<td>${book.bookDate}</td>
+								<td>${book.booker.nick}</td>
+								<td>${book.branch.name}</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
 			</div>
-		</section>
-
+		</div>
 		<form action="/study/board/register" method="post" id="frm">
 			<input type="hidden" name="studyId" value="${study.id}">
 			<textarea id="content" name="content" style="display: none"></textarea>
@@ -45,10 +69,11 @@
 
 		<div id="board-list"></div>
 		<!-- container -->
+	</div>
+	<%@include file="../include/footer.jsp"%>
 </body>
-<%@include file="../include/footer.jsp"%>
 <script>
-let editor = new FroalaEditor("div#content", {
+var editor = new FroalaEditor("div#content", {
     height:150,
     imageUploadURL:'/study/board/imgupload',
     imageUploadParam:'file',
@@ -95,7 +120,7 @@ $("#btnInsert").click(() => {
                         </div>
                     </div>`
                     if("${principal.user.username}"==val.writer){
-	                    strt+=`<div class="board-btn">
+	                    str+=`<div class="board-btn">
 	                        <button class="board-delete">삭제하기</button>
 	                        <button class="board-upadate">수정하기</button>
 	                    </div>`
@@ -121,30 +146,14 @@ $("#btnInsert").click(() => {
                 </div>
             </div>
         </div>`
-				
-				
-				
-				
-// 				var str= "<table class='table table-hover mt-3'>";
-// 				$.each(resp, (key,val)=>{
-// 					str+="<tr>";
-// 					str+="<td>"+val.writer+"</td>";
-// 					str+="<td>"+val.content+"</td>";
-// 					str+="<td>"+val.regdate+"</td>";
-// 					if("${principal.user.username}"==val.writer){
-// 						str+="<td><a href='javascript:fdel("+val.id+")'>삭제</a></td>";
-// 					}
-// 					str+="</tr>";
-// 				})
-// 				str+="</table>";
 				$("#board-list").html(str);	
-			},
+				})},
 			error:function(request, status, error){
 				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 			}
 		})
 	}
-
+	
 	init();
 	function fdel(rno){
 		$.ajax({

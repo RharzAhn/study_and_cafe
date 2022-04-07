@@ -32,7 +32,7 @@ public class Branch {
 	private String addr;
 	private String phone;
 	
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name="manager_id")
 	private User manager;
 	

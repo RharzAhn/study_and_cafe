@@ -42,7 +42,7 @@
     border-radius:15px;
 }
 
-#selectSeat{
+#selectSeatForm{
 	margin: auto;
     margin-top : 35rem;
 	margin-bottom:3rem;
@@ -92,17 +92,126 @@ form label {
 	text-align:center;
 }
 
-.select-other{
-	text-align:left;
-}
-
 .select-other>button{
 	font-size: 1.2rem;
+	background-color:var(--color-main);
+	color:var(--color-lighter);
+	margin-bottom: 1em;
 }
 
-.select-date{
+.select-other{
 	text-align:center;
 	display:flex;
 	flex-direction: row;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
+}
+.book-time{
+	margin : 2rem 0;
+}
+.book-time input{
+	padding: 5px 10px;
+	background-color:var(--color-lighter)
+}
+
+#selectSeat{
+	text-align:center;
+	margin-bottom: 2rem;
+}
+#btnNextBook{
+	background-color:var(--color-main);
+	color:var(--color-lighter);
+	padding: 0.5rem 2rem;
+}
+
+
+#selectMenuForm{
+	margin: auto;
+    margin-top : 35rem;
+	margin-bottom:3rem;
+}
+.menuForm{
+		display:flex;
+		
+}
+.orderForm{
+	width: 100%;
+	background-color:var(--color-lighter);
+	margin: 0 3rem;
+	padding: 3rem;
+}
+#cafeOrderList{
+	min-height: 300px;
+}
+
+#menuName{
+	font-family : var(--highlight-font);
+	font-size : 1.2rem;
+}
+.selectMenu{
+	margin:0;
+}
+#cafeOrder{
+	display:flex;
+	justify-content: space-between;
+}
+
+#cafeOrder input{
+	width : 25%;
+}
+
+.update-menu-btn a{
+	margin-right:0.5rem;
+}
+
+h3{
+	font-family:var(--highlight-font);
+	border-top : solid 1px var(--color-darker);
+	padding-top : 2rem;
+	margin-bottom : 2rem;
+}
+
+.use-mile{
+	display:flex;
+}
+.use-mile p{
+	width : 100%;
+	text-align: center;
+}
+.use-mile p input{
+	width: 100%;
+	 box-sizing: border-box;
+}
+#useMileage{
+	background-color : white;
+}
+
+.totalForm{
+	padding : 1rem 0rem;
+}
+
+#totalPrice{
+	font-family:var(--highlight-font);
+	font-size: 1.5rem;
+}
+
+.confirm-form{
+	margin: auto;
+    margin-top : 35rem;
+	margin-bottom:3rem;
+	z-index:5;
+}
+
+.table span {
+	margin-right: 1.5rem;
+}
+
+#confirmBtn{
+	margin-top:3rem;
+	width:100%;
+	font-family:var(--highlight-font);
+		background-color:var(--color-main);
+	color:var(--color-lighter);
+	height: 3rem;
 }

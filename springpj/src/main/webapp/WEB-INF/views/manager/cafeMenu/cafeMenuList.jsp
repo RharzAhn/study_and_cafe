@@ -77,7 +77,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link active" href="/manager/cafeMenu/cafeMenuList">
+                                <a class="nav-link active" href="/manager/cafeMenu/cafeMenuList?username='${principal.user.username}'">
                                     <span data-feather="file"></span>
                                     메뉴 상태 관리
                                 </a>
@@ -133,9 +133,9 @@
                             <c:forEach items="${list}" var="menu">
                             <tbody>
                                 <tr>
-                                    <td>${menu.id }</td>
-                                    <td>${menu.name }</td>
-                                    <td>${menu.menuType }</td>
+                                    <td>${menu.menu.id }</td>
+                                    <td>${menu.menu.name }</td>
+                                    <td>${menu.menu.menuType }</td>
                                     <td>
                                         <div class="form-check form-switch">
                                             <input
@@ -145,6 +145,7 @@
                                                 role="switch"
                                                 id="flexSwitchCheckDefault"
                                                 onclick="switchStatus(${menu.id})"
+                                                <c:if test="${menu.menuStatus=='SELL'}">checked</c:if>
                                             />
                                         </div>
                                     </td>

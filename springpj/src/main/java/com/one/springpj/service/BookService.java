@@ -8,6 +8,7 @@ import com.one.springpj.model.BookMenu;
 import com.one.springpj.model.BookSeat;
 import com.one.springpj.model.Branch;
 import com.one.springpj.model.Seat;
+import com.one.springpj.model.Study;
 
 public interface BookService {
 	public List<Book> getBookList();
@@ -23,4 +24,6 @@ public interface BookService {
 	public List<BookMenu> getBookMenuList(Long bookId);
 	
 	public void saveBookSeat(BookSeat bookSeat);
+	
+	public List<Book> findByStudy(Study study);
 }

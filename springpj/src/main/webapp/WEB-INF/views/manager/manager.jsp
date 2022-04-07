@@ -31,7 +31,7 @@
             <h1>BOOK</h1>
             <p>안녕하세요, ${principal.user.username}매니저님!</p> <!-- 이름 못불러옴 -->
             <a href="currentStatus">지점 현황 바로가기</a>
-            <a href="cafeMenu/cafeMenuList">메뉴 관리 바로가기</a>
+            <a href="cafeMenu/cafeMenuList?username=${principal.user.username}">메뉴 관리 바로가기</a>
             <a href="bookStatus">예약 관리 바로가기</a>
             <a href="/index">홈 바로가기</a>
         </article>

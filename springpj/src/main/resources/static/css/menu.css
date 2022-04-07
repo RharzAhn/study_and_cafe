@@ -7,9 +7,15 @@
             rgba(0, 0, 0, 0.3) 100%,
             rgba(255, 255, 255, 0) 0%
         ),
-        url("../images/menu.jpg");
+        url("../images/menu.jpg") !important;
+     z-index:3;
 }
-
+.top{
+	margin: auto;
+    margin-top : 35rem;
+	margin-bottom:3rem;
+	z-index:5;
+}
 .category ul {
     display: grid;
     margin: auto;
