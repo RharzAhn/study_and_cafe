@@ -1,19 +1,26 @@
-package com.one.springpj.controller;
+﻿package com.one.springpj.controller;
 
+import java.nio.file.attribute.UserPrincipal;
 import java.security.Principal;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.one.springpj.constant.FileMaker;
 import com.one.springpj.constant.JoinStatus;
 import com.one.springpj.constant.StudyRole;
 import com.one.springpj.model.Joiner;
+import com.one.springpj.model.Menu;
 import com.one.springpj.model.User;
 import com.one.springpj.service.JoinerService;
 import com.one.springpj.service.UserService;
@@ -37,15 +44,35 @@ public class UserController {
 	//-------------------------내정보-----------------------------------
 	
 	@GetMapping("myPage")
-	public void myPageForm() {	
+	public void userlist(Principal principal, Model model) {
+		User user = userService.findByUsername(principal.getName());
+		model.addAttribute(user);
 	}
 	
+	@GetMapping("myPageUpdate/{username}")
+	public String myPageupdateForm(@PathVariable("username") String username, Model model) {
+		User user = userService.findByUsername(username);
+		model.addAttribute("user", user);
+		return "/user/myPageUpdate";
+	}
+	
+	//수정
+	@PostMapping("/myPageUpdate")
+	public String menuupdate(User user,MultipartFile file, HttpSession session) {
+		String imagePath = FileMaker.save(file, session);
+		user.setProfile(imagePath);
+		userService.update(user);
+		return "redirect:/user/myPage";
+	}
 	//=========================================================
 	
 	//------------------------내스터디------------------------------------
 	
 	@GetMapping("myStudy")
-	public void myStudyForm() {	
+	public void myStudyForm(Principal principal,Model model) {	
+		User user = userService.findByUsername(principal.getName());
+		List<Joiner> joinerList = joinerService.findJoinUserList(user.getId(), JoinStatus.ACCEPT);
+		model.addAttribute("joinerList", joinerList);
 	}
 	
 	//=================================================================
@@ -82,6 +109,7 @@ public class UserController {
 		
 	}
 
+}
 	@RequestMapping("userpage")
 	public String userlist(Model model, Principal principal) {
 		User user = userService.findByUsername(principal.getName());

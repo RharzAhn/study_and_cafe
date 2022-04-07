@@ -1,10 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
+        <sec:authorize access="isAuthenticated()">
+		<sec:authentication property="principal" var="principal" />
+		</sec:authorize>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Document</title>
@@ -33,7 +38,7 @@
         <header
             class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap shadow"
         >
-            <a class="logo-icon col-md-3 col-lg-2 me-0 px-3" href="../index">BOOK</a>
+            <a class="logo-icon col-md-3 col-lg-2 me-0 px-3" href="/index">BOOK</a>
             <button
                 class="navbar-toggler position-absolute d-md-none collapsed"
                 type="button"
@@ -48,10 +53,10 @@
             <div class="w-100"></div>
             <div class="navbar-nav">
                 <div class="nav-item text-nowrap">
-                    <a class="" href="#"><i class="fas fa-home"></i></a>
+                    <a class="" href="/index"><i class="fas fa-home"></i></a>
 
                     <a href="#"><i class="fas fa-bell"></i></a>
-                    <a href="#">
+                    <a href="/user/user">
                         <i class="fas fa-user-circle"></i>
                     </a>
                 </div>
@@ -68,42 +73,26 @@
                         <ul class="nav flex-column">
                             <li class="nav-item">
                                 <a
-                                    class="nav-link"
+                                    class="nav-link active"
                                     aria-current="page"
-                                    href="branchManagement"
+                                    href="/user/myPage"
                                 >
                                     <span data-feather="home"></span>
-                                    지점 관리
+                                    내 정보
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a
-                                    class="nav-link"
-                                    aria-current="page"
-                                    href="studyManagement"
-                                >
-                                    <span data-feather="home"></span>
-                                    스터디 관리
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link active" href="menuManagement">
+                                <a class="nav-link" href="/user/myStudy">
                                     <span data-feather="file"></span>
-                                    메뉴 관리
+                                    내 스터디
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="userManagement">
+                            <!-- <li class="nav-item">
+                                <a class="nav-link" href="/user/myMileage">
                                     <span data-feather="users"></span>
-                                    회원 관리
+                                    마일리지
                                 </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="mileageManagement">
-                                    <span data-feather="users"></span>
-                                    포인트 관리
-                                </a>
-                            </li>
+                            </li>   -->                         
                         </ul>
 
                         <h6
@@ -126,66 +115,35 @@
                     <div
                         class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
                     >
-                        <h1 class="h2">메뉴 관리(수정X)</h1>
-                        <div class="search">
-                            <input type="text" name="word" />
-                            <button><i class="fas fa-search"></i></button>
-                        </div>
-                        <button class="add-menu" onclick="location.href = '/admin/menu/menuRegister'">메뉴추가</button>
+                        <h1 class="h2">내 정보</h1>
+                        
+                        
+                       
                     </div>
+                    
+                    <!--  ------------------------------------------------ -->
+                        
+                        <div>
 
-                    <div class="table-responsive">
-                        <table class="table table-striped table-sm">
-                            <thead>
-                                <tr>
-                                    <th scope="col">메뉴 id</th>
-                                    <th scope="col">메뉴명</th>
-                                    <th scope="col">설명</th>
-                                    <th scope="col">사진</th>
-                                    <th scope="col">가격</th>
-                                    <th scope="col">메뉴타입</th>
-                                    <th scope="col">수정 및 삭제</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            	<c:forEach items="${list}" var="menu">
-									<tr>
-										<td>${menu.id}</td>
-										<td>${menu.name}</td>
-										<td>${menu.intro}</td>
-										<td><img class="menu_img" src="${menu.profile}" width="50px" height="10%"></td>
-										<th>${menu.price}</th>
-										<td>${menu.menuType}</td>
-										<td>
-                                        <button
-                                            type="button"
-                                            class="submit"
-                                            onclick="location.href='/admin/menu/menuUpdate/${menu.id}'"
-                                        >수정</button>
-                                        <button
-                                            type="button"
-                                            class="submit"
-                                            onclick="location.href='/admin/menu/delete/${menu.id}'"
-                                        >삭제</button>
-                                    </td>
-									</tr>
-                                </c:forEach>
-                            </tbody>
-                        </table>
-                    </div>
+                        <button onclick="location.href='/user/myPageUpdate/${principal.user.username}'">
+                        	<img alt="profile" src="${user.profile}">
+                        </button>
+            
+                        <h3>닉네임 ${user.nick }</h3>
+                        <p>주소 : ${user.addr }</p>
+                        <p>이메일 : ${user.email }</p>
+                        <p>마일리지 : ${user.mileage }</p>
+                        <p>가입일 : ${user.regdate }</p>
+                        </div>
+      
+                        <!--  ------------------------------------------------ -->
+
+                            
                 </main>
             </div>
         </div>
 
-        <ul class="paging">
-            <li class="prev"><i class="fas fa-angle-left"></i></li>
-            <li>1</li>
-            <li>2</li>
-            <li>3</li>
-            <li>4</li>
-            <li>5</li>
-            <li class="next"><i class="fas fa-angle-right"></i></li>
-        </ul>
+        
     </body>
     <script src="js/bootstrap.bundle.min.js"></script>
 

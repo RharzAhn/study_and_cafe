@@ -131,6 +131,7 @@
 		$("#btnMkStudy").click(()=>{
 			if(${empty principal}){
 				alert("로그인이 필요합니다.")
+				location.href="/login"
 				return
 			}
 			location.href="/study/register"

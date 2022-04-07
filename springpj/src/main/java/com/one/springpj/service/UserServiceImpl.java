@@ -47,7 +47,16 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public void update(User user) {
-		userRepository.save(user);
+		User u = userRepository.findByUsername(user.getUsername());//findbyid처럼 jpa에서 제공되는 함수가아닌 정의한함수는 .get() 할필요X
+		log.info("========================"+u.getRole());
+		log.info("========================"+u.getUsername());
+		log.info("========================"+u.getEmail());
+		u.setProfile(user.getProfile());
+		
+		u.setNick(user.getNick());
+		u.setAddr(user.getAddr());
+		u.setEmail(user.getEmail());
+		userRepository.save(u);
 	}
 
 

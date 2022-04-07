@@ -33,7 +33,7 @@
         <header
             class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap shadow"
         >
-            <a class="logo-icon col-md-3 col-lg-2 me-0 px-3" href="../index">BOOK</a>
+            <a class="logo-icon col-md-3 col-lg-2 me-0 px-3" href="/index">BOOK</a>
             <button
                 class="navbar-toggler position-absolute d-md-none collapsed"
                 type="button"
@@ -149,14 +149,21 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            	<c:forEach items="${list}" var="menu">
+                            	<c:forEach items="${userlist}" var="user">
 									<tr>
-										<td>번호</td>
-										<td>이름</td>
-										<td>id</td>
-										<td>보유m</td>
-										<th>m지급</th>
-										<td>m회수</td>
+										<td class="id">${user.id }</td>
+										<td class="username">${user.username }</td>
+										<td class="nick">${user.nick }</td>
+										<td class="mileage">${user.mileage }</td>
+										<td>
+											<input type="text" class="${user.username}" id="mileage_insert"	name="mileage_insert">
+											<input type="button" class="btn_mileage_insert"
+											onclick="addMile('${user.username}')" value="지급"></td>
+										
+										<td>
+											<input type="text" id="mileage_delete" name="mileage_delete">
+											<input type="button" class="btn_mileage_delete" 
+										onclick="delMile('${user.username}')" value="회수"></td>
 									</tr>
                                 </c:forEach>
                             </tbody>
@@ -194,4 +201,41 @@
             console.log(id);
         }
     </script>
+    <script> 
+		function addMile(username){
+		    if(!jQuery.isNumeric($("#mileage_insert").val())){
+		            alert("숫자가 아닙니다.")
+		            return
+		        }
+		        $.ajax({
+		            type: "post",
+		            url: "/admin/addmile",
+		            data: {
+						"mile": $("#mileage_insert").val(),
+						"username" : username
+					}
+		        }).done(function(){
+		           	alert("포인트가 추가되었습니다.")
+		           	location.href="/admin/mileage/mileageList"
+		    }); 
+		}	
+		
+		function delMile(username){
+		    if(!jQuery.isNumeric($("#mileage_delete").val())){
+		            alert("숫자가 아닙니다.")
+		            return
+		        }
+		        $.ajax({
+		            type: "post",
+		            url: "/admin/delmile",
+		            data: {
+						"mile": $("#mileage_delete").val(),
+						"username" : username
+					}
+		        }).done(function(){
+		           	alert("포인트가 삭제되었습니다.")
+		           	location.href="/admin/mileage/mileageList"
+		    }); 
+		}	
+	</script>
 </html>

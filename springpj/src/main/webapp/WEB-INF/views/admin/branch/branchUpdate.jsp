@@ -33,7 +33,7 @@
         <header
             class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap shadow"
         >
-            <a class="logo-icon col-md-3 col-lg-2 me-0 px-3" href="../index">BOOK</a>
+            <a class="logo-icon col-md-3 col-lg-2 me-0 px-3" href="/index">BOOK</a>
             <button
                 class="navbar-toggler position-absolute d-md-none collapsed"
                 type="button"
@@ -135,8 +135,10 @@
 						<form action="/admin/branchUpdate" method="post"
 							enctype="multipart/form-data">
 							<div class="form-group">
-								<label for="file">사진:</label> 
-								<input type="file" class="form-control" id="file" placeholder="사진" name="file" >
+								<label for="file">사진:</label>
+							<input type="file" name="file" id="file" /> <label for="file">
+								<i class="fas fa-image"></i>
+							</label> <input type="text" readonly class="upload-name form-control"></input>
 							</div>
 							<div class="form-group">
 								<label for="name">지점명:</label> <input type="text"
@@ -185,5 +187,9 @@
         function switchStatus(id) {
             console.log(id);
         }
+        $("#file").on("change", function() {
+    		var fileName = $("#file").val();
+    		$(".upload-name").val(fileName);
+    	});
     </script>
 </html>
