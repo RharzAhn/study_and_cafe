@@ -22,23 +22,23 @@
 	var autocomplete;
 	function myMap(addr) {
 
-		var lat;
-		var lng;
-		
-		document.getElementById('autocomplete').value = addr
-		
-		autocomplete = new google.maps.places.Autocomplete((document
-				.getElementById('autocomplete')), {
-			types : [ 'geocode' ]
-		});
+// 		var lat;
+// 		var lng;
 
-		autocomplete.addListener('place_changed', function() {
-			var place = autocomplete.getPlace();
+// 		document.getElementById('autocomplete').value = addr
 
-			lat = place.geometry.location.lat();
-			lng = place.geometry.location.lng();
-		});
-		console.log(lat, lng)
+// 		autocomplete = new google.maps.places.Autocomplete((document
+// 				.getElementById('autocomplete')), {
+// 			types : [ 'geocode' ]
+// 		});
+
+// 		autocomplete.addListener('place_changed', function() {
+// 			var place = autocomplete.getPlace();
+
+// 			lat = place.geometry.location.lat();
+// 			lng = place.geometry.location.lng();
+// 		});
+// 		console.log(lat, lng)
 
 		if (!addr) {
 			var myLatlng = new google.maps.LatLng(35.837143, 128.558612);
@@ -72,25 +72,35 @@
 	// 		lng = place.geometry.location.lng();
 	// 	}
 </script>
+
+<!-- <link rel="stylesheet" href="/css/index.css" /> -->
+<link rel="stylesheet" href="/css/book.css" />
 </head>
 <body>
-
-
-	<div id="locationField">
-		<input id="autocomplete" placeholder="Enter your address" type="text">
+	<div class="header">
+		<h1>BOOK CAFE</h1>
+		<span></span>
+		<p>스터디그룹에 가입해서 다양한 혜택을 받아보세요</p>
 	</div>
+	
+	
+	<div id="googleMap" style="width: 80%; height: 350px;"></div>
+	
+	
+	<div class="container">
+<!-- 	<div id="locationField"> -->
+<!-- 		<input id="autocomplete" placeholder="Enter your address" type="text"> -->
+<!-- 	</div> -->
 
-	<input class="field" id="lat" />
-	<input class="field" id="lng" />
-
-	<div id="googleMap" style="width: 50%; height: 350px;"></div>
+<!-- 	<input class="field" id="lat" /> -->
+<!-- 	<input class="field" id="lng" /> -->
 
 
 
 	<form action="/admin/book/bookCafe" method="get">
 		<div class="container">
 			<h2>예약 하기</h2>
-			<table class="table table-hover" border="1">
+			<table class="table table-striped">
 				<thead>
 					<tr>
 						<th>지점번호</th>
@@ -123,14 +133,14 @@
 			</div>
 		</div>
 	</form>
+	</div>
 	<script type="text/javascript" defer>
-
 		let cafe_num = null
 		function mapping(num, addr) {
 			cafe_num = num
 			myMap(addr)
 		}
-	
+
 		$("#submit").click(function() {
 			console.log(cafe_num)
 			//location.href = "../book/test?cafeId="+cafe_num;
@@ -140,4 +150,4 @@
 	</script>
 </body>
 </html>
-<%@ include file="../include/footer.jsp" %>
+<%@ include file="../include/footer.jsp"%>

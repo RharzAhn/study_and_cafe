@@ -1,10 +1,24 @@
+.header {
+    background-image: none;
+    background-color:var(--color-main);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top;
+    position: relative;
+    height: 5rem;
+    top: -5rem;
+}
+
+
 body {
     /* display: flex; */
     background-color: var(--color-lighter);
 }
 nav {
+	top:5rem;
+	z-index:-5;
     position: absolute;
-    height: 100vh;
+  	height: calc(100% - 5rem);
     background-image: url(../images/submain.jpg);
     background-repeat: no-repeat;
     background-size: cover;
@@ -39,7 +53,7 @@ nav {
 
 .joinform {
     position: relative;
-    height: 100vh;
+    height: 60vh;
     /* text-align: center; */
     /* width: 70%; */
     display: flex;
@@ -124,6 +138,35 @@ select {
     margin-right: 0.8em;
 }
 
+.role{
+	width : 100%;
+	height: 3rem;
+	margin: 0;
+	border:none;
+	border-radius:0;
+}
+
+
+#btnJoin{
+	width:100%;
+	height: 3rem;
+	background-color:var(--color-second);
+	color: var(--color-lighter)
+}
+button[type="reset"]{
+	width:100%;
+	height: 3rem;
+	background-color:var(--color-main);
+	color: var(--color-lighter)
+}
+
+
+#btnIdCheck{
+	width: 50%;
+	background-color: var(--color-second);
+	color:var(--color-lighter);
+	height: 3rem;
+}
 @media all and (max-width: 1000px) {
     nav {
         width: 100%;

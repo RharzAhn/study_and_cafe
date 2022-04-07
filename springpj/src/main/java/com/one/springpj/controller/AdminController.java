@@ -1,10 +1,9 @@
 ﻿package com.one.springpj.controller;
 
-import javax.servlet.http.HttpSession;
-
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -62,7 +61,6 @@ public class AdminController {
 	public void list(Model model) {
 		model.addAttribute("list", branchService.branchList());
 	}
-
 	// branchRegister 입장
 	@GetMapping("branch/branchRegister")
 	public void insertForm(Branch branch) {

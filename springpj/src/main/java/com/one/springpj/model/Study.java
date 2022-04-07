@@ -65,7 +65,7 @@ public class Study {
 	@OneToMany(mappedBy = "study",
 			fetch =FetchType.LAZY,
 			cascade = CascadeType.ALL)
-	@JsonManagedReference
+//	@JsonManagedReference
 	private List<Board> boards;
 
 	

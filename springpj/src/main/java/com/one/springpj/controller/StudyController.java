@@ -60,18 +60,20 @@ public class StudyController {
 	}
 
 	@PostMapping("register")
-	public String register(Study study, String username, MultipartFile file, HttpSession session) {
+	public String register(Study study, Principal principal, MultipartFile file, HttpSession session) {
 		String imagePath = FileMaker.save(file, session);
+		
+		User user = userService.findByUsername(principal.getName());
 		log.info("leader: " + study.getLeader());
 		study.setProfile(imagePath);
-		study.setLeader(userService.findByUsername(username));
+		study.setLeader(user);
 		studyService.insert(study);
 		
 		Joiner joiner = new Joiner();
 		joiner.setStudyRole(StudyRole.LEADER);
 		joiner.setJoinStatus(JoinStatus.ACCEPT);
 		joiner.setStudy(study);
-		joiner.setUser(study.getLeader());
+		joiner.setUser(user);
 		joinerService.insert(joiner);
 		
 		return "redirect:/study/list";

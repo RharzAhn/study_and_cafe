@@ -5,63 +5,50 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="/css/index.css" />
+<link rel="stylesheet" href="/css/book.css" />
 </head>
-<style>
-input[type="checkbox"] {
-	display: none;
-}
-
-form input:disabled+label {
-	cursor: default;
-	background-color: red;
-}
-
-form input:checked+label {
-	background-color: yellow;
-}
-
-form label {
-	cursor: pointer;
-	display: inline-block;
-	width: 20px;
-	height: 20px;
-	background-color: black;
-}
-
-.aleady+label {
-	background-color: blue !important;
-	cursor: default;
-}
-</style>
+<%@include file="../include/header.jsp"%>
 <body>
-	<%@include file="../include/header.jsp"%>
-	<button type="button" onclick="selectStudy()">그룹 선택</button>
-
-	<input type="date" name="bookdate">
-
-	<input type="button" value="10:00">
-	<input type="button" value="11:00">
-	<input type="button" value="12:00">
-	<input type="button" value="13:00">
+	<div class="header">
+		<h1>BOOK CAFE</h1>
+		<span></span>
+		<p>스터디그룹에 가입해서 다양한 혜택을 받아보세요</p>
+	</div>
 
 
-	<form action="/book/bookMenu" method="get" id="frm">
-		<input type="hidden" readonly name="studyId" id="studyId"> <input
-			type="hidden" name="cafeId" value="${cafeId}">
-		<input type="hidden" name="dateTime" id="dateTime">
-		<c:forEach begin="0" end="9" var="i" step="1">
-			<c:forEach begin="0" end="9" var="j" step="1">
-				<input type="checkbox" name="seat" id="${i}${j}" disabled>
-				<label for="${i}${j}"></label>
+	<div class="container" id="selectSeat">
+		<div class="select-other">
+			<button type="button" onclick="selectStudy()">그룹 선택</button>
+			<div class="select-date">
+				<input type="date" name="bookdate"> <input type="button"
+					value="10:00"> <input type="button" value="11:00">
+				<input type="button" value="12:00"> <input type="button"
+					value="13:00">
+			</div>
+		</div>
+
+		<form action="/book/bookMenu" method="get" id="frm" class="seat-form">
+			<input type="hidden" readonly name="studyId" id="studyId"> <input
+				type="hidden" name="cafeId" value="${cafeId}"> <input
+				type="hidden" name="dateTime" id="dateTime">
+
+
+
+			<c:forEach begin="0" end="9" var="i" step="1">
+				<c:forEach begin="0" end="9" var="j" step="1">
+					<input type="checkbox" name="seat" id="${i}${j}" disabled>
+					<label for="${i}${j}"></label>
+				</c:forEach>
+				<br>
 			</c:forEach>
-			<br>
-		</c:forEach>
 
-		<div>선택한 좌석</div>
-		<input type="text" readonly id="selectSeat">
-		<button type="button" id="btnNextBook">버튼</button>
+			<div>선택한 좌석</div>
+			<input type="text" readonly id="selectSeat">
+			<button type="button" id="btnNextBook">버튼</button>
 
-	</form>
+		</form>
+	</div>
 </body>
 <script type="text/javascript">
 	<c:forEach items="${seats}" var="seat">
@@ -135,7 +122,7 @@ form label {
 			html:`
 				<c:forEach items="${joinerList}" var="joiner" >
 				<input type="radio" id="studyTitle" name="studyTitle" value="${joiner.study.id}">
-				<label for="studyTitle">${joiner.study.title}</label>
+				<label for="studyTitle">${joiner.study.title}</label></br>
 			</c:forEach>
 			`
 		}).then((value)=>{

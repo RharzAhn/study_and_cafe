@@ -26,7 +26,6 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <link rel="stylesheet" href="/css/index.css" />
-<link rel="stylesheet" href="/css/home.css" />
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" />
 </head>
@@ -34,22 +33,21 @@
 	<header>
 		<div class="nav">
 			<ul class="container nav-menu">
-				<li><a href="#">
+				<li><a href="/menu/list">
 						<p class="kor">카페소개</p>
 						<p class="en">ABOUT US</p>
 				</a></li>
-				<li><a href="#">
+				<li><a href="/book/bookCafe">
 						<p class="kor">예약</p>
 						<p class="en">BOOK</p>
 				</a></li>
 				<div class="header-index">
 					<a href="../index">BOOK</a>
 				</div>
-				<li><a href="#">
+				<li><a href="/study/list">
 						<p class="kor">스터디그룹</p>
 						<p class="en">STUDY GROUP</p>
 				</a></li>
-				<li><a href="#">
 						<p class="kor">마이페이지</p>
 						<p class="en">MY PAGE</p>
 				</a></li>
@@ -58,7 +56,7 @@
 		<div class="nav-content">
 			<ul class="container nav-menu-content">
 				<li><a href="/menuView">메뉴</a> <a href="/book/bookCafe">전국지점찾기</a></li>
-				<li><a href="">예약하기</a></li>
+				<li><a href="/book/bookCafe">예약하기</a></li>
 				<div class="header-index"></div>
 				<li><a href="../study/list">스터디목록</a></li>
 				<sec:authorize access="isAnonymous()">
@@ -79,7 +77,7 @@
 			</ul>
 		</div>
 	</header>
-
+	<div class="header"></div>
 	<script>
         const navMenu = document.querySelector(".nav-menu");
         const nav = document.querySelector(".nav");
