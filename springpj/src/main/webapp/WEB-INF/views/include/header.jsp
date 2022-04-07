@@ -25,7 +25,6 @@
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
 <link rel="stylesheet" href="/css/index.css" />
-<link rel="stylesheet" href="/css/home.css" />
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" />
 </head>
@@ -37,7 +36,7 @@
 						<p class="kor">카페소개</p>
 						<p class="en">ABOUT US</p>
 				</a></li>
-				<li><a href="/book/list">
+				<li><a href="/book/bookCafe">
 						<p class="kor">예약</p>
 						<p class="en">BOOK</p>
 				</a></li>
@@ -57,7 +56,7 @@
 		<div class="nav-content">
 			<ul class="container nav-menu-content">
 				<li><a href="/menuView">메뉴</a> <a href="/book/bookCafe">전국지점찾기</a></li>
-				<li><a href="">예약하기</a></li>
+				<li><a href="/book/bookCafe">예약하기</a></li>
 				<div class="header-index"></div>
 				<li><a href="../study/list">스터디목록</a></li>
 				<sec:authorize access="isAnonymous()">

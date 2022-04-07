@@ -35,18 +35,12 @@
 				<div class="input-boxes">
 					<div class="input-box">
 						<input type="text" name="username" id="username" placeholder="아이디" />
-						<label for="username"><i class="fa-solid fa-circle-check"></i></label>
-					</div>
-					<div class="col align-self-end">
-						<button type="button" class="btn btn-primary" id="btnIdCheck">중복확인</button>
+						<button type="button" id="btnIdCheck">중복확인</button>
 					</div>
 					<div class="input-box">
-						<input type="text" name="nick" id="nick" placeholder="닉네임" /> <label
-							for="password"><i class="fa-solid fa-circle-check"></i></label>
+						<input type="text" name="nick" id="nick" placeholder="닉네임" />
 					</div>
-					<div class="col align-self-end">
-						<button type="button" class="btn btn-primary" id="btnNickCheck">중복확인</button>
-					</div>
+			
 					<input type="password" name="password" id="password"
 						placeholder="비밀번호" />
 					<div class="input-box">
@@ -73,13 +67,12 @@
 						<input type="text" id="sample6_extraAddress" placeholder="참고항목">
 					</div>
 					<div class="input-box">
-						<select class="form-control" id="role" name="role">
-							<option value="ROLE_USER" selected>USER(default)</option>
-							<option value="ROLE_ADMIN">ADMIN</option>
-							<option value="ROLE_MANAGER">MANAGER</option>
+						<select class="form-control role" id="role" name="role">
+							<option value="ROLE_USER" selected>사용자</option>
+							<option value="ROLE_MANAGER">매니저</option>
 						</select>
 					</div>
-					<button type="button" class="btn btn-primary btn-sm" value="회원가입" id="btnJoin">회원가입</button>
+					<button type="button" value="회원가입" id="btnJoin">회원가입</button>
 					<button type="reset">초기화</button>
 				</form>
 	</section>
@@ -151,5 +144,3 @@
 
 
 </html>
-
-<%@ include file="/WEB-INF/views/include/footer.jsp" %>

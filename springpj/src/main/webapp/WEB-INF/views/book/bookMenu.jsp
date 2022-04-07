@@ -1,13 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@include file="../include/header.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link href="/css/book.css" rel="stylesheet" />
 </head>
-<%@include file="../include/header.jsp"%>
 <body>
+	<div class="header">
+		<h1>BOOK CAFE</h1>
+		<span></span>
+		<p>스터디그룹에 가입해서 다양한 혜택을 받아보세요</p>
+	</div>
+	
 	<form action="/book/bookConfirm" method="post">
 		<input type="text" name="studyId" value="${studyId}"> <input
 			type="text" name="cafeId" value="${cafeId}"> <input
@@ -36,12 +43,8 @@
 
 
 
-		<input type="text" value="0" id="totalPrice" name="totalPrice"> 
-		<input type="hidden" value="0" id="totalHidden"> 
-		
-		
-		
-		<input
+		<input type="text" value="0" id="totalPrice" name="totalPrice">
+		<input type="hidden" value="0" id="totalHidden"> <input
 			type="submit" id="submitBtn" value="결제">
 	</form>
 

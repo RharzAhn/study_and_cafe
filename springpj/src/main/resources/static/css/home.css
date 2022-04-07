@@ -14,6 +14,19 @@
     background-position-y: 60%;
     z-index: -1;
     transition: background-position-y 5000ms ease;
+    animation: movebg 30s linear infinite;
+}
+
+@keyframes movebg {
+    0% {
+        background-position-y: 60%;
+    }
+    50% {
+        background-position-y: 70%;
+    }
+    100% {
+        background-position-y: 60%;
+    }
 }
 
 .main .container {

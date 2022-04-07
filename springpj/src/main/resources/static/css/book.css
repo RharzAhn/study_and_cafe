@@ -1,0 +1,108 @@
+.header {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    top: 0;
+    height: 35em;
+    background-image: url("../images/deco2.svg"),
+        linear-gradient(
+            180deg,
+            rgba(0, 0, 0, 0.3) 100%,
+            rgba(255, 255, 255, 0) 0%
+        ),
+        url("../images/main.jpg");
+    background-repeat: repeat-x;
+    background-position: bottom, 0, top;
+    background-size: contain, cover, cover;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    animation: movebg 30s linear infinite;
+}
+
+@keyframes movebg {
+    0% {
+        background-position: bottom, 0, 0 20%;
+    }
+    50% {
+        background-position: bottom, 0, 0 0;
+    }
+    100% {
+        background-position: bottom, 0, 0 20%;
+    }
+}
+
+#googleMap{
+    margin: auto;
+    margin-top : 35rem;
+	margin-bottom:3rem;
+    border-radius:15px;
+}
+
+#selectSeat{
+	margin: auto;
+    margin-top : 35rem;
+	margin-bottom:3rem;
+	z-index:5;
+}
+
+h2{
+	 font-family: var(--highlight-font);
+	 margin-bottom: 2rem;
+}
+
+
+
+input[type="checkbox"] {
+	display: none;
+}
+
+form input:disabled+label {
+	cursor: default;
+	background-color: var(--color-lighter);
+}
+
+form input:checked+label {
+	background-color: var(--color-red);
+}
+
+form label {
+	cursor: pointer;
+	display: inline-block;
+	width: 24px;
+	height: 24px;
+	border: solid 1px var(--color-lighter);
+	border-radius: 4px;
+}
+
+.aleady+label {
+	background-color: var(--color-main) !important;
+	cursor: default;
+}
+
+#selectSeat{
+	width:600px;
+}
+
+
+.seat-form{
+	text-align:center;
+}
+
+.select-other{
+	text-align:left;
+}
+
+.select-other>button{
+	font-size: 1.2rem;
+}
+
+.select-date{
+	text-align:center;
+	display:flex;
+	flex-direction: row;
+    justify-content: center;
+}
