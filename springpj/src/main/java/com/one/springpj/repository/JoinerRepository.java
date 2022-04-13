@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import com.one.springpj.constant.JoinStatus;
 import com.one.springpj.model.Joiner;
 
 public interface JoinerRepository extends JpaRepository<Joiner, Long>{
@@ -18,4 +17,7 @@ public interface JoinerRepository extends JpaRepository<Joiner, Long>{
 	
 	@Query(value="select count(*) from Joiner j where user_id=?1 and join_status=?2 and study_id=?3")
 	public int joinCheck(Long id, String joinStatus, Long studyId);
+	
+	@Query(value="select count(*) from Joiner j where study_id=?1 and join_status=?2")
+	public int joinCount(Long studyId, String joinStatus);
 }

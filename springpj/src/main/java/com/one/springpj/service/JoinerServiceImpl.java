@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.one.springpj.constant.JoinStatus;
 import com.one.springpj.model.Joiner;
+import com.one.springpj.model.Study;
 import com.one.springpj.repository.JoinerRepository;
 
 @Service
@@ -44,5 +45,10 @@ public class JoinerServiceImpl implements JoinerService{
 	@Override
 	public int joinCheck(Long id, JoinStatus joinStatus, Long studyId) {
 		 return joinerRepository.joinCheck(id, joinStatus.toString(), studyId);
+	}
+
+	@Override
+	public int joinCount(Study study, JoinStatus joinStatus) {
+		return joinerRepository.joinCount(study.getId(), joinStatus.toString());
 	}
 }

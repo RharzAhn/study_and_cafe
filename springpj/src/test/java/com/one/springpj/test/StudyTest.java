@@ -14,16 +14,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 
+import com.one.springpj.constant.JoinStatus;
 import com.one.springpj.model.Book;
 import com.one.springpj.model.BookSeat;
 import com.one.springpj.model.Branch;
 import com.one.springpj.model.Joiner;
+import com.one.springpj.model.Menu;
 import com.one.springpj.model.Seat;
+import com.one.springpj.model.Study;
 import com.one.springpj.repository.BookRepository;
 import com.one.springpj.repository.BookSeatRepository;
 import com.one.springpj.repository.BranchRepository;
 import com.one.springpj.repository.JoinerRepository;
+import com.one.springpj.repository.MenuRepository;
 import com.one.springpj.repository.SeatRepository;
+import com.one.springpj.repository.StudyRepository;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Transactional
@@ -43,6 +48,12 @@ public class StudyTest {
 
 	@Autowired
 	BranchRepository branchRepository;
+	
+	@Autowired
+	StudyRepository studyRepository;
+	
+	@Autowired
+	MenuRepository menuRepository;
 
 //	@Test
 	void load() {
@@ -94,7 +105,7 @@ public class StudyTest {
 		}
 	}
 
-	@Test
+//	@Test
 	public void test4() throws ParseException {
 		
 		String date_str = "2022.4.15 10:00";
@@ -122,5 +133,23 @@ public class StudyTest {
 		for(Seat seat : seatList) {
 			System.out.println("============================"+seat.getName());
 		}
+	}
+	
+//	@Test
+	public void test5() {
+		Study study = studyRepository.findById((long)120).get();
+		int count = joinerRepository.joinCount(study.getId(), JoinStatus.ACCEPT.toString());
+		System.out.println(count);
+	}
+	
+	@Test
+	public void test6() {
+		Branch branch = branchRepository.findById((long)79).get();
+		List<Menu> list = menuRepository.findbyMenuNotCafeMenu(branch.getId());
+//		System.out.println(">>>>>>>>>>>>>>>>>>"+list.toString());
+		for(Menu menu : list) {
+			System.out.println(">>>>>>>>>>>>>>>>>>"+menu.getName());
+		}
+		
 	}
 }

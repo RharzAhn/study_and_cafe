@@ -162,7 +162,7 @@
                                         <button
                                             type="button"
                                             class="submit"
-                                            onclick="location.href='/admin/branch/branchUpdate/${branch.id}'"
+                                            onclick="location.href='/admin/branch/update/${branch.id}'"
                                         >
                                             수정
                                         </button>

@@ -22,9 +22,9 @@ import com.one.springpj.model.Menu;
 import com.one.springpj.model.Seat;
 import com.one.springpj.model.Study;
 import com.one.springpj.model.User;
+import com.one.springpj.service.BookServiceImpl;
 import com.one.springpj.service.BranchService;
 import com.one.springpj.service.MenuService;
-import com.one.springpj.service.StudyGroupService;
 import com.one.springpj.service.StudyService;
 import com.one.springpj.service.UserService;
 
@@ -44,8 +44,8 @@ public class AdminController {
 	@Autowired
 	private StudyService studyService;
 
-	@Autowired
-	private StudyGroupService studyGroupService;
+//	@Autowired
+//	private StudyGroupService studyGroupService;
 
 	@Autowired
 	private MenuService menuService;
@@ -62,6 +62,7 @@ public class AdminController {
 	public void list(Model model) {
 		model.addAttribute("list", branchService.branchList());
 	}
+
 	// branchRegister 입장
 	@GetMapping("branch/branchRegister")
 	public void insertForm(Branch branch) {
@@ -80,7 +81,7 @@ public class AdminController {
 		String imagePath = FileMaker.save(file, session);
 		branch.setManager(user);
 		branch.setProfile(imagePath);
-		
+
 		branchService.insert(branch);
 
 		// 좌석 데이터 저장
@@ -101,21 +102,52 @@ public class AdminController {
 		return "redirect:/admin/branch/branchList";
 	}
 
-
 	// id값을 가지고 branchUpdate 입장
-	@GetMapping("/banch/branchUpdate/{id}")
+	@GetMapping("/branch/update/{id}")
 	public String updateForm(@PathVariable("id") Long id, Model model) {
 		Branch branch = branchService.findById(id);
 		model.addAttribute("branch", branch);
+		model.addAttribute("seatList", branchService.findSeatByBranch(branch));
 		return "/admin/branch/branchUpdate";
 	}
-	
+
 	// 수정한 값 보내기
-	@PostMapping("branchUpdate")
-	public String update(Branch branch, MultipartFile file, HttpSession session) {
-		String imagePath = FileMaker.save(file, session);
-		branch.setProfile(imagePath);
+	@PostMapping("/branch/update")
+	public String update(Branch branch, MultipartFile file, HttpSession session, String[] seatNum, String username) {
+		//파일 저장 
+		log.info("=================="+file);
+		if(file!=null) {
+			String imagePath = FileMaker.save(file, session);
+			branch.setProfile(imagePath);
+		}
+		branch.setManager(userService.findByUsername(username));
+		
+		//지점 업데이트
 		branchService.update(branch);
+		
+		//기존 자리 삭제
+		List<Seat> deleteSeatList = branchService.findSeatByBranch(branch);
+		branchService.deleteSeat(deleteSeatList);
+		
+		// 알파벳 배열
+		char[] clist = new char[26];
+		for (int i = 0; i < 26; i++) {
+			clist[i] = (char) (65 + i);
+		}
+		// 좌석 데이터 저장
+		List<Seat> seatList = new ArrayList<Seat>();
+		for (String s : seatNum) {
+			Seat seat = new Seat();
+			String[] arr = s.split(",");
+
+			seat.setBranch(branch);
+			seat.setName(clist[Integer.parseInt(arr[0])] + arr[1]);
+			seat.setX(Integer.parseInt(arr[0]));
+			seat.setY(Integer.parseInt(arr[1]));
+			branchService.insertSeat(seat);
+			seatList.add(seat);
+		}
+
 		return "redirect:/admin/branch/branchList";
 	}
 
@@ -181,30 +213,30 @@ public class AdminController {
 	@GetMapping("mileage/mileageList")
 	public void mileagelist(Model model) {
 		model.addAttribute("userlist", userService.getUserlist());
-		
+
 	}
-	
-	//==========================================================================
-	
+
+	// ==========================================================================
+
 	@PostMapping("/addmile")
 	@ResponseBody
 	public void addmileage(int mile, String username) {
-		log.info("mile:"+mile+"username:"+username);
+		log.info("mile:" + mile + "username:" + username);
 		User user = userService.findByUsername(username);
-		user.setMileage(user.getMileage()+mile);
+		user.setMileage(user.getMileage() + mile);
 		userService.update(user);
 	}
-	
+
 	@PostMapping("/delmile")
 	@ResponseBody
 	public void delmileage(int mile, String username) {
-		log.info("mile:"+mile+"username:"+username);
+		log.info("mile:" + mile + "username:" + username);
 		User user = userService.findByUsername(username);
-		user.setMileage(user.getMileage()-mile);
+		user.setMileage(user.getMileage() - mile);
 		userService.update(user);
 	}
-	
-	//==========================================================================
+
+	// ==========================================================================
 
 	// ==========================================================================
 
@@ -217,11 +249,11 @@ public class AdminController {
 		model.addAttribute("list", studies);
 	}
 
-	@GetMapping("/study/delete/{id}")
-	public String delete(@PathVariable("id") Long id) {
-		studyGroupService.delete(id);
-		return "redirect:/admin/study/studyList";
-	}
+//	@GetMapping("/study/delete/{id}")
+//	public String delete(@PathVariable("id") Long id) {
+//		studyGroupService.delete(id);
+//		return "redirect:/admin/study/studyList";
+//	}
 
 	// ============================================================================
 
@@ -231,23 +263,23 @@ public class AdminController {
 	public void userList(Model model) {
 		model.addAttribute("userlist", userService.getUserlist());
 	}
-	
-	//===============================================================================
-	
+
+	// ===============================================================================
+
 	@PostMapping("admindelete")
 	@ResponseBody
 	public String delete(long id) {
 		User user = userService.findById(id);
-		if(user==null) {	
+		if (user == null) {
 			log.info("삭제 실패");
 			return "failed";
-		}else{
+		} else {
 			userService.delete(id);
 			log.info("삭제 성공");
 		}
 		return "success";
 	}
-	
-	//===============================================================================
+
+	// ===============================================================================
 
 }

@@ -127,7 +127,6 @@
                                     <th scope="col">메뉴이름</th>
                                     <th scope="col">메뉴종류</th>
                                     <th scope="col">매진/판매</th>
-                                    <th scope="col">메뉴적용</th>
                                 </tr>
                             </thead>
                             <c:forEach items="${list}" var="menu">
@@ -148,15 +147,6 @@
                                                 <c:if test="${menu.menuStatus=='SELL'}">checked</c:if>
                                             />
                                         </div>
-                                    </td>
-                                    <td>
-                                        <button
-                                            type="button"
-                                            class="submit"
-                                            onclick="switchStatus(5)"
-                                        >
-                                            상태전환
-                                        </button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -192,8 +182,16 @@
     <script src="js/dashboard.js"></script>
     <script>
         function switchStatus(id) {
-        	console.log($("#flexSwitchCheckDefault").val())
-            console.log(id);
+        	$.ajax({
+				type:"get",
+				url:"/manager/cafeMenu/switch/cafeMenuList/"+id
+			}).done((resp)=>{
+				if(resp=="sold-out"){
+					alert("매진 상태로 전환하였습니다.")
+				}else if(resp=="fulled"){
+					alert("판매 상태로 전환하였습니다.")
+				}
+			})
         }
     </script>
 </html>

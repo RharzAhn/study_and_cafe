@@ -1,11 +1,16 @@
 package com.one.springpj.model;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import com.one.springpj.constant.MenuType;
 
@@ -26,4 +31,10 @@ public class Menu {
 	
 	@Enumerated(EnumType.STRING)
 	private MenuType menuType;
+	
+	
+	@OneToMany(mappedBy ="menu",
+			fetch=FetchType.LAZY,
+			cascade = CascadeType.ALL)
+	private List<CafeMenu> cafeMenus;
 }

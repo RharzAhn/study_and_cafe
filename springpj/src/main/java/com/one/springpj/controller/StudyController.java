@@ -8,8 +8,11 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +26,7 @@ import com.one.springpj.constant.StudyRole;
 import com.one.springpj.model.Board;
 import com.one.springpj.model.Joiner;
 import com.one.springpj.model.Likes;
+import com.one.springpj.model.Reply;
 import com.one.springpj.model.Study;
 import com.one.springpj.model.User;
 import com.one.springpj.service.BookService;
@@ -89,18 +93,27 @@ public class StudyController {
 	public void detail(Long id, Model model) {
 		model.addAttribute("study", studyService.read(id));
 	}
-
+	
+	
+	//>>>>>>>>>>>>>>>>>>>>>>>>>>> 스터디 가입 신청 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+	
 	@PostMapping("apply")
 	@ResponseBody
-	public void apply(Long studyId, Long userId) {
+	public String apply(Long studyId, Long userId) {
 		Study study = studyService.read(studyId);
+		int joinedCount = joinerService.joinCount(study, JoinStatus.ACCEPT);
+		if(study.getLimitCount()==joinedCount) {
+			return "fulled";
+		}
 		if (study != null) {
 			Joiner joiner = new Joiner();
 			joiner.setStudy(study);
 			joiner.setUser(userService.findById(userId));
 			joiner.setJoinStatus(JoinStatus.WAITING);
 			joinerService.insert(joiner);
+			return "success";
 		}
+		return "failed";
 	}
 
 	@PostMapping("checkLike")
@@ -134,10 +147,12 @@ public class StudyController {
 		return "success";
 	}
 
+	
+	//>>>>>>>>>>>>>>>>>>>>>>>>  허가된 스터디원 게시판 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 	@GetMapping("/{id}")
 	public String enterStudy(@PathVariable("id") Long id, Principal principal, Model model) {
 		if (principal == null) {
-			return "/study/list";
+			return "redirect:/study/list";
 		}
 		User user = userService.findByUsername(principal.getName());
 		int check = joinerService.joinCheck(user.getId(), JoinStatus.ACCEPT, id);
@@ -146,6 +161,11 @@ public class StudyController {
 		} else {
 			Study study = studyService.read(id);
 			List<Board> boardList = studyService.findByStudyId(id);
+			
+			//가입된 스터디원 수
+			int joinedCount = joinerService.joinCount(study, JoinStatus.ACCEPT);
+			model.addAttribute("joinedCount", joinedCount);
+			
 			// 추가 예약정보
 			model.addAttribute("study", study);
 			model.addAttribute("boardList", boardList);
@@ -154,11 +174,18 @@ public class StudyController {
 			
 		}
 	}
+	
+	@DeleteMapping("board/{id}")
+	@ResponseBody
+	public void deleteBoard(@PathVariable("id") Long id) {
+		studyService.deleteBoard(id);
+		return;
+	}
 
 	@PostMapping("board/register")
 	@ResponseBody
 	public void insertBoard(Board board) {
-//		board.setWriter(userService.findByUsername(principal.getName()));
+		board.setProfile(userService.findByUsername(board.getWriter()).getProfile());
 		studyService.insertBoard(board);
 //		return "/study/board/"+board.getStudy().getId();
 	}
@@ -178,5 +205,37 @@ public class StudyController {
 	public List<Board> enterWithBoard(@PathVariable("id") Long id) {
 		List<Board> boardList = studyService.findByStudyId(id);
 		return boardList;
+	}
+	
+	
+	//댓글 등록 및 삭제
+	
+	@PostMapping("reply/register")
+	@ResponseBody
+	public ResponseEntity<String> replyInsert(Reply reply){
+		reply.setProfile(userService.findByUsername(reply.getReplyer()).getProfile());
+		studyService.insertReply(reply);
+		
+		int replyCount = studyService.replyCountbyBoard(reply.getBoard());
+		Board board = reply.getBoard();
+		board.setReplyCount(replyCount);
+		studyService.insertBoard(board);
+		
+		return new ResponseEntity<String>("success", HttpStatus.OK);
+	}
+	
+	@GetMapping("reply/{id}")
+	@ResponseBody
+	public List<Reply> replyList(@PathVariable("id") Long id){
+		List<Reply> replyList = studyService.findReplyByBoard(id);
+		return replyList;
+	}
+	
+	
+	@DeleteMapping("reply/{id}")
+	@ResponseBody
+	public Long replyDelete(@PathVariable Long id) {
+		studyService.deleteReply(id);
+		return id;
 	}
 }

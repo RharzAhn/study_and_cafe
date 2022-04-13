@@ -91,6 +91,17 @@ public class BranchServiceImpl implements BranchService{
 	public CafeMenu cafeMenuFindById(Long id) {
 		return cafeMenuRepository.findById(id).get();
 	}
+	@Override
+	public List<Seat> findSeatByBranch(Branch branch) {
+		return seatRepository.findByBranch(branch);
+	}
+	@Override
+	public void deleteSeat(List<Seat> seatList) {
+		for(Seat seat : seatList) {
+			seatRepository.deleteById(seat.getId());
+		}
+		
+	}
 	
 
 }

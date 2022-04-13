@@ -26,9 +26,12 @@ public interface BranchService {
 	public Long count();
 	
 	public void insertSeat(Seat seat);
+	public List<Seat> findSeatByBranch(Branch branch);
+	public void deleteSeat(List<Seat> seatList);
 	
 	
 	public List<Seat> findByBranchId(Long id);
+	
 	public List<CafeMenu> cafeMenufindByBranchId(Branch id); 
 	public CafeMenu cafeMenuFindById(Long id);
 }

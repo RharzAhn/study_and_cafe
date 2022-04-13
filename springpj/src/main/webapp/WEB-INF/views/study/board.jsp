@@ -29,7 +29,7 @@
 						<fmt:formatDate value="${study.startDate}" pattern="yyyy-MM-dd" />
 						-
 						<fmt:formatDate value="${study.endDate}" pattern="yyyy-MM-dd" />
-					<p class="study-joined">/${study.limitCount}</p>
+					<p class="study-joined">${joinedCount}/${study.limitCount}</p>
 					<p class="study-mile">
 						현재 <b>${study.mileage}</b> 마일리지 적립 중 🏃‍♂️
 					</p>
@@ -62,9 +62,9 @@
 		</div>
 		<form action="/study/board/register" method="post" id="frm">
 			<input type="hidden" name="studyId" value="${study.id}">
-			<textarea id="content" name="content" style="display: none"></textarea>
+<!-- 			<textarea id="content" name="content" style="display: none"></textarea> -->
 			<div id="content"></div>
-			<button type="button" id="btnInsert">전송</button>
+			<button type="button" id="btnInsert">작성하기</button>
 		</form>
 
 		<div id="board-list"></div>
@@ -81,11 +81,15 @@ var editor = new FroalaEditor("div#content", {
     imageAllowedTypes:['jpeg','jpg','png'],
 
 }, function () {
-    console.log(editor.html.get());
+    
 });
 
 
 $("#btnInsert").click(() => {
+	if(editor.html.get()==''){
+		alert("내용을 입력해주세요")
+		return
+	}
 	$.ajax({
 		type:"post",
 		url:"/study/board/register",
@@ -96,6 +100,7 @@ $("#btnInsert").click(() => {
 		}
 	}).done((resp)=>{
 		alert("등록이 완료되었습니다.")
+		editor.html.set('')
 		init();
 // 		location.href="/study/board/"+"${study.id}"
 	})
@@ -108,11 +113,12 @@ $("#btnInsert").click(() => {
 			dataType:"JSON",
 			cotentType: "application/json; charset=utf-8",
 			success:function(resp){
+				var str=''
 				$.each(resp, (key,val)=>{
-				var str = `<div class="board-item">
+				str += `<div class="board-item" id="`+val.id+`">
                 <div class="board-header">
                     <div class="profile">
-                        <img src="`+val.writer+`" />
+                        <img src="`+val.profile+`" />
                         <div>
                             <p class="writer">`+val.writer+`</p>
                             <p class="date">`+val.regdate+`</p>
@@ -121,33 +127,37 @@ $("#btnInsert").click(() => {
                     </div>`
                     if("${principal.user.username}"==val.writer){
 	                    str+=`<div class="board-btn">
-	                        <button class="board-delete">삭제하기</button>
-	                        <button class="board-upadate">수정하기</button>
+	                        <button class="board-delete" onclick="deleteBoard(`+val.id+`)">삭제</button>
 	                    </div>`
 					}
                    str+=`
                 </div>
-                <div class="board-content">
-                    ${val.contnet}
+                <div class="board-content" id="board-content-`+val.id+`">
+                    `+val.content+`
                 </div>
                 <div class="more-reply">
-                    댓글 1
-                    <i class="fa-solid fa-chevron-down"></i>
+                	<button type="button" id="moreReply" onclick="moreReply(`+val.id+`)">
+	                    <span id="reply-count">댓글 `+val.replyCount+`</span>
+	                    <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                    <div id="reply-list-`+val.id+`" style="display:none"></div>
                 </div>
                 <div class="board-footer">
                     <input
                         type="text"
                         name="reply"
+                        id="reply`+val.id+`"
                         placeholder="내용을 입력해 주세요"
                     />
-                    <button id="replyBtn">
+                    <button id="replyBtn" onclick="insertReply(`+val.id+`)">
                         <i class="fa-solid fa-circle-plus"></i>
                     </button>
                 </div>
             </div>
-        </div>`
+        </div>`	
+				})
 				$("#board-list").html(str);	
-				})},
+			},
 			error:function(request, status, error){
 				alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
 			}
@@ -155,15 +165,98 @@ $("#btnInsert").click(() => {
 	}
 	
 	init();
+	
+	function deleteBoard(id){
+		$.ajax({
+			type:"delete",
+			url:"/study/board/"+id,
+		}).done((resp)=>{
+			alert("게시글 삭제 완료");
+			init();
+		}).fail(()=>{
+			alert("게시글 삭제 실패")
+		})
+	}
+	
+	
+	function insertReply(id){
+		if(${empty principal}){
+			alert("로그인이 필요합니다.")
+			return;
+		}
+		if ($("#reply"+id).val()==''){
+			alert("내용을 입력해주세요")
+			return
+		}
+		var data={
+				"board":id,
+				"replyer" :"${principal.user.username}",
+				"content" : $("#reply"+id).val()
+		}
+		
+		$.ajax({
+			type:"post",
+			url:"/study/reply/register",
+			data: data
+		}).done((resp)=>{
+			alert("댓글을 성공적으로 작성했습니다.");
+			init()
+			location.href="#"+id
+		}).fail(()=>{
+			alert("댓글 추가 실패")
+		})
+	}
+	
+	
 	function fdel(rno){
 		$.ajax({
 			type:"delete",
-			url:"/replies/"+rno,
+			url:"/study/reply/"+rno,
 		}).done((resp)=>{
 			alert("댓글 삭제 완료");
 			init();
 		}).fail(()=>{
 			alert("댓글 삭제 실패")
+		})
+	}
+	
+	
+	function moreReply(id){
+		$.ajax({
+			type: "get",
+			url : "/study/reply/"+id,
+			dataType:"JSON",
+			cotentType: "application/json; charset=utf-8",
+		}).done((resp)=>{
+			var str=''
+			$.each(resp, (key,val)=>{
+				str+=`
+					<div class="reply-item">
+						<div class="reply-profile">
+							<img src="`+val.profile+`"/>
+						</div>
+						<div>
+							<p class="reply-replyer">`+val.replyer+`</p>
+							<p class="reply-content">`+val.content+`</p>
+							<p class="reply-regdate">`+val.regdate+`</p>
+						</div>
+						<div>
+						`
+						if("${principal.user.username}"==val.replyer){
+			            	str+=`<button class="reply-delete" onclick="fdel(`+val.id+`)">삭제</button>`
+						}
+						str+=`
+						</div>
+					</div>
+				`
+			})
+			$("#reply-list-"+id).html(str);	
+			var list = document.querySelector("#reply-list-"+id)
+			if(list.style.display=="none"){
+				list.style.display="block"
+			}else{
+				list.style.display="none"
+			}
 		})
 	}
 </script>

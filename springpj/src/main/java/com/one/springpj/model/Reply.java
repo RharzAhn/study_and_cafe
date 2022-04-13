@@ -12,24 +12,29 @@ import javax.persistence.ManyToOne;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-@Data
+@Setter @Getter
 public class Reply {
 	@Id
 	@GeneratedValue
 	@Column(name="reply_id")
 	private Long id;
 	
-	@ManyToOne
-	@JoinColumn(name = "replyer_id")
-	private User replyer;
+
+	private String replyer;
+	
+	private String profile;
 	
 	private String content;
 	
 	@ManyToOne
 	@JoinColumn(name="board_id")
+	@JsonIgnore
 	private Board board;
 	
 	@DateTimeFormat(pattern="yy.MM.dd")

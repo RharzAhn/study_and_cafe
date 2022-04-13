@@ -3,13 +3,16 @@ package com.one.springpj.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.one.springpj.model.Board;
 import com.one.springpj.model.Likes;
+import com.one.springpj.model.Reply;
 import com.one.springpj.model.Study;
 import com.one.springpj.repository.BoardRepository;
 import com.one.springpj.repository.LikesRepository;
+import com.one.springpj.repository.ReplyRepository;
 import com.one.springpj.repository.StudyRepository;
 
 import lombok.extern.java.Log;
@@ -24,6 +27,8 @@ public class StudyServiceImpl implements StudyService {
 	LikesRepository likeRepository;
 	@Autowired
 	BoardRepository boardRepository;
+	@Autowired
+	ReplyRepository replyRepository;
 	
 	@Override
 	public void insert(Study study) {
@@ -68,14 +73,48 @@ public class StudyServiceImpl implements StudyService {
 
 	@Override
 	public List<Board> findByStudyId(Long id) {
+		Sort sort = sortByRegdate();
 		Study study = studyRepository.findById(id).get();
-		return boardRepository.findByStudy(study);
+		return boardRepository.findByStudy(study, sort);
 	}
 
 	@Override
 	public void insertBoard(Board board) {
 		boardRepository.save(board);
 	}
+	
 
+	@Override
+	public Board findBoardById(Long id) {
+		return boardRepository.findById(id).get();
+	}
 
+	@Override
+	public void deleteBoard(Long id) {
+		boardRepository.deleteById(id);
+	}
+
+	private Sort sortByRegdate() {
+	    return Sort.by(Sort.Direction.DESC, "regdate");
+	}
+
+	@Override
+	public void insertReply(Reply reply) {
+		replyRepository.save(reply);
+	}
+
+	@Override
+	public void deleteReply(Long id) {
+		replyRepository.deleteById(id);
+	}
+
+	@Override
+	public List<Reply> findReplyByBoard(Long id) {
+		return replyRepository.findByBoard(boardRepository.findById(id).get());
+	}
+
+	@Override
+	public int replyCountbyBoard(Board board) {
+		return replyRepository.countByBoard(board);
+	}
 }

@@ -66,6 +66,16 @@
     color: var(--color-red);
     font-family: var(--highlight-font);
 }
+#frm{
+	text-align: right;
+}
+#btnInsert{
+	padding : 0.5rem 1rem;
+	background-color:var(--color-main);
+	color:var(--color-lighter);
+	margin-top : 1rem;
+}
+
 
 #content{
 	margin-top: 5rem;
@@ -75,6 +85,8 @@
     border: solid 2px var(--color-lighter);
     border-radius: 1rem;
     padding: 2rem;
+    margin: 2rem 0;
+ 
 }
 .board-header {
     display: flex;
@@ -126,4 +138,43 @@
 .table-responsive{
 	padding: 3rem;
 	width : 60%;
+}
+
+.more-reply{
+	position:relative;
+}
+#reply-list{
+	position:relative;
+}
+.reply-item{
+	display:flex;
+	margin : 1rem 0;
+}
+
+.reply-profile{
+	width: 40px;
+	height: 40px;
+	margin-right : 1rem;
+}
+
+.reply-profile img{
+	width: 100%;
+	height:100%;
+	border-radius: 50%;
+}
+
+.reply-replyer{
+    font-family: var(--highlight-font);
+}
+.reply-content{
+	margin : 0.2rem 0;
+}
+.reply-regdate{
+	font-size: 0.8rem;
+	color:var(--color-darker)
+}
+
+.reply-delete{
+	position : absolute;
+	right: 0;
 }

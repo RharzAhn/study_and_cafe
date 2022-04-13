@@ -12,67 +12,6 @@
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 
-
-
-<script
-	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAAH9_5Tw4NicbJS8gNnWZ16wOIBQ1JEAs&libraries=places&callback=myMap"
-	async defer></script>
-
-<script type="text/javascript" defer>
-	var autocomplete;
-	function myMap(addr) {
-
-// 		var lat;
-// 		var lng;
-
-// 		document.getElementById('autocomplete').value = addr
-
-// 		autocomplete = new google.maps.places.Autocomplete((document
-// 				.getElementById('autocomplete')), {
-// 			types : [ 'geocode' ]
-// 		});
-
-// 		autocomplete.addListener('place_changed', function() {
-// 			var place = autocomplete.getPlace();
-
-// 			lat = place.geometry.location.lat();
-// 			lng = place.geometry.location.lng();
-// 		});
-// 		console.log(lat, lng)
-
-		if (!addr) {
-			var myLatlng = new google.maps.LatLng(35.837143, 128.558612);
-		} else {
-			var myLatlng = new google.maps.LatLng(lat, lng);
-		}
-		var zoomLevel = 18; // 지도의 확대 레벨 : 숫자가 클수록 확대정도가 큼 
-
-		var mapOptions = {
-			zoom : zoomLevel,
-			center : myLatlng,
-			mapTypeId : google.maps.MapTypeId.ROADMAP
-		};
-		var map = new google.maps.Map(document.getElementById("googleMap"),
-				mapOptions);
-
-		var marker = new google.maps.Marker({
-			position : myLatlng,
-			map : map
-		});
-		google.maps.event.addListener(marker, 'click', function() {
-			infowindow.open(map, marker);
-		});
-	}
-
-	// 	function fillInAddress() {
-	// 		// Get the place details from the autocomplete object.
-	// 		var place = autocomplete.getPlace();
-
-	// 		lat= place.geometry.location.lat();
-	// 		lng = place.geometry.location.lng();
-	// 	}
-</script>
-
 <!-- <link rel="stylesheet" href="/css/index.css" /> -->
 <link rel="stylesheet" href="/css/book.css" />
 </head>
@@ -82,63 +21,112 @@
 		<span></span>
 		<p>스터디그룹에 가입해서 다양한 혜택을 받아보세요</p>
 	</div>
+
+
+	<div id="map" style="width: 80%; height: 350px;"></div>
+
+	<script type="text/javascript"
+		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=72c882a3a5977aef4e85600fee55002a&libraries=services"></script>
+
+	<script type="text/javascript">
+		var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
+		var options = { //지도를 생성할 때 필요한 기본 옵션
+			center : new kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표.
+			level : 0.5
+		};
+
+		var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+		// 주소-좌표 변환 객체를 생성합니다
+		var geocoder = new kakao.maps.services.Geocoder();
+		function mapping(addr,name){
+		
+			
+			// 주소로 좌표를 검색합니다
+			geocoder.addressSearch(addr, function(result, status) {
 	
+			    // 정상적으로 검색이 완료됐으면 
+			     if (status === kakao.maps.services.Status.OK) {
 	
-	<div id="googleMap" style="width: 80%; height: 350px;"></div>
+			        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 	
+			        // 결과값으로 받은 위치를 마커로 표시합니다
+			        var marker = new kakao.maps.Marker({
+			            map: map,
+			            position: coords
+			        });
 	
+			        // 인포윈도우로 장소에 대한 설명을 표시합니다
+			        var infowindow = new kakao.maps.InfoWindow({
+			            content: '<div style="width:150px;text-align:center;padding:6px 0;">'+name+'</div>'
+			        });
+			        infowindow.open(map, marker);
+	
+			        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+			        map.setCenter(coords);
+			    } 
+			});
+		}
+
+	</script>
+
 	<div class="container">
-<!-- 	<div id="locationField"> -->
-<!-- 		<input id="autocomplete" placeholder="Enter your address" type="text"> -->
-<!-- 	</div> -->
+		<!-- 	<div id="locationField"> -->
+		<!-- 		<input id="autocomplete" placeholder="Enter your address" type="text"> -->
+		<!-- 	</div> -->
 
-<!-- 	<input class="field" id="lat" /> -->
-<!-- 	<input class="field" id="lng" /> -->
+		<!-- 	<input class="field" id="lat" /> -->
+		<!-- 	<input class="field" id="lng" /> -->
 
 
 
-	<form action="/admin/book/bookCafe" method="get">
-		<div class="container">
-			<h2>예약 하기</h2>
-			<table class="table table-striped">
-				<thead>
-					<tr>
-						<th>지점번호</th>
-						<th>지점명</th>
-						<th>주소</th>
-						<th>지역</th>
-						<th>전화번호</th>
-						<th>매장사진</th>
-						<th>선택</th>
-					</tr>
-				</thead>
-				<tbody>
-					<c:forEach items="${list}" var="cafe">
+		<form action="/admin/book/bookCafe" method="get">
+			<div class="container">
+				<h2>예약 하기</h2>
+				<table class="table table-striped">
+					<thead>
 						<tr>
-							<td>${cafe.id}</td>
-							<td>${cafe.name}</td>
-							<td>${cafe.addr}</td>
+							<th>지점번호</th>
+							<th>지점명</th>
+							<th>주소</th>
 							<th>지역</th>
-							<td>${cafe.phone}</td>
-							<td>링크</td>
-							<td><input type="radio" name="pick" id="radio"
-								onclick="mapping('${cafe.id}','${cafe.addr}')"></td>
-							<!-- 테스트가 함수이름? 버튼눌럿을때 어떻게값을담는지 -->
+							<th>전화번호</th>
+							<th>매장사진</th>
+							<th>선택</th>
 						</tr>
-					</c:forEach>
-				</tbody>
-			</table>
-			<div class="form-group text-right">
-				<button type="button" class="btn btn-secondary btn-sm" id="submit">전송</button>
+					</thead>
+					<tbody>
+						<c:forEach items="${list}" var="cafe">
+							<tr>
+								<td>${cafe.id}</td>
+								<td>${cafe.name}</td>
+								<td>${cafe.addr}</td>
+								<th>지역</th>
+								<td>${cafe.phone}</td>
+								<td><button type="button" onclick="Swal.fire({
+									position: 'center',
+									
+								})">링크</button></td>
+								<td><input type="radio" name="pick" id="radio"
+									onclick="mapping('${cafe.addr}','${cafe.name}')"></td>
+								
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+				<div class="form-group text-right">
+					<button type="button" class="btn btn-secondary btn-sm" id="submit">전송</button>
+				</div>
 			</div>
-		</div>
-	</form>
+		</form>
 	</div>
 	<script type="text/javascript" defer>
-		let cafe_num = null
-		function mapping(num, addr) {
-			cafe_num = num
-			myMap(addr)
+		function cafeImg(path){
+			Swal.fire({
+				position: 'center',
+				html:`<img src='`+path+`'>`
+			}).then((value)=>{
+				
+			})
 		}
 
 		$("#submit").click(function() {

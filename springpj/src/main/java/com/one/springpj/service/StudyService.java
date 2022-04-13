@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.one.springpj.model.Board;
 import com.one.springpj.model.Likes;
+import com.one.springpj.model.Reply;
 import com.one.springpj.model.Study;
 
 public interface StudyService {
@@ -21,4 +22,11 @@ public interface StudyService {
 	public List<Board> findByStudyId(Long id);
 	
 	public void insertBoard(Board board); 
+	public Board findBoardById (Long id);
+	public void deleteBoard(Long id);
+	
+	public void insertReply(Reply reply);
+	public void deleteReply(Long id);
+	public List<Reply> findReplyByBoard(Long id);
+	public int replyCountbyBoard(Board board);
 }

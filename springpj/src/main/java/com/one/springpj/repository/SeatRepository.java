@@ -19,4 +19,7 @@ public interface SeatRepository extends JpaRepository<Seat, Long>{
 	public List<Seat> findByBookDate(Long id);
 	
 	public Seat findByBranchAndName(Branch branch, String name);
+	
+	public List<Seat> findByBranch(Branch branch);
+	
 }

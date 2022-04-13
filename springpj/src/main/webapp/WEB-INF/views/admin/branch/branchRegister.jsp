@@ -27,6 +27,8 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script
+	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <link href="/css/seat.css" rel="stylesheet" />
 </head>
 <body>
@@ -115,9 +117,25 @@
 									<label for="name">지점명:</label> <input type="text"
 										class="form-control" id="name" placeholder="지점명" name="name">
 								</div>
+
 								<div class="form-group">
-									<label for="addr">지점주소:</label> <input type="text"
-										class="form-control" id="addr" placeholder="지점주소" name="addr">
+									<label for="sample6_postcode">우편번호</label>
+									<div style="display: flex">
+										<input type="text" class="form-control" id="sample6_postcode"
+											placeholder="우편번호"> <input type="button"
+											onclick="sample6_execDaumPostcode()" value="우편번호 찾기"
+											class="btn btn-secondary"
+											style="width: 10rem; margin-left: 0.5rem">
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="sample6_address">주소</label> <input type="text"
+										class="form-control" id="sample6_address" name="addr"
+										placeholder="주소"> <input type="text"
+										id="sample6_detailAddress" placeholder="상세주소"
+										style="display: none;"> <input type="text"
+										id="sample6_extraAddress" placeholder="참고항목"
+										style="display: none;">
 								</div>
 								<div class="form-group">
 									<label for="phone">전화번호:</label> <input type="text"
@@ -193,17 +211,7 @@
 				"username":$("#manager").val(),
 				"seats" :array
 		}
-		console.log(data)
-//	 	$.ajax({
-//	 		type:"post",
-//	 		url:"insert",
-//	 		contentType: "application/json;charset=utf-8",
-//	 		traditional :true,
-//	 		data: JSON.stringify(data)
-//	 	}).done((res)=>{
-//	 		console.log(res)
-//	 	})
-		
 	})
 </script>
+<script type="text/javascript" src="/js/address.js"></script>
 </html>
