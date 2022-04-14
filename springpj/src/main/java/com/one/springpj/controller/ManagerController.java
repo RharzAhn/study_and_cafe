@@ -1,7 +1,6 @@
 package com.one.springpj.controller;
 
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.one.springpj.constant.MenuStatus;
-import com.one.springpj.constant.MenuType;
+import com.one.springpj.model.Book;
 import com.one.springpj.model.Branch;
 import com.one.springpj.model.CafeMenu;
 import com.one.springpj.model.User;
+import com.one.springpj.service.BookService;
 import com.one.springpj.service.BranchService;
 import com.one.springpj.service.CafeMenuService;
 import com.one.springpj.service.MenuService;
@@ -41,6 +41,9 @@ public class ManagerController {
 	
 	@Autowired
 	private CafeMenuService cafeMenuService;
+	
+	@Autowired
+	private BookService bookService;
 	
 	@GetMapping("manager")
 	public void managerPage() {
@@ -111,7 +114,12 @@ public class ManagerController {
 	//---------------------------예약상태 관리-----------------------------
 	
 	@GetMapping("bookStatus")
-	public void bookStatus() {
+	public void bookStatus(Principal principal, Model model) {
+		Branch branch = branchService.findByManager(userService.findByUsername(principal.getName()));
+		if (branch!=null) {
+			List<Book> bookList = bookService.findByBranch(branch);
+			model.addAttribute("bookList", bookList);
+		}
 		
 	}
 	

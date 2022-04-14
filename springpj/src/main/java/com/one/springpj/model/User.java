@@ -17,14 +17,11 @@ import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.one.springpj.constant.JoinStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.one.springpj.constant.Role;
-import com.one.springpj.constant.StudyRole;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 //@Data
 @Entity
@@ -69,4 +66,33 @@ public class User {
 			fetch=FetchType.LAZY,
 			cascade = CascadeType.ALL)
 	private List<Joiner> joiners;
+	
+	
+	
+	@OneToMany(mappedBy ="user",
+			fetch=FetchType.LAZY,
+			cascade = CascadeType.ALL)
+	@JsonIgnore
+	private List<Likes> likes;
+	
+	
+	@OneToMany(mappedBy ="booker",
+	fetch=FetchType.LAZY,
+	cascade = CascadeType.ALL)
+	@JsonIgnore
+	private List<Book> books;
+	
+	
+	@OneToMany(mappedBy ="manager",
+	fetch=FetchType.LAZY,
+	cascade = CascadeType.ALL)
+	@JsonIgnore
+	private List<Branch> branchs;
+	
+	@OneToMany(mappedBy ="leader",
+	fetch=FetchType.LAZY,
+	cascade = CascadeType.ALL)
+	@JsonIgnore
+	private List<Study> studies;
+	
 }

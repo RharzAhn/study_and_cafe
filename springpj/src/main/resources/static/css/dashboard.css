@@ -103,3 +103,25 @@ body {
     border-color: transparent;
     box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.25);
 }
+
+.find-role{
+	margin-top:3rem;
+	
+}
+.delete input[type="checkbox"]{
+	width : 1rem;
+	height: 1rem;
+	background-color: var(--color-lighter);
+	margin:1rem;
+}
+#userDeleteForm{
+	text-align:right;
+}
+#deleteUser{
+	padding : 3px 1rem;
+	background-color : var(--color-main);
+	color: var(--color-lighter);
+}
+#userDeleteForm table{
+	text-align:left;
+}

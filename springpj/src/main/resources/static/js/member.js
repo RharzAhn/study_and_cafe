@@ -113,13 +113,13 @@ $(document).ready(function(){
 			type: "post",
 			url: "/idCheck",
 			data: {
-				"id": $("#id").val()
+				"username": $("#username").val()
 			}
 		}).done((res) => {
 			if (res == "available") {
-				alert("사용할 수 있는 아이디");
+				alert("사용할 수 있는 아이디 입니다.");
 			} else {
-				alert("사용할 수 없는 아이디");
+				alert("사용할 수 없는 아이디 입니다.");
 			}
 		})
 	})

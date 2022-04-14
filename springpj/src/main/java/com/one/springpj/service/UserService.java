@@ -3,6 +3,7 @@ package com.one.springpj.service;
 import java.security.Principal;
 import java.util.List;
 
+import com.one.springpj.constant.Role;
 import com.one.springpj.model.User;
 
 public interface UserService {
@@ -22,8 +23,13 @@ public interface UserService {
 	void userdelete(User user, Principal principal);
 
 	void userupdate(User user, Principal principal);
-
 	
+	public List<User> findByRole(Role role);
+	
+	public List<User> findByUsernameLike(String word);
+	public List<User> findByNickLike(String word);
+	public List<User> findByAddrLike(String word);
+	public List<User> findByEmailLike(String word);
 	
 
 	

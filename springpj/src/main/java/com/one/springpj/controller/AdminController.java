@@ -1,4 +1,4 @@
-﻿package com.one.springpj.controller;
+package com.one.springpj.controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,17 +12,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.one.springpj.constant.FileMaker;
+import com.one.springpj.constant.Role;
 import com.one.springpj.model.Branch;
 import com.one.springpj.model.Menu;
 import com.one.springpj.model.Seat;
 import com.one.springpj.model.Study;
 import com.one.springpj.model.User;
-import com.one.springpj.service.BookServiceImpl;
 import com.one.springpj.service.BranchService;
 import com.one.springpj.service.MenuService;
 import com.one.springpj.service.StudyService;
@@ -114,21 +114,21 @@ public class AdminController {
 	// 수정한 값 보내기
 	@PostMapping("/branch/update")
 	public String update(Branch branch, MultipartFile file, HttpSession session, String[] seatNum, String username) {
-		//파일 저장 
-		log.info("=================="+file);
-		if(file!=null) {
+		// 파일 저장
+		log.info("==================" + file);
+		if (file != null) {
 			String imagePath = FileMaker.save(file, session);
 			branch.setProfile(imagePath);
 		}
 		branch.setManager(userService.findByUsername(username));
-		
-		//지점 업데이트
+
+		// 지점 업데이트
 		branchService.update(branch);
-		
-		//기존 자리 삭제
+
+		// 기존 자리 삭제
 		List<Seat> deleteSeatList = branchService.findSeatByBranch(branch);
 		branchService.deleteSeat(deleteSeatList);
-		
+
 		// 알파벳 배열
 		char[] clist = new char[26];
 		for (int i = 0; i < 26; i++) {
@@ -260,24 +260,59 @@ public class AdminController {
 	// ---------------------------유저(user) 컨트롤----------------------------------
 
 	@GetMapping("user/userList")
-	public void userList(Model model) {
-		model.addAttribute("userlist", userService.getUserlist());
+	public void userList(Model model, @RequestParam(name = "role", defaultValue = "") String role,
+			@RequestParam(name = "field", defaultValue = "") String field,
+			@RequestParam(name = "word", defaultValue = "") String word) {
+		List<User> userList = null;
+		if (!field.equals("") && !word.equals("")) {
+			log.info("=======search====== :" + field + "====" + word);
+			switch (field) {
+			case "username":
+				userList = userService.findByUsernameLike(word);
+				break;
+			case "nick":
+				userList = userService.findByNickLike(word);
+				break;
+			case "addr":
+				userList = userService.findByAddrLike(word);
+				break;
+			case "email":
+				userList = userService.findByEmailLike(word);
+				break;
+			default:
+				break;
+			}
+			log.info(">>>>>>>" + userList.toString());
+		} else if (!role.equals("")) {
+			log.info("=======findRole====== :" + role);
+			switch (role) {
+			case "manager":
+				userList = userService.findByRole(Role.ROLE_MANAGER);
+				break;
+			case "user":
+				userList = userService.findByRole(Role.ROLE_USER);
+				break;
+
+			default:
+				break;
+			}
+		} else {
+			userList = userService.getUserlist();
+		}
+		model.addAttribute("userlist", userList);
 	}
 
 	// ===============================================================================
 
-	@PostMapping("admindelete")
-	@ResponseBody
-	public String delete(long id) {
-		User user = userService.findById(id);
-		if (user == null) {
-			log.info("삭제 실패");
-			return "failed";
-		} else {
-			userService.delete(id);
-			log.info("삭제 성공");
+	@PostMapping("userdelete")
+	public String delete(Long[] delete) {
+		if (delete != null) {
+			for (Long id : delete) {
+				log.info("===============userId:"+id+"=========");
+				userService.delete(id);
+			}
 		}
-		return "success";
+		return "redirect:/admin/user/userList";
 	}
 
 	// ===============================================================================

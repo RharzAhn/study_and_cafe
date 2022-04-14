@@ -26,4 +26,5 @@ public interface BookService {
 	public void saveBookSeat(BookSeat bookSeat);
 	
 	public List<Book> findByStudy(Study study);
+	public List<Book> findByBranch(Branch branch);
 }

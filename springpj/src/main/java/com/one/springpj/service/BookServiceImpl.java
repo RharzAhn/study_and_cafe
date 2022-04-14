@@ -93,6 +93,12 @@ public class BookServiceImpl implements BookService {
 		return bookRepository.findByStudy(study, sort);
 	}
 	
+	@Override
+	public List<Book> findByBranch(Branch branch) {
+		Sort sort = sortByBookDate();
+		return bookRepository.findByBranch(branch,sort);
+	}
+	
 	public Sort sortByBookDate() {
 		return Sort.by(Sort.Direction.DESC, "bookDate");
 	}

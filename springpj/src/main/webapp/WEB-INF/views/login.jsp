@@ -55,35 +55,6 @@
 
 </script>
     
-    
-    
-    
-    
-    
-    <script>
-        const navMenu = document.querySelector(".nav-menu");
-        const nav = document.querySelector(".nav");
-        const navContent = document.querySelector(".nav-content");
-        
-        navMenu.addEventListener("mouseover", () => {
-            nav.style.background = "var(--color-main)";
-            navContent.style.height = "150px";
-            navContent.style.display = "flex";
-        });
-        navMenu.addEventListener("mouseout", () => {
-        	nav.style.background = "var(--color-main)";
-            navContent.style.height = "0";
-        });
-        navContent.addEventListener("mouseover", () => {
-            nav.style.background = "var(--color-main)";
-            navContent.style.height = "150px";
-            navContent.style.display = "flex";
-        });
-        navContent.addEventListener("mouseout", () => {
-            nav.style.background = "var(--color-main)";
-            navContent.style.height = "0";
-        });
-    </script>
 </html>
 
 

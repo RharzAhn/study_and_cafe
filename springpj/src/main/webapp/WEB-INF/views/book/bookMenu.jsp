@@ -59,6 +59,58 @@
 		</form>
 	</div>
 	<script>
+	
+	
+	
+	// 마일리지 계산 함수
+	var mileCalcul = () => {
+		const use =$("#useMileage")
+		const my = $("#mymileage")
+		const tot = $("#totalPrice")
+		
+		var usemile =Number(use.val())
+		var mymile = ${principal.user.mileage }
+		var total = Number($("#totalHidden").val())
+		
+		if(mymile-usemile>0){
+			my.html(mymile-usemile)
+		}else{
+			use.val(mymile)
+			my.html(0)
+		}
+		
+		if(total-usemile>=0){			//총 결제 금액이 입력된 마일리지 보다 클 때
+			tot.val(total-usemile)
+		}
+		else if(total-usemile>=0 && mymile>=usemile){ //총 결제금액이 입력된 마일리지보다 높고, 입력된 마일리지가 가지고 있는 마일리지보다 클때
+			use.val(usemile)
+			my.html(0)
+			tot.val(total-mymile)
+		}
+		else if(total>=mymile && total-usemile<0 && mymile>=usemile){ //총 결제금액이 입력된 마일리지보다 작고, 입력된 마일리지가 가지고 있는 마일리지보다 작을때 
+			my.html(mymile-usemile)
+			tot.val(total-mymile)
+			//my.val(mymile-usemile)
+		}else if(total>=mymile && total-usemile<0 && mymile<usemile){ //총 결제 금액이 입력된 마일리지 보다 작고, 입력된 마일리지가 가지고 있는 마일리지보다 클때
+			use.val(mymile)
+			my.html(0)
+			tot.val(total-mymile)
+		}
+		else if(total<mymile && total-usemile<0 && mymile>=usemile){ //총 결제금액이 입력된 마일리지보다 작고, 입력된 마일리지가 가지고 있는 마일리지보다 작을때 
+			use.val(total)
+			my.html(mymile-total)
+			tot.val(0)
+			//my.val(mymile-usemile)
+		}else if(total<mymile && total-usemile<0 && mymile<usemile){ //총 결제 금액이 입력된 마일리지 보다 작고, 입력된 마일리지가 가지고 있는 마일리지보다 클때
+			use.val(total)
+			my.html(mymile-total)
+			tot.val(0)
+		}
+	}
+	
+	
+	
+	
 		function addMenu(id,name,price){
 			console.log($("."+id).length)
 			if($("."+id).length==0){
@@ -75,10 +127,12 @@
 				
 			var total = $("#totalPrice")
 			var totalHidden = $("#totalHidden")
-			total.val(Number(total.val())+Number(price))
-			
+			total.val(Number(totalHidden.val())+Number(price))
 			totalHidden.val(total.val())
+			
+			mileCalcul()
 			}
+			
 			
 		}
 		
@@ -91,9 +145,10 @@
 			
 			count.val(Number(count.val())+1)
 			totprice.val(Number(count.val())*Number(price.val()))
-			total.val(Number(total.val())+Number(price.val()))
+			total.val(Number(totalHidden.val())+Number(price.val()))
 			
 			totalHidden.val(total.val())
+			mileCalcul()
 		}
 		
 		function subCountMenu(id){
@@ -102,59 +157,30 @@
 			var count = $("."+id).children('input:eq(1)')
 			var price = $("."+id).children('input:eq(2)')
 			var totprice = $("."+id).children('input:eq(3)')
-			total.val(Number(total.val())-Number(count.val()=='1'?'0':price.val()))
+			total.val(Number(totalHidden.val())-Number(count.val()=='1'?'0':price.val()))
 			
 			count.val(Number(count.val())-1<1?1:Number(count.val())-1)
 			totprice.val(Number(count.val())*Number(price.val()))
 			
 			totalHidden.val(total.val())
+			mileCalcul()
 		}
 		function delMenu(id){
 			var total = $("#totalPrice")
 			var totalHidden = $("#totalHidden")
 			var totprice = $("."+id).children('input:eq(3)')
-			total.val(Number(total.val())-Number(totprice.val()))
+			total.val(Number(totalHidden.val())-Number(totprice.val()))
 			$("."+id).remove()
 			
 			totalHidden.val(total.val())
+			mileCalcul()
 		}
 		
 		
 		
+	
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		$("#useMileage").on('input',()=>{
-			const use =$("#useMileage")
-			const my = $("#mymileage")
-			const tot = $("#totalPrice")
-			
-			var usemile =Number(use.val())
-			var mymile = ${principal.user.mileage }
-			var total = Number($("#totalHidden").val())
-			
-			if(mymile-usemile>0){
-				my.html(mymile-usemile)
-			}else{
-				use.val(mymile)
-				my.html(0)
-			}
-			
-			if(total-usemile>0){			
-				tot.val(total-usemile)
-			}else{
-				tot.val(0)
-				use.val(total)
-			}
-		})
-		
+		$("#useMileage").on('input',mileCalcul)
 	</script>
 </body>
 </html>
