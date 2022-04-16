@@ -87,7 +87,7 @@
 						var="start" />
 					<fmt:formatDate value="${study.endDate}" pattern="yyyy.MM.dd"
 						var="end" />
-					<div class="study-item">
+					<div class="study-item" id="study${study.id}">
 						<div class="study-status">진행중</div>
 						<img class="study-profile" src="${study.profile }"
 							onclick="location.href='/study/detail?id=${study.id}'">
@@ -99,9 +99,18 @@
 								<li>기간 : ${start}-${end}</li>
 								<li>제한인원 : ${study.limitCount }</li>
 							</ul>
-							<div class="likes">
-								<i id="like" class="fa-regular fa-heart"></i> <label for="like">${study.likes }</label>
-								<button type="button" id="like" onclick="clickLike(${study.id})">하트</button>
+							<div class="likes-${study.id}">
+								<button type="button" id="like" onclick="clickLike(${study.id})">
+									<i id="likeIcon" class="fa-regular fa-heart"></i>
+									<c:forEach items="${likes}" var="like">
+										<c:choose>
+											<c:when test="${like.study.id==study.id}">
+												<i id="likeIcon" class="fa-solid fa-heart"></i>
+											</c:when>
+										</c:choose>
+									</c:forEach>
+									<span id="likeCount">${study.likes }</span>
+								</button>
 							</div>
 						</div>
 					</div>
@@ -120,22 +129,41 @@
 	</div>
 
 	<script type="text/javascript">
+
+		
+	
+	
 		function clickLike(id){
-			$.ajax({
-				type:"post",
-				url:"/study/checkLike",
-				data:{
-					"studyId": id,
-					"userId": 1
-				}
-			}).done((res)=>{
-				location.href="/study/list"
-			})
+			var userId = ''
+			if(${empty principal}){
+				alert("로그인이 필요한 서비스입니다.")
+				return;
+			}else{
+				userId = ${principal.user.id}
+				$.ajax({
+					type:"post",
+					url:"/study/checkLike",
+					data:{
+						"studyId": id,
+						"userId": userId
+					}
+				}).done((res)=>{
+					const count = Number($("#likeCount").html())
+					if(res=="success"){					
+						alert("좋아요를 눌렀습니다!")
+						location.href="/study/list"
+
+					}else{
+						alert("좋아요를 취소했습니다")
+						location.href="/study/list"
+					}
+				})
+			}
 		}
 		
 		$("#btnMkStudy").click(()=>{
 			if(${empty principal}){
-				alert("로그인이 필요합니다.")
+				alert("로그인이 필요한 서비스입니다.")
 				location.href="/login"
 				return
 			}

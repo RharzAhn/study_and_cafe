@@ -77,6 +77,7 @@ public class StudyController {
 			if (joinedStudies.size() != 0) {
 				model.addAttribute("joins", joinedStudies);
 			}
+			model.addAttribute("likes", userService.findByUsername(principal.getName()).getLikeList());
 		}
 		List<Study> studyList = null;
 		if(!field.equals("")&&!word.equals("")) {
@@ -84,7 +85,6 @@ public class StudyController {
 			switch (field) {
 			case "title":
 				studyList = studyService.findByStudynameLike(word);
-				log.info("studyList get 0 find>>>>>>>>"+studyList.get(0).getTitle());
 				break;
 
 			default:
@@ -152,20 +152,24 @@ public class StudyController {
 
 	@PostMapping("checkLike")
 	@ResponseBody
-	public void checkLike(Long studyId, Long userId) {
+	public String checkLike(Long studyId, Long userId) {
 		Likes like = studyService.isLike(studyId, userId);
 		Study study = studyService.read(studyId);
+		String result = null;
 		if (like != null) {
 			studyService.deleteLike(like.getId());
 			study.setLikes(study.getLikes() - 1);
+			result = "cancel";
 		} else {
 			like = new Likes();
 			like.setStudy(new Study(studyId));
 			like.setUser(new User(userId));
 			studyService.insertLike(like);
 			study.setLikes(study.getLikes() + 1);
+			result="success";
 		}
 		studyService.update(study);
+		return result;
 
 	}
 

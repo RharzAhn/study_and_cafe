@@ -72,8 +72,7 @@ public class User {
 	@OneToMany(mappedBy ="user",
 			fetch=FetchType.LAZY,
 			cascade = CascadeType.ALL)
-	@JsonIgnore
-	private List<Likes> likes;
+	private List<Likes> likeList;
 	
 	
 	@OneToMany(mappedBy ="booker",

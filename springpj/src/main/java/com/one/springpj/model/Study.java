@@ -81,4 +81,10 @@ public class Study {
 	private List<Book> books;
 	
 	private String profile;
+	
+	@OneToMany(mappedBy = "study",
+			fetch = FetchType.LAZY,
+			cascade = CascadeType.ALL)
+	private List<Likes> likeList;
+	
 }
