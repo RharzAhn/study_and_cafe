@@ -142,7 +142,7 @@ public class StudyTest {
 		System.out.println(count);
 	}
 	
-	@Test
+//	@Test
 	public void test6() {
 		Branch branch = branchRepository.findById((long)79).get();
 		List<Menu> list = menuRepository.findbyMenuNotCafeMenu(branch.getId());
@@ -151,5 +151,20 @@ public class StudyTest {
 			System.out.println(">>>>>>>>>>>>>>>>>>"+menu.getName());
 		}
 		
+	}
+	
+	@Test
+	public void test7() {
+		List<Study> studyList = studyRepository.findByTitleLike("%룹%");
+		System.out.println(">>>>>>find : "+ studyList.toString());
+		for(Study study : studyList) {
+			System.out.println(">>>>>>>>>>>>>>"+study.getTitle());
+		}
+		
+		List<Study> studyList2 = studyRepository.findByTitleLike("%그룹룹%");
+		System.out.println(">>>>>>find : "+ studyList2.toString());
+		for(Study study : studyList2) {
+			System.out.println(">>>>>>>>>>>>>>"+study.getTitle());
+		}
 	}
 }

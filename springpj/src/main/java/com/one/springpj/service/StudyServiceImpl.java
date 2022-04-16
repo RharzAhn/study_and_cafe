@@ -88,7 +88,7 @@ public class StudyServiceImpl implements StudyService {
 
 	@Override
 	public List<Study> findByStudynameLike(String word) {
-		word = "%"+word+"%";
+//		word = "%"+word+"%";
 		return studyRepository.findByTitleLike(word);
 	}
 

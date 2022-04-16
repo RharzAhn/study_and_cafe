@@ -78,8 +78,23 @@ public class StudyController {
 				model.addAttribute("joins", joinedStudies);
 			}
 		}
-		List<Study> studies = studyService.getList();
-		model.addAttribute("studies", studies);
+		List<Study> studyList = null;
+		if(!field.equals("")&&!word.equals("")) {
+			log.info(">>search :"+field+", "+word);
+			switch (field) {
+			case "title":
+				studyList = studyService.findByStudynameLike(word);
+				log.info("studyList get 0 find>>>>>>>>"+studyList.get(0).getTitle());
+				break;
+
+			default:
+				break;
+			}
+		}else {
+			studyList = studyService.getList();
+		}
+		
+		model.addAttribute("studies", studyList);
 
 	}
 
