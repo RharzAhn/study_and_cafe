@@ -64,6 +64,16 @@ public class UserController {
 		userService.update(user);
 		return "redirect:/user/myPage";
 	}
+	
+	@GetMapping("userDel22/{username}")
+	@ResponseBody
+	public String userDel(@PathVariable("username") String username) {
+		User user = userService.findByUsername(username);
+		userService.delete(user.getId());
+		return "/user/myPageUpdate";
+	}
+	
+	
 	//=========================================================
 	
 	//------------------------내스터디------------------------------------

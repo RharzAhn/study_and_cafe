@@ -62,11 +62,10 @@
 		</div> --%>
 		
 		<div id="search">
-			<form action="/study/list" method="get">
+			<form action="/study/list" method="get" class="search">
 				<select name="field" id="field">
-					<option value="both">내용/제목</option>
 					<option value="title">제목</option>
-					<option value="content">내용</option>
+
 				</select> <input type="text" name="word" placeholder="검색어를 입력하세요">
 				<!-- <button type="submit">검색</button> -->
 				<button><i class="fa-solid fa-magnifying-glass"></i></button>

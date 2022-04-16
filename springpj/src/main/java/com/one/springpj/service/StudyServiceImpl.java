@@ -2,7 +2,9 @@ package com.one.springpj.service;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.one.springpj.model.Board;
@@ -37,7 +39,8 @@ public class StudyServiceImpl implements StudyService {
 
 	@Override
 	public List<Study> getList() {
-		return studyRepository.findAll();
+		Sort sort = Sort.by(Sort.Direction.DESC, "likes");
+		return studyRepository.findAll(sort);
 	}
 
 	@Override
@@ -76,6 +79,18 @@ public class StudyServiceImpl implements StudyService {
 	public void insertBoard(Board board) {
 		boardRepository.save(board);
 	}
+
+	@Override
+	public List<Study> findByStudynameLike(String word) {
+		word = "%"+word+"%";
+		return studyRepository.findByTitleLike(word);
+	}
+
+//	@Override
+//	public List<Study> findByLeaderLike(String word) {
+//		word = "%"+word+"%";
+//		return studyRepository.findByLeaderLike(word);
+//	}
 
 
 }

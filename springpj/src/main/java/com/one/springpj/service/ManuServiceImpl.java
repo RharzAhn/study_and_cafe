@@ -3,6 +3,7 @@ package com.one.springpj.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.one.springpj.constant.MenuType;
@@ -28,7 +29,8 @@ public class ManuServiceImpl implements MenuService {
 	@Override
 	public List<Menu> menuList() {
 		// TODO Auto-generated method stub
-		return menuRepository.findAll();
+		Sort sort = Sort.by(Sort.Direction.DESC, "id");
+		return menuRepository.findAll(sort);
 	}
 
 	@Override
@@ -62,6 +64,13 @@ public class ManuServiceImpl implements MenuService {
 	@Override
 	public List<Menu> findByMenuType(MenuType menuType) {
 		return menuRepository.findByMenuType(menuType);
+	}
+
+	@Override
+	public List<Menu> findByMenunameLike(String word) {
+		word = "%"+word+"%";
+		return menuRepository.findByNameLike(word);
+		
 	}
 
 	

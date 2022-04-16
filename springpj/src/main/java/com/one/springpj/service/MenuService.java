@@ -20,4 +20,6 @@ public interface MenuService {
 	//select * from menu where menu_type = "COFFEE";
 	public List<Menu> findByMenuType(MenuType menuType);
 
+	public List<Menu> findByMenunameLike(String word);
+
 }

@@ -33,6 +33,18 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script type="text/javascript">
+		function userDel112(username){
+	        $.ajax({
+	            type: "get",
+	            url: "/user/userDel22/"+username
+	            
+	        }).done(function(){
+	           	alert("탈퇴되었습니다.")
+	           	location.href="/logout"
+	    }); 
+	}	
+        </script>
     </head>
     <body>
         <header
@@ -148,6 +160,7 @@
 							    </div>
 							    						   
 						  	  <button class="submit">수정</button>
+						  	  <button type="button" class="submit" id="userDel" onclick="userDel112('${principal.user.username}')">탈퇴</button>
 						  </form>
 						</div>
       
@@ -180,5 +193,6 @@
     		var fileName = $("#file").val();
     		$(".upload-name").val(fileName);
     	});
+
     </script>
 </html>
