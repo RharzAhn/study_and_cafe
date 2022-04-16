@@ -21,7 +21,11 @@ public interface StudyService {
 	
 	public List<Board> findByStudyId(Long id);
 	
-	public void insertBoard(Board board); 
+	public void insertBoard(Board board);
+
+	public List<Study> findByStudynameLike(String word);
+//	public List<Study> findByLeaderLike(String word); 
+
 	public Board findBoardById (Long id);
 	public void deleteBoard(Long id);
 	

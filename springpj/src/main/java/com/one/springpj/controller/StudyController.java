@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -49,8 +50,26 @@ public class StudyController {
 	@Autowired
 	BookService bookService;
 
+//	@GetMapping("list")
+//	public void list(Model model, Principal principal) {
+//		Long userId = null;
+//		if (principal != null) {
+//			userId = userService.findByUsername(principal.getName()).getId();
+//			List<Joiner> joinedStudies = joinerService.findJoinUserList(userId, JoinStatus.ACCEPT);
+//			if (joinedStudies.size() != 0) {
+//				model.addAttribute("joins", joinedStudies);
+//			}
+//		}
+//		List<Study> studies = studyService.getList();
+//		model.addAttribute("studies", studies);
+//
+//	}
+	
 	@GetMapping("list")
-	public void list(Model model, Principal principal) {
+	public void userList(Model model, Principal principal,
+			@RequestParam(name = "field", defaultValue = "") String field,
+			@RequestParam(name = "word", defaultValue = "") String word) {
+		
 		Long userId = null;
 		if (principal != null) {
 			userId = userService.findByUsername(principal.getName()).getId();

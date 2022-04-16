@@ -36,7 +36,8 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<User> getUserlist() {
 		// TODO Auto-generated method stub
-		return userRepository.findAll();
+		Sort sort = Sort.by(Sort.Direction.DESC, "id");
+		return userRepository.findAll(sort);
 	}
 
 	@Override
