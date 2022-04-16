@@ -47,7 +47,7 @@
 				<td>${book.branch.name}</td><td></td>
 			</tr>
 		</table>
-		<button type="button" id="confirmBtn">확인</button>
+		<button type="button" id="confirmBtn" onclick="localhost.href='/index'">확인</button>
 	</div>
 	<script>
 

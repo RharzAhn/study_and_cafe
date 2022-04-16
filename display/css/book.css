@@ -1,0 +1,129 @@
+#selectMenuForm {
+    margin: auto;
+    /* margin-top: 35rem; */
+    margin-bottom: 3rem;
+}
+
+h5 {
+    font-family: var(--highlight-font);
+}
+.order-form {
+    position: fixed;
+    background-color: var(--color-lighter);
+    width: 400px;
+    padding: 2rem;
+    left: 65%;
+    z-index: 1;
+    box-shadow: rgb(99 99 99 / 20%) 0px 2px 8px 0px;
+}
+
+.order-form > div {
+    padding-bottom: 2rem;
+}
+#cafeOrderList {
+    border-bottom: dotted 2px var(--color-main);
+    margin-bottom: 2rem;
+    min-height: 200px;
+}
+.useable-mile-form div {
+    display: flex;
+    justify-content: space-between;
+}
+
+.useable-mile-form p {
+    font-family: var(--highlight-font);
+}
+
+#mymileage {
+    padding-right: 1rem;
+}
+.useable-mile-form div input {
+    text-align: right;
+    color: var(--color-darker);
+}
+
+.get-mile {
+    display: flex;
+    justify-content: space-between;
+}
+.get-mile > div {
+    width: 100%;
+}
+.get-mile-user {
+    padding-right: 1.5rem;
+}
+.get-mile > div > p {
+    position: relative;
+}
+
+.get-mile > div > p:first-child > span {
+    font-family: var(--highlight-font);
+    font-size: 1rem;
+    color: var(--color-main);
+}
+
+.get-mile > div > p > span {
+    color: var(--color-darker);
+    font-size: 0.9rem;
+}
+.mile {
+    position: absolute;
+    right: 0;
+}
+.total-form {
+    display: flex;
+    align-items: center;
+}
+.total-form h5 {
+    margin: 0;
+    width: 100%;
+}
+#totalPrice {
+    width: 100%;
+    text-align: right;
+    font-size: 2rem;
+    padding-right: 0.5rem;
+}
+h3 {
+    margin: 0;
+}
+.charge-select {
+    display: flex;
+    justify-content: space-between;
+}
+#submitBtn {
+    width: 100%;
+    background-color: var(--color-main);
+    /* font-size: 2rem; */
+    height: 3rem;
+    color: var(--color-lighter);
+}
+
+#cafeOrder {
+    display: flex;
+}
+#cafeOrder input {
+    width: 100%;
+    text-align: center;
+}
+#menuName {
+    font-family: var(--highlight-font);
+}
+.update-menu-btn {
+    display: flex;
+}
+.update-menu-btn i {
+    padding: 0 5px;
+}
+
+@media all and (max-width: 1200px) {
+    .order-form {
+        position: initial;
+        background-color: var(--color-lighter);
+        width: 100%;
+        padding: 2rem;
+        left: 65%;
+        z-index: 1;
+        box-shadow: rgb(99 99 99 / 20%) 0px 2px 8px 0px;
+    }
+}

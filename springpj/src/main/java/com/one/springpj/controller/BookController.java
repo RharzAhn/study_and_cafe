@@ -27,6 +27,7 @@ import com.one.springpj.model.Branch;
 import com.one.springpj.model.CafeMenu;
 import com.one.springpj.model.Joiner;
 import com.one.springpj.model.Seat;
+import com.one.springpj.model.Study;
 import com.one.springpj.model.User;
 import com.one.springpj.service.BookService;
 import com.one.springpj.service.BranchService;
@@ -121,6 +122,8 @@ public class BookController {
 			int[] menuTotal,//
 			int totalPrice,//
 			int useMile,//
+			int userMile,
+			int studyMile,
 			Model model) throws ParseException {
 		
 		SimpleDateFormat sdformat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -128,15 +131,18 @@ public class BookController {
 		Branch branch = branchService.findById(cafeId);
 		
 		User user = userService.findByUsername(principal.getName());
-		user.setMileage(user.getMileage()-useMile);
+		user.setMileage(user.getMileage()-useMile+userMile);
 		userService.update(user);
 		
+		Study study = studyService.read(studyId);
+		study.setMileage(study.getMileage()+studyMile);
+		studyService.update(study);
 		
 		Book book = new Book();
 		book.setBookDate(date);
 		book.setBooker(user);
 		book.setBranch(branch);
-		book.setStudy(studyService.read(studyId));
+		book.setStudy(study);
 		book.setBookStatus(BookStatus.BOOKED);
 		book.setTotal(totalPrice);
 		
