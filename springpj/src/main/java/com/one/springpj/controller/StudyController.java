@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.one.springpj.constant.FileMaker;
 import com.one.springpj.constant.JoinStatus;
 import com.one.springpj.constant.StudyRole;
+import com.one.springpj.model.Alert;
 import com.one.springpj.model.Board;
 import com.one.springpj.model.Joiner;
 import com.one.springpj.model.Likes;
@@ -145,6 +146,13 @@ public class StudyController {
 			joiner.setUser(userService.findById(userId));
 			joiner.setJoinStatus(JoinStatus.WAITING);
 			joinerService.insert(joiner);
+			
+			//메시지 보내기
+			Alert alert = new Alert();
+			alert.setMessage("새로운 가입 신청이 있습니다.");
+			alert.setUserId(study.getLeader().getId());
+			userService.saveAlert(alert);
+			
 			return "success";
 		}
 		return "failed";
@@ -200,9 +208,10 @@ public class StudyController {
 			Study study = studyService.read(id);
 			List<Board> boardList = studyService.findByStudyId(id);
 			
-			//가입된 스터디원 수
+			//가입된 스터디원 수 & 스터디원 정보
 			int joinedCount = joinerService.joinCount(study, JoinStatus.ACCEPT);
 			model.addAttribute("joinedCount", joinedCount);
+			model.addAttribute("joiner", joinerService.findByStudyAndUser(study, user));
 			
 			// 추가 예약정보
 			model.addAttribute("study", study);
@@ -212,6 +221,12 @@ public class StudyController {
 			
 		}
 	}
+	@PostMapping("outStudy")
+	@ResponseBody
+	public void outStudy(Long joinerId) {
+		joinerService.delete(joinerId);
+	}
+	
 	
 	@DeleteMapping("board/{id}")
 	@ResponseBody

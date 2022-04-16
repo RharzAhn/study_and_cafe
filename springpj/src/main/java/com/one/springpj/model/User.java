@@ -62,6 +62,10 @@ public class User {
 	@ColumnDefault("0")
 	private Integer mileage;
 	
+	
+	@ColumnDefault("0")
+	private int alertCount;
+	
 	@OneToMany(mappedBy ="user",
 			fetch=FetchType.LAZY,
 			cascade = CascadeType.ALL)

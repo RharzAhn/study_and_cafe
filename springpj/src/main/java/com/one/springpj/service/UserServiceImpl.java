@@ -2,15 +2,15 @@ package com.one.springpj.service;
 
 import java.security.Principal;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.one.springpj.constant.Role;
+import com.one.springpj.model.Alert;
 import com.one.springpj.model.User;
+import com.one.springpj.repository.AlertRepository;
 import com.one.springpj.repository.UserRepository;
 
 import lombok.extern.java.Log;
@@ -21,6 +21,8 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserRepository userRepository;
+	@Autowired
+	private AlertRepository alertRepository;
 
 	@Override
 	public void register(User user) {
@@ -115,5 +117,25 @@ public class UserServiceImpl implements UserService {
 
 	public Sort sortByRegdate() {
 		return Sort.by(Sort.Direction.DESC, "regdate");
+	}
+
+	@Override
+	public List<Alert> findAlertByUserId(Long userId) {
+		return alertRepository.findByUserId(userId);
+	}
+
+	@Override
+	public void saveAlert(Alert alert) {
+		alertRepository.save(alert);
+	}
+
+	@Override
+	public void deleteAlert(Long id) {
+		alertRepository.deleteById(id);
+	}
+
+	@Override
+	public Alert findAlertById(Long id) {
+		return alertRepository.findById(id).get();
 	}
 }

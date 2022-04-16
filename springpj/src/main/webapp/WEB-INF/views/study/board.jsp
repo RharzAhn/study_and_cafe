@@ -24,6 +24,18 @@
 				</div>
 				<div class="content">
 					<p class="study-title">${study.title}</p>
+					<c:choose>
+					<c:when test="${principal.user.id==study.leader.id}">
+						<button type="button" onclick="location.href='/user/myLeaderStudy/${study.id}'" >
+							<i class="fa-solid fa-gear"></i>
+						</button>
+					</c:when>
+					<c:otherwise>
+						<button type="button" onclick="outStudy()">
+							<i class="fa-solid fa-arrow-right-from-bracket"></i>
+						</button>
+					</c:otherwise>
+				</c:choose>
 					<p class="study-info">${study.info}</p>
 					<p class="study-date">
 						<fmt:formatDate value="${study.startDate}" pattern="yyyy-MM-dd" />
@@ -258,6 +270,21 @@ $("#btnInsert").click(() => {
 				list.style.display="none"
 			}
 		})
+	}
+	
+	function outStudy(){
+		if(confirm("정말로 스터디를 나가시겠습니까?")){
+			$.ajax({
+				type: "post",
+				url : "/study/outStudy",
+				data:{
+					"joinerId":${joiner.id}
+				}
+			}).done((resp)=>{
+				alert("탈퇴가 완료되었습니다.")
+				location.href="/study/list"
+			})
+		}
 	}
 </script>
 

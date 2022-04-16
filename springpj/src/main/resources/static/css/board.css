@@ -33,6 +33,7 @@
 
 .content {
     padding: 1.5em;
+    position:relative;
 }
 
 .study-title,
@@ -177,4 +178,14 @@
 .reply-delete{
 	position : absolute;
 	right: 0;
+}
+
+.content button{
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+}
+
+.content button i{
+	font-size: 1.2rem;
 }

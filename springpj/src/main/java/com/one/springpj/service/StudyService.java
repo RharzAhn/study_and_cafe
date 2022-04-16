@@ -6,12 +6,14 @@ import com.one.springpj.model.Board;
 import com.one.springpj.model.Likes;
 import com.one.springpj.model.Reply;
 import com.one.springpj.model.Study;
+import com.one.springpj.model.User;
 
 public interface StudyService {
 	public List<Study> getList();
 	public void insert(Study study);
 	public Study read(Long id);
 	public void update(Study study);
+	public List<Study> findbyLeader(User user);
 	
 	public List<Likes> getLikes();
 	public void insertLike(Likes like);

@@ -11,6 +11,7 @@ import com.one.springpj.model.Board;
 import com.one.springpj.model.Likes;
 import com.one.springpj.model.Reply;
 import com.one.springpj.model.Study;
+import com.one.springpj.model.User;
 import com.one.springpj.repository.BoardRepository;
 import com.one.springpj.repository.LikesRepository;
 import com.one.springpj.repository.ReplyRepository;
@@ -51,7 +52,12 @@ public class StudyServiceImpl implements StudyService {
 	public Study read(Long id) {
 		return studyRepository.findById(id).get();
 	}
-
+	
+	@Override
+	public List<Study> findbyLeader(User user) {
+		return studyRepository.findByLeader(user);
+	}
+	
 	@Override
 	public void insertLike(Likes like) {
 		likeRepository.save(like);

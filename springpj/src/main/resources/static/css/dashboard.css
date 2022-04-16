@@ -125,3 +125,30 @@ body {
 #userDeleteForm table{
 	text-align:left;
 }
+
+.join-waiting td{
+	line-height:50px;
+}
+.alert-title{
+	display:flex;
+	justify-content: center;
+	margin: 1rem;
+}
+.alert-count{
+    display: inline-block;
+    background: var(--color-red);
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    line-height: 2rem;
+    color: var(--color-lighter);
+}
+
+.msg td{
+	text-align : left;
+}
+
+#delMessage{
+	width:100%;
+	text-align: right;
+}
