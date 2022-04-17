@@ -173,7 +173,7 @@
             </div>
         </div>
 
-        <ul class="paging">
+        <!-- <ul class="paging">
             <li class="prev"><i class="fas fa-angle-left"></i></li>
             <li>1</li>
             <li>2</li>
@@ -181,7 +181,7 @@
             <li>4</li>
             <li>5</li>
             <li class="next"><i class="fas fa-angle-right"></i></li>
-        </ul>
+        </ul> -->
     </body>
     <script src="js/bootstrap.bundle.min.js"></script>
 

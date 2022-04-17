@@ -105,13 +105,21 @@
 				</c:forEach>
 			</div>
 			<ul class="paging">
-				<li class="prev"><i class="fas fa-angle-left"></i></li>
-				<li>1</li>
-				<li>2</li>
-				<li>3</li>
-				<li>4</li>
-				<li>5</li>
-				<li class="next"><i class="fas fa-angle-right"></i></li>
+			
+				<c:if test="${prev==true}">
+					<li class="prev"><a class="fas fa-angle-left"
+							href="list?page=${startPage-pageSize}&field=${field}&word=${word}">
+							</a></li>
+				</c:if>
+				
+				<c:forEach begin="${startPage}" end="${endPage}" var="i">
+					<li><a href="list?page=${i}">${i+1}</a></li>
+				</c:forEach>
+				
+				<c:if test="${next==true}">
+					<li class="next"><a class="fas fa-angle-right"
+							href="list?page=${endPage+1}&field=${field}&word=${word}"></a></li>
+				</c:if>
 			</ul>
 		</article>
 	</div>
