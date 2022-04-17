@@ -29,7 +29,7 @@ public interface StudyService {
 	
 	public void insertBoard(Board board);
 
-	public List<Study> findByStudynameLike(String word);
+	public List<Study> findByStudynameLike(String word, Pageable pageable);
 //	public List<Study> findByLeaderLike(String word); 
 
 	public Board findBoardById (Long id);

@@ -88,7 +88,7 @@ public class StudyController {
 			log.info(">>search :"+field+", "+word);
 			switch (field) {
 			case "title":
-				studyList = studyService.findByStudynameLike(word);
+				studyList = studyService.findByStudynameLike(word, pageable);
 				break;
 
 			default:
