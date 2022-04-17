@@ -143,7 +143,7 @@
 										placeholder="전화번호" name="phone">
 								</div>
 								<div class="form-group">
-									<label for="manager">지점장명:</label> --> <input type="text"
+									<label for="manager">지점장명:</label> <input type="text"
 										class="form-control" id="manager" name="username"
 										value="${branch.manager.username}" placeholder="지점장명">
 								</div>

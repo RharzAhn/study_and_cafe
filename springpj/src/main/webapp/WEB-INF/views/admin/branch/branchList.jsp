@@ -128,7 +128,7 @@
                     <div
                         class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
                     >
-                        <h1 class="h2">지점 관리(수정X)</h1>
+                        <h1 class="h2">지점 관리</h1>
                         <div class="search">
                             <input type="text" name="word" />
                             <button><i class="fas fa-search"></i></button>

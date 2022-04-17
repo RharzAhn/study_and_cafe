@@ -136,7 +136,7 @@
                     <!--  ------------------------------------------------ -->
                         
                         <div class="container">
-						  <h2>메뉴수정</h2>
+						  <h2>내정보 수정</h2>
 						  <form action="/user/myPageUpdate" method="post" enctype="multipart/form-data" id="fmt">
 						  	<input type="hidden" name="username" value="${principal.user.username }">
 						      	<div class="form-group">

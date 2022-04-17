@@ -249,11 +249,11 @@ public class AdminController {
 		model.addAttribute("list", studies);
 	}
 
-//	@GetMapping("/study/delete/{id}")
-//	public String delete(@PathVariable("id") Long id) {
-//		studyGroupService.delete(id);
-//		return "redirect:/admin/study/studyList";
-//	}
+	@GetMapping("/study/delete/{id}")
+	public String delete(@RequestParam(name = "id", defaultValue = "")@PathVariable("id") Long id) {
+		studyService.delete(id);
+		return "redirect:/admin/study/studyList";
+	}
 
 	// ============================================================================
 

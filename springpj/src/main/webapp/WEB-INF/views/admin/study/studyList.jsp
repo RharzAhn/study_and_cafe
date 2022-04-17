@@ -157,7 +157,7 @@
                                 <tr>
 									<td>${studyGroup.id}</td>
 									<td>${studyGroup.title}</td>
-									<td><%-- ${studyGroup.local} --%>지역</td>
+									<td><%-- ${studyGroup.local} --%>부산</td>
 									<td>${studyGroup.startDate}</td>
 									<td>${studyGroup.endDate}</td>
 									<td><%-- ${studyGroup.}/ --%>${studyGroup.limitCount}</td>

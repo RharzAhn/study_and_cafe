@@ -41,4 +41,5 @@ public interface StudyService {
 	public int replyCountbyBoard(Board board);
 	public List<Study> paging(Pageable pageable);
 	public List<Study> getList(Pageable pageable);
+	public void delete(Long id);
 }

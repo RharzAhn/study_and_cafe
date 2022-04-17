@@ -96,6 +96,7 @@ public class StudyServiceImpl implements StudyService {
 	@Override
 	public List<Study> findByStudynameLike(String word) {
 //		word = "%"+word+"%";
+		Sort sort = Sort.by(Sort.Direction.DESC, "likes");
 		return studyRepository.findByTitleLike(word);
 	}
 
@@ -163,5 +164,11 @@ public class StudyServiceImpl implements StudyService {
 	@Override
 	public List<Study> getTop3Study() {
 		return studyRepository.findTop3ByOrderByLikesDesc();
+	}
+
+	@Override
+	public void delete(Long id) {
+		// TODO Auto-generated method stub
+		studyRepository.deleteById(id);
 	}
 }
