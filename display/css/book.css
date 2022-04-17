@@ -127,3 +127,6 @@ h3 {
         box-shadow: rgb(99 99 99 / 20%) 0px 2px 8px 0px;
     }
 }
+.study-items > div:nth-child(2) {
+    transform: translateY(-2rem);
+}

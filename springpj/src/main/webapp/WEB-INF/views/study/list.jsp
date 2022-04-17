@@ -47,20 +47,6 @@
 			</div>
 		</div>
 
-		<%-- <div class="study_my">
-			<c:forEach items="${joins}" var="joiner">
-				<div class="study_item">
-					<img class="study_item_img" src="${joiner.study.profile }"
-						onclick="myStudyEnter(${joiner.study.id })">
-					<p class="study_item_title">${joiner.study.title }</p>
-					<p class="study_item_content">${joiner.study.content}</p>
-					<c:if test="${joiner.joinStatus=='WAITING'}">
-					대기중
-				</c:if>
-				</div>
-			</c:forEach>
-		</div> --%>
-
 		<div id="search">
 			<form action="/study/list" method="get" class="search">
 				<select name="field" id="field">
@@ -89,8 +75,10 @@
 						var="end" />
 					<div class="study-item" id="study${study.id}">
 						<div class="study-status">진행중</div>
-						<img class="study-profile" src="${study.profile }"
+						<div class="study-profile">
+						<img src="${study.profile }"
 							onclick="location.href='/study/detail?id=${study.id}'">
+						</div>
 						<div class="content">
 							<p class="study-title">${study.title}</p>
 							<p class="study-info">${study.info }</p>

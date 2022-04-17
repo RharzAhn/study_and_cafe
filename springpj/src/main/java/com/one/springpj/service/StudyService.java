@@ -15,6 +15,7 @@ public interface StudyService {
 	public void update(Study study);
 	public List<Study> findbyLeader(User user);
 	public long countStudy();
+	public List<Study> getTop3Study();
 	
 	public List<Likes> getLikes();
 	public void insertLike(Likes like);

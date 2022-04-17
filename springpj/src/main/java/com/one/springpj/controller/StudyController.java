@@ -141,6 +141,11 @@ public class StudyController {
 			return "fulled";
 		}
 		if (study != null) {
+			Joiner alreadyJoiner =joinerService.findByStudyAndUser(study, userService.findById(userId)); 
+			if(alreadyJoiner!=null) {
+				return "aleady";
+			}
+			
 			Joiner joiner = new Joiner();
 			joiner.setStudy(study);
 			joiner.setUser(userService.findById(userId));

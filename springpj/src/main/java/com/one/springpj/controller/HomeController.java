@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.one.springpj.model.User;
+import com.one.springpj.service.BranchService;
 import com.one.springpj.service.StudyService;
 import com.one.springpj.service.UserService;
 
@@ -30,12 +31,19 @@ public class HomeController {
 	private StudyService studyService;
 
 	@Autowired
+	private BranchService branchService;
+	
+	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	
 
 	@GetMapping(value = { "", "index" })
 	public String index(Model model) {
 		model.addAttribute("studyCount", studyService.countStudy());
 		model.addAttribute("userCount", userService.userCount());
+		model.addAttribute("branchList", branchService.branchList());
+		model.addAttribute("branchCount", branchService.count());
+		model.addAttribute("studyList", studyService.getTop3Study());
 		return "index";
 	}
 

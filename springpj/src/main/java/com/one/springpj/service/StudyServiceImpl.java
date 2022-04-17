@@ -142,4 +142,9 @@ public class StudyServiceImpl implements StudyService {
 	public long countStudy() {
 		return studyRepository.count();
 	}
+
+	@Override
+	public List<Study> getTop3Study() {
+		return studyRepository.findTop3ByOrderByLikesDesc();
+	}
 }

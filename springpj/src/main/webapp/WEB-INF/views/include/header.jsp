@@ -3,7 +3,7 @@
 <%@taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,7 +26,7 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 <link rel="stylesheet" href="/css/index.css" />
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" />
@@ -34,6 +34,10 @@
 <body>
 	<header>
 		<div class="nav">
+			<sec:authorize access="isAuthenticated()">
+				<a href="javascript:popupAlert()" class="position-relative"
+					id="alertIcon"> <i class="fas fa-bell"></i></a>
+			</sec:authorize>
 			<ul class="container nav-menu">
 				<li><a href="/menu/list">
 						<p class="kor">카페소개</p>
@@ -80,6 +84,25 @@
 	</header>
 	<div class="header"></div>
 	<script>
+	$(document).ready(function(){
+		$.ajax({
+			type:"get",
+			url:"/user/getAlert/"+"${principal.user.id}"
+		})
+		.done((resp)=>{
+			console.log(resp)
+			if(resp!=''){
+				$("#alertIcon").append(`
+					<span
+						class="position-absolute top-0 start-0 translate-middle p-1 bg-danger rounded-circle">
+							<span class="visually-hidden"></span>
+					</span>		
+				`)
+			}
+		})
+	})
+	
+	
         const navMenu = document.querySelector(".nav-menu");
         const nav = document.querySelector(".nav");
         const navContent = document.querySelector(".nav-content");
@@ -101,6 +124,50 @@
             nav.style.background = "none";
             navContent.style.height = "0";
         });
+        
+        function popupAlert(){
+        	$.ajax({
+        		type:"get",
+        		url:"/user/getAlert/"+"${principal.user.id}"
+        	})
+        	.done((resp)=>{
+        		var str=''
+        		$.each(resp, (key,val)=>{
+        			str+=`
+        			<tr class="msg">
+        				<td>`+val.message+`</td>
+        				<td><button type="button" onclick="delMessage(`+val.id+`)" id="delMessage">
+        					<i class="fa-regular fa-x"></i></td>
+        			</tr>
+        			`
+        		})
+        		Swal.fire({
+        			position: 'center',
+        	 		html:`
+        	 			<div class="alert-title">
+        					<h3>내 알람 목록</h3>
+        		 			<div class="alert-count">`+resp.length+`</div>
+        				</div>
+        	 			<table class="table table-sm">
+        	 			`+str+`
+        	 			</table>
+        	 			`
+        		}).then((value)=>{
+        			
+        			})
+        		})
+        }
+
+
+        function delMessage(id){
+        	$.ajax({
+        		type:"get",
+        		url:"/user/delAlert/"+id
+        	})
+        	.done((resp)=>{
+        		popupAlert();
+        	})
+        }
     </script>
 </body>
 </html>

@@ -15,5 +15,7 @@ public interface StudyRepository extends JpaRepository<Study, Long>{
 	public List<Study> findByLeaderLike(String word);
 	
 	public List<Study> findByLeader(User user);
+	
+	public List<Study> findTop3ByOrderByLikesDesc();
 
 }

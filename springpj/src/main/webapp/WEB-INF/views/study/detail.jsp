@@ -90,6 +90,8 @@
 					alert("신청이 완료되었습니다.")
 				}else if(resp=="fulled"){
 					alert("인원이 다 찼습니다.")
+				}else if(resp=="aleady"){
+					alert("이미 신청한 스터디입니다.")
 				}
 			})
 		}
