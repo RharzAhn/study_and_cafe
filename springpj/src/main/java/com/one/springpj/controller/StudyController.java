@@ -88,7 +88,7 @@ public class StudyController {
 			log.info(">>search :"+field+", "+word);
 			switch (field) {
 			case "title":
-				studyList = studyService.findByStudynameLike(word);
+				studyList = studyService.findByStudynameLike(word, pageable);
 				break;
 
 			default:
@@ -101,7 +101,7 @@ public class StudyController {
 		model.addAttribute("studies", studyList);
 		
 		long pageSize = pageable.getPageSize();
-		long count = studyService.countStudy();
+		long count = studyList.size();
 		long totPage = (long)Math.ceil((double)count/pageSize);
 		long curPage = pageable.getPageNumber();
 		

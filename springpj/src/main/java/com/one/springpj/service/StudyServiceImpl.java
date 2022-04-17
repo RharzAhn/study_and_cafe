@@ -2,7 +2,6 @@ package com.one.springpj.service;
 
 import java.util.List;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -94,9 +93,9 @@ public class StudyServiceImpl implements StudyService {
 	
 
 	@Override
-	public List<Study> findByStudynameLike(String word) {
+	public List<Study> findByStudynameLike(String word, Pageable pageable) {
 //		word = "%"+word+"%";
-		return studyRepository.findByTitleLike(word);
+		return studyRepository.findByTitleLike(word, pageable);
 	}
 
 //	@Override
