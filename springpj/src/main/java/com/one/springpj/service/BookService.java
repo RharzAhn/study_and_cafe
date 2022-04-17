@@ -17,6 +17,9 @@ public interface BookService {
 	public List<Seat> getSeatList();
 	public List<Seat> unavailableSeat(Date startdate, Date enddate, Branch branch);
 	
+	public long countByWeekCount(Date startDate, Date enddate, Branch branch);
+	public List<Book> findByToday(Date startDate, Date enddate, Branch branch);
+	
 	public Seat findSeatByBranchAndName(Branch branch, String name);
 	
 	public void saveBookMenu(BookMenu bookMenu);

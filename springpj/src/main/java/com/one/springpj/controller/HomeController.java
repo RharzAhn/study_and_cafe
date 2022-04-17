@@ -1,5 +1,8 @@
 package com.one.springpj.controller;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.one.springpj.model.User;
+import com.one.springpj.service.StudyService;
 import com.one.springpj.service.UserService;
 
 import lombok.extern.java.Log;
@@ -21,12 +25,17 @@ import lombok.extern.java.Log;
 public class HomeController {
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private StudyService studyService;
 
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	@GetMapping(value = { "", "index" })
-	public String index() {
+	public String index(Model model) {
+		model.addAttribute("studyCount", studyService.countStudy());
+		model.addAttribute("userCount", userService.userCount());
 		return "index";
 	}
 

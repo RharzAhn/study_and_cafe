@@ -102,4 +102,12 @@ public class BookServiceImpl implements BookService {
 	public Sort sortByBookDate() {
 		return Sort.by(Sort.Direction.DESC, "bookDate");
 	}
+	@Override
+	public long countByWeekCount(Date startDate, Date enddate, Branch branch) {
+		return bookRepository.countByBookDateBetweenAndBranch(startDate, enddate, branch);
+	}
+	@Override
+	public List<Book> findByToday(Date startDate, Date enddate, Branch branch) {
+		return bookRepository.findByBookDateBetweenAndBranch(startDate, enddate, branch);
+	}
 }

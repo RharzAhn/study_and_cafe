@@ -30,9 +30,12 @@ import com.one.springpj.repository.MenuRepository;
 import com.one.springpj.repository.SeatRepository;
 import com.one.springpj.repository.StudyRepository;
 
+import lombok.extern.java.Log;
+
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Transactional
 @TestPropertySource(locations = "classpath:application.properties")
+@Log
 public class StudyTest {
 	@Autowired
 	JoinerRepository joinerRepository;
@@ -48,10 +51,10 @@ public class StudyTest {
 
 	@Autowired
 	BranchRepository branchRepository;
-	
+
 	@Autowired
 	StudyRepository studyRepository;
-	
+
 	@Autowired
 	MenuRepository menuRepository;
 
@@ -107,18 +110,18 @@ public class StudyTest {
 
 //	@Test
 	public void test4() throws ParseException {
-		
+
 		String date_str = "2022.4.15 10:00";
 		SimpleDateFormat sdformat = new SimpleDateFormat("yyyy.MM.dd HH:mm");
 		Date startdate = sdformat.parse(date_str);
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(startdate);
 		cal.add(Calendar.HOUR, 2);
-		
+
 		String end_str = sdformat.format(cal.getTime());
 		Date enddate = sdformat.parse(end_str);
-		
-		Branch branch = branchRepository.findById((long)5).get();
+
+		Branch branch = branchRepository.findById((long) 5).get();
 		List<Seat> seatList = new ArrayList<Seat>();
 		List<Book> bookList = bookRepository.findByBookDateBetweenAndBranch(startdate, enddate, branch);
 		for (Book b : bookList) {
@@ -128,43 +131,71 @@ public class StudyTest {
 				seatList.add(seat);
 			}
 		}
-		
-		
-		for(Seat seat : seatList) {
-			System.out.println("============================"+seat.getName());
+
+		for (Seat seat : seatList) {
+			System.out.println("============================" + seat.getName());
 		}
 	}
-	
+
 //	@Test
 	public void test5() {
-		Study study = studyRepository.findById((long)120).get();
+		Study study = studyRepository.findById((long) 120).get();
 		int count = joinerRepository.joinCount(study.getId(), JoinStatus.ACCEPT.toString());
 		System.out.println(count);
 	}
-	
+
 //	@Test
 	public void test6() {
-		Branch branch = branchRepository.findById((long)79).get();
+		Branch branch = branchRepository.findById((long) 79).get();
 		List<Menu> list = menuRepository.findbyMenuNotCafeMenu(branch.getId());
 //		System.out.println(">>>>>>>>>>>>>>>>>>"+list.toString());
-		for(Menu menu : list) {
-			System.out.println(">>>>>>>>>>>>>>>>>>"+menu.getName());
+		for (Menu menu : list) {
+			System.out.println(">>>>>>>>>>>>>>>>>>" + menu.getName());
 		}
-		
+
 	}
-	
-	@Test
+
+//	@Test
 	public void test7() {
 		List<Study> studyList = studyRepository.findByTitleLike("%룹%");
-		System.out.println(">>>>>>find : "+ studyList.toString());
-		for(Study study : studyList) {
-			System.out.println(">>>>>>>>>>>>>>"+study.getTitle());
+		System.out.println(">>>>>>find : " + studyList.toString());
+		for (Study study : studyList) {
+			System.out.println(">>>>>>>>>>>>>>" + study.getTitle());
 		}
-		
+
 		List<Study> studyList2 = studyRepository.findByTitleLike("%그룹룹%");
-		System.out.println(">>>>>>find : "+ studyList2.toString());
-		for(Study study : studyList2) {
-			System.out.println(">>>>>>>>>>>>>>"+study.getTitle());
+		System.out.println(">>>>>>find : " + studyList2.toString());
+		for (Study study : studyList2) {
+			System.out.println(">>>>>>>>>>>>>>" + study.getTitle());
+		}
+	}
+
+	@Test
+	public void test8() throws ParseException {
+		String[] week = {"SUN","MON", "TUE", "WED", "THU", "FRI", "SAT"};
+		SimpleDateFormat sdformat = new SimpleDateFormat("yyyy.MM.dd HH:mm");		
+		
+		Date today = new Date();
+		today.setHours(0);
+		today.setMinutes(0);
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(today);
+		cal.add(Calendar.DATE, -3);
+		
+		for(int i=0; i<7; i++) {
+			cal.add(Calendar.HOUR_OF_DAY, +24);
+			String end_str = sdformat.format(cal.getTime());
+			Date enddate = sdformat.parse(end_str);
+			
+			cal.add(Calendar.HOUR_OF_DAY, -24);
+			String start_str = sdformat.format(cal.getTime());
+			Date startdate = sdformat.parse(start_str);
+			
+			int dayIndex = cal.getTime().getDay();
+			
+			
+			log.info(">>>>day :" + startdate+">>>"+enddate+">>>"+week[dayIndex]);
+			cal.add(Calendar.DATE, 1);
 		}
 	}
 }

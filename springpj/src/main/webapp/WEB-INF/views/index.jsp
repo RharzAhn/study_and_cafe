@@ -15,11 +15,11 @@
             <div class="container">
                 <div class="icon"></div>
                 <div class="counter">
-                    <p class="counter-number"></p>
+                    <p class="counter-number studyCount"></p>
                     <p class="counter-info">
                         <b>현재 운영 중</b>인<br />스터디 그룹 수
                     </p>
-                    <p class="counter-number"></p>
+                    <p class="counter-number userCount"></p>
                     <p class="counter-info">
                         <b>현재 참여 중</b>인<br />스터디 멤버
                     </p>
@@ -70,30 +70,31 @@
                 </div>
             </div>
         </div>
- 	
-<!--  	<br><a href="/admin/userlist">사용자 리스트 바로가기</a></br> -->
-<!--  	<br><a href="/admin/mileagelist">사용자 마일리지 바로가기</a></br> -->
-<!--  		<br><a >-----------------</a></br> -->
-<!--  	<br><a href="/user/userpage"> 유저 페이지 바로가기</a></br> -->
-<!--  	<br><a href="/user/usermilage">유저 마일리지 바로가기</a></br> -->
-<!--  	<br><a href="/user/userupdate">유저 수정,삭제 바로가기</a></br> -->
- 		<script>
- 			 var memberCountConTxt = 200;
 
+ 		<script>
+ 		$(document).ready(function(){
+ 			var studyCount = ${studyCount};
+ 			var userCount = ${userCount};
+ 			
+ 			countAni(studyCount,"studyCount")
+ 			countAni(userCount,"userCount")
+ 		})
+		function countAni(countTxt, type){
  	        $({ val: 0 }).animate(
- 	            { val: memberCountConTxt },
+ 	            { val: countTxt },
  	            {
  	                duration: 2000,
  	                step: function () {
  	                    var num = numberWithCommas(Math.floor(this.val));
- 	                    $(".counter-number").text(num);
+ 	                    $("."+type).text(num);
  	                },
  	                complete: function () {
  	                    var num = numberWithCommas(Math.floor(this.val));
- 	                    $(".counter-number").text(num);
+ 	                    $("."+type).text(num);
  	                },
  	            }
  	        );
+		}
 
  	        function numberWithCommas(x) {
  	            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");

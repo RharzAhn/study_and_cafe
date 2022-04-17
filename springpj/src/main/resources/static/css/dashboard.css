@@ -152,3 +152,77 @@ body {
 	width:100%;
 	text-align: right;
 }
+
+
+/* ============================================================ */
+/* ======================== 마이 페이지 =========================== */
+.mysection{
+    display: flex;
+    justify-content: center;
+	
+}
+.myprofile{
+	position:relative;
+	width : 400px;
+	text-align : center;
+	background-color: white;
+}
+
+.user-profile{
+	width:100%;
+	height : 250px;
+}
+
+.user-profile img{
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    margin:0;
+}
+.myprofile h3{
+	padding : 1rem 0;
+	text-align: center;
+}
+
+.myprofile .userInfo{
+	text-align : left;
+		padding: 2rem;
+		padding-top:0rem;
+}
+
+#myProfileUpdate{
+	position:absolute;
+	right : 1rem;
+	top:1rem;
+	transition: all 300ms ease;
+}
+
+#myProfileUpdate i{
+	font-size: 2rem;
+	color: var(--color-lighter)
+}
+
+#myProfileUpdate:hover{
+	top:0.7rem;
+}
+
+/* ============================================================ */
+/* ======================== 관리자페이지 =========================== */
+.graph{
+	padding: 0 5rem;
+}
+
+.counter .today-box{
+	background-color: var(--color-main);
+	color : var(--color-lighter);
+	display:flex;
+	flex-direction: column;
+    justify-content: center;
+}
+
+.counter .today-box>*{
+	color : var(--color-lighter);
+	font-size: 1.5rem;
+	margin:0;
+	line-height : 2.5rem;
+}

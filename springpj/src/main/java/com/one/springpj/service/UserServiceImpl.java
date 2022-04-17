@@ -138,4 +138,9 @@ public class UserServiceImpl implements UserService {
 	public Alert findAlertById(Long id) {
 		return alertRepository.findById(id).get();
 	}
+
+	@Override
+	public long userCount() {
+		return userRepository.count();
+	}
 }

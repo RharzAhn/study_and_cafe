@@ -19,7 +19,8 @@ public interface UserService {
 	public void delete(long id);
 	
 	public void update(User user);
-
+	
+	public long userCount();
 	
 	void userdelete(User user, Principal principal);
 

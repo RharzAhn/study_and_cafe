@@ -13,6 +13,7 @@ import com.one.springpj.model.Study;
 public interface BookRepository extends JpaRepository<Book, Long>{
 	
 	public List<Book> findByBookDateBetweenAndBranch(Date startdate, Date enddate,Branch branch);
+	public long countByBookDateBetweenAndBranch(Date startdate, Date enddate,Branch branch);
 	public List<Book> findByStudy(Study study,Sort sort);
 	public List<Book> findByBranch(Branch branch, Sort sort);
 }

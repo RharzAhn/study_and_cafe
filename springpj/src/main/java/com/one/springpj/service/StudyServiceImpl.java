@@ -137,4 +137,9 @@ public class StudyServiceImpl implements StudyService {
 	public int replyCountbyBoard(Board board) {
 		return replyRepository.countByBoard(board);
 	}
+
+	@Override
+	public long countStudy() {
+		return studyRepository.count();
+	}
 }
