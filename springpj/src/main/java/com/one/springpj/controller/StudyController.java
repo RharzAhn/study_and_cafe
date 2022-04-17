@@ -8,6 +8,8 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -68,7 +70,8 @@ public class StudyController {
 	@GetMapping("list")
 	public void userList(Model model, Principal principal,
 			@RequestParam(name = "field", defaultValue = "") String field,
-			@RequestParam(name = "word", defaultValue = "") String word) {
+			@RequestParam(name = "word", defaultValue = "") String word,
+			@PageableDefault(size=4) Pageable pageable) {
 		
 		Long userId = null;
 		if (principal != null) {
@@ -91,11 +94,42 @@ public class StudyController {
 				break;
 			}
 		}else {
-			studyList = studyService.getList();
+			studyList = studyService.getList(pageable);
 		}
 		
 		model.addAttribute("studies", studyList);
-
+		
+		long pageSize = pageable.getPageSize();
+		long count = studyService.countStudy();
+		long totPage = (long)Math.ceil((double)count/pageSize);
+		long curPage = pageable.getPageNumber();
+		
+		long startPage = (curPage/pageSize)*pageSize;
+		long endPage = startPage+pageSize;
+		if(endPage>totPage) {
+			endPage=totPage;
+		}
+		
+		boolean prev = startPage>0?true:false;
+		boolean next = endPage<totPage?true:false;
+		
+		model.addAttribute("pageSize",pageSize);
+		model.addAttribute("startPage",startPage);
+		model.addAttribute("endPage",endPage-1);
+		model.addAttribute("prev",prev);
+		model.addAttribute("next",next);
+		model.addAttribute("count",count);
+		model.addAttribute("totPage",totPage);
+		model.addAttribute("curPage",curPage);
+		log.info("pagesize------------------------"+pageSize);
+		log.info("count------------------------"+count);
+		log.info("totpage------------------------"+totPage);
+		log.info("curpage------------------------"+curPage);
+		log.info("startpage------------------------"+startPage);
+		log.info("endPage------------------------"+endPage);
+		log.info("prev------------------------"+prev);
+		log.info("next------------------------"+next);
+		
 	}
 
 	@GetMapping("register")

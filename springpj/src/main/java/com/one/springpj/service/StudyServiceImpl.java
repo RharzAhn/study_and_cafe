@@ -4,6 +4,7 @@ import java.util.List;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -130,5 +131,28 @@ public class StudyServiceImpl implements StudyService {
 	@Override
 	public int replyCountbyBoard(Board board) {
 		return replyRepository.countByBoard(board);
+	}
+
+//	@Override
+//	public long count() {
+//		return studyRepository.count();
+//	}
+
+	@Override
+	public int countStudy() {
+		// TODO Auto-generated method stub
+		return studyRepository.countStudy();
+	}
+
+	@Override
+	public List<Study> paging(Pageable pageable) {
+		// TODO Auto-generated method stub
+		return studyRepository.findAll(pageable).getContent();
+	}
+
+	@Override
+	public List<Study> getList(Pageable pageable) {
+		// TODO Auto-generated method stub
+		return studyRepository.findAll(pageable).getContent();
 	}
 }

@@ -2,6 +2,8 @@ package com.one.springpj.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
+
 import com.one.springpj.model.Board;
 import com.one.springpj.model.Likes;
 import com.one.springpj.model.Reply;
@@ -33,4 +35,7 @@ public interface StudyService {
 	public void deleteReply(Long id);
 	public List<Reply> findReplyByBoard(Long id);
 	public int replyCountbyBoard(Board board);
+	public int countStudy();
+	public List<Study> paging(Pageable pageable);
+	public List<Study> getList(Pageable pageable);
 }
