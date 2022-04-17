@@ -145,12 +145,6 @@ public class StudyServiceImpl implements StudyService {
 //	}
 
 	@Override
-	public int countStudy() {
-		// TODO Auto-generated method stub
-		return studyRepository.countStudy();
-	}
-
-	@Override
 	public List<Study> paging(Pageable pageable) {
 		// TODO Auto-generated method stub
 		return studyRepository.findAll(pageable).getContent();

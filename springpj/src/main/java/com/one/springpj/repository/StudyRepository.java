@@ -13,9 +13,6 @@ public interface StudyRepository extends JpaRepository<Study, Long>{
 	public List<Study> findByTitleLike(String word);
 	
 	public List<Study> findByLeaderLike(String word);
-	
-	@Query("select count(*) from Study")
-	public int countStudy();
 
 	public List<Study> findByLeader(User user);
 	

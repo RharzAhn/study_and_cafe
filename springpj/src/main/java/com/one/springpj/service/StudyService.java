@@ -39,7 +39,6 @@ public interface StudyService {
 	public void deleteReply(Long id);
 	public List<Reply> findReplyByBoard(Long id);
 	public int replyCountbyBoard(Board board);
-	public int countStudy();
 	public List<Study> paging(Pageable pageable);
 	public List<Study> getList(Pageable pageable);
 }
